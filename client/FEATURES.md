@@ -1,0 +1,5 @@
+- users can upload blogs => text content and photos 
+- users can like , comment and share the blogs
+- user can choose which social media handles to put 
+- users can search blogs and profiles
+- get collection of liked blogs 

@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
+import {Swiper , SwiperSlide } from "swiper/react";
+import {EffectCoverflow , Pagination , Navigation, Autoplay} from "swiper/modules";
 
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 function App() {
 
@@ -45,48 +51,87 @@ function App() {
       </div>
     <div id="home-bg-image-container">
 
-
+      <div id="home-dark-filter">
       <div id="home-trans-container">
-        <div id="home-blogspot-wrap">
-          <h1 id="h1-blogspot" className="blogspot">blogspot</h1>
-          <h2 id="sub-title">read, write and explore</h2>
-        </div>
+              <div id="home-blogspot-wrap">
+                <h1 id="h1-blogspot" className="blogspot">blogspot</h1>
+                <h2 id="sub-title">read, write and explore</h2>
+              </div>
 
-        <div id="carousel-container">
+              <div id="swiper-div">
 
-        </div>
+              <Swiper 
+              modules={[Navigation, Pagination, EffectCoverflow]}
+              spaceBetween={100}
+              effect='coverflow'
+              coverflowEffect={{
+                rotate: 50,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: true,
+              }}
+              slidesPerView={1}
+              navigation
+              pagination={{ clickable: true }}
+              onSwiper={(swiper) => console.log(swiper)}
+              onSlideChange={() => console.log('slide change')}>
+                
+        <SwiperSlide>
+          <img className="swiper-image" src={"../public/img-1.webp"}></img>
+        </SwiperSlide>
+        <SwiperSlide>
+        <img className="swiper-image" src={"../public/img-2.jpg"}></img>
+        </SwiperSlide>
+        <SwiperSlide>
+        <img className="swiper-image" src={"../public/img-3.jpg"}></img>
+        </SwiperSlide>
+        <SwiperSlide>
+        <img className="swiper-image" src={"../public/img-4.jpg"}></img>
+        </SwiperSlide>
+
+      </Swiper>
+
+
+              </div>
+             
+      </div>
       </div>
     </div>
 
     <section id="info">
-      <div id="block-1">
+      <div className="block" id="block-1">
         <div className = "text">
-          <h2 className='home-h2'>share your thoughts</h2>
-          <p className="home-p"> just reading blogs can be boring , express your thoughts and interact with others readers through comments. You can also leave a like to let the creator know about their great job. Share the blog with your friends and family.</p>
+          <h2 className='home-h2'>Share your thoughts</h2>
+          <p className="home-p"> Just reading blogs can be boring. Express your thoughts and interact with other readers through comments. You can also leave a like to let the creator know about their amazing job. You can also share the blog with your friends and family.</p>
         </div>
         <div className='image'>
-
+           <img className="info-image" src="../public/comment.jpg"></img>
         </div>
       </div>
 
-      <div  id="block-2">
+      <div className="block" id="block-2">
         <div className = "text">
           <h2 className='home-h2'>Connect to your favourite creators</h2>
-          <p className="home-p">ever read something so interesting and wished that you could have more of it .well, by following the creator you can make sure that you don’t miss any of their 
-updates  . </p>
+          <p className="home-p">Ever read something so interesting that you wished that you could have more of it. Well, by following the creator you can make sure that you don’t miss any of their updates. </p>
         </div>
-        <div className='image'></div>
+        <div className='image'>
+          <img className="info-image" src="../public/follow.png"></img>
+        </div>
       </div>
 
-      <div id="block-3">
+      <div className="block" id="block-3">
         <div className = "text">
-          <h2 className='home-h2'>collect  your favourites</h2>
+          <h2 className='home-h2'>Collect  your favourites</h2>
           <p className="home-p"> 
 you can access all the liked blogs at one place  </p>
         </div>
-        <div className='image'></div>
+        <div className='image'>
+          <img className="info-image" src="../public/like.jpg"></img>
+        </div>
       </div>
-    </section>
+                  </section>
+
 
     </>
   )

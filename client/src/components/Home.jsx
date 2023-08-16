@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import {Swiper , SwiperSlide } from "swiper/react";
 import {EffectCoverflow , Pagination , Navigation, Autoplay} from "swiper/modules";
-
+import '../styles/home.css';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-function App() {
+function Home() {
 
   useEffect(()=>{
     let header = document.getElementById("header");
@@ -60,38 +60,7 @@ function App() {
 
               <div id="swiper-div">
 
-              <Swiper 
-              modules={[Navigation, Pagination, EffectCoverflow]}
-              spaceBetween={100}
-              effect='coverflow'
-              coverflowEffect={{
-                rotate: 50,
-                stretch: 0,
-                depth: 100,
-                modifier: 1,
-                slideShadows: true,
-              }}
-              slidesPerView={1}
-              navigation
-              pagination={{ clickable: true }}
-              onSwiper={(swiper) => console.log(swiper)}
-              onSlideChange={() => console.log('slide change')}>
-                
-        <SwiperSlide>
-          <img className="swiper-image" src={"../public/img-1.webp"}></img>
-        </SwiperSlide>
-        <SwiperSlide>
-        <img className="swiper-image" src={"../public/img-2.jpg"}></img>
-        </SwiperSlide>
-        <SwiperSlide>
-        <img className="swiper-image" src={"../public/img-3.jpg"}></img>
-        </SwiperSlide>
-        <SwiperSlide>
-        <img className="swiper-image" src={"../public/img-4.jpg"}></img>
-        </SwiperSlide>
-
-      </Swiper>
-
+              
 
               </div>
              
@@ -106,7 +75,7 @@ function App() {
           <p className="home-p"> Just reading blogs can be boring. Express your thoughts and interact with other readers through comments. You can also leave a like to let the creator know about their amazing job. You can also share the blog with your friends and family.</p>
         </div>
         <div className='image'>
-           <img className="info-image" src="../public/comment.jpg"></img>
+           <img className="info-image" src="../../public/comment.jpg"></img>
         </div>
       </div>
 
@@ -130,11 +99,44 @@ you can access all the liked blogs at one place  </p>
           <img className="info-image" src="../public/like.jpg"></img>
         </div>
       </div>
-                  </section>
 
+      <Swiper 
+              modules={[Navigation, Pagination, EffectCoverflow ,Autoplay]}
+              effect='coverflow'
+              // spaceBetween={100}
+              centeredSlides={true}
+              grabCursor={true}
+              loop={ true }
+              slidesPerView={'auto'}
+              coverflowEffect={{
+                rotate: 0,
+                stretch: 0,
+                depth: 200, 
+                modifier: 1,
+                // slideShadows: true,
+              }}
+              navigation
+              pagination={{ clickable: true }}
+              onSwiper={(swiper) => console.log(swiper)}
+              onSlideChange={() => console.log('slide change')}>
+                
+        <SwiperSlide style={{"background-image" : "url(../public/img-1.webp)"}}>
+          {/* <img className="swiper-image" src={"../public/img-1.webp"}></img> */}
+        </SwiperSlide>
+        <SwiperSlide style={{"background-image" : "url(../public/img-2.jpg)"}}>
+        {/* <img className="swiper-image" src={"../public/img-2.jpg"}></img> */}
+        </SwiperSlide>
+        <SwiperSlide style={{"background-image" : "url(../public/img-3.jpg)"}}>
+        {/* <img className="swiper-image" src={"../public/img-3.jpg"}></img> */}
+        </SwiperSlide>
+        <SwiperSlide style={{"background-image" : "url(../public/img-4.jpg)"}}>
+        {/* <img className="swiper-image" src={"../public/img-4.jpg"}></img> */}
+        </SwiperSlide>
 
+      </Swiper>
+       </section>
     </>
   )
 }
 
-export default App
+export default Home

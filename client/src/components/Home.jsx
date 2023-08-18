@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import {Swiper , SwiperSlide } from "swiper/react";
 import {EffectCoverflow , Pagination , Navigation, Autoplay} from "swiper/modules";
-import '../styles/home.css';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
@@ -45,8 +44,8 @@ function Home() {
 
       <div id="signup-login-header">
           <form id="signup-login-wrap">
-                <button className="signup-login signup" >SignUp</button>
-                <button className="signup-login login" >Login</button>
+                <a href="/signup" className="signup-login signup" >SignUp</a>
+                <a href="/login" className="signup-login login" >Login</a>
           </form>
       </div>
     <div id="home-bg-image-container">
@@ -58,11 +57,8 @@ function Home() {
                 <h2 id="sub-title">read, write and explore</h2>
               </div>
 
-              <div id="swiper-div">
-
-              
-
-              </div>
+              {/* <div id="swiper-div">
+              </div> */}
              
       </div>
       </div>
@@ -100,7 +96,7 @@ you can access all the liked blogs at one place  </p>
         </div>
       </div>
 
-      <Swiper 
+      {/* <Swiper 
               modules={[Navigation, Pagination, EffectCoverflow ,Autoplay]}
               effect='coverflow'
               // spaceBetween={100}
@@ -120,20 +116,20 @@ you can access all the liked blogs at one place  </p>
               onSwiper={(swiper) => console.log(swiper)}
               onSlideChange={() => console.log('slide change')}>
                 
-        <SwiperSlide style={{"background-image" : "url(../public/img-1.webp)"}}>
-          {/* <img className="swiper-image" src={"../public/img-1.webp"}></img> */}
+        <SwiperSlide style={{"backgroundImage" : "url(../../public/img-1.webp)"}}>
+          <img className="swiper-image" src={"../public/img-1.webp"}></img>
         </SwiperSlide>
         <SwiperSlide style={{"background-image" : "url(../public/img-2.jpg)"}}>
-        {/* <img className="swiper-image" src={"../public/img-2.jpg"}></img> */}
+        <img className="swiper-image" src={"../public/img-2.jpg"}></img>
         </SwiperSlide>
         <SwiperSlide style={{"background-image" : "url(../public/img-3.jpg)"}}>
-        {/* <img className="swiper-image" src={"../public/img-3.jpg"}></img> */}
+        <img className="swiper-image" src={"../public/img-3.jpg"}></img>
         </SwiperSlide>
         <SwiperSlide style={{"background-image" : "url(../public/img-4.jpg)"}}>
-        {/* <img className="swiper-image" src={"../public/img-4.jpg"}></img> */}
+        <img className="swiper-image" src={"../public/img-4.jpg"}></img>
         </SwiperSlide>
 
-      </Swiper>
+      </Swiper> */}
        </section>
     </>
   )

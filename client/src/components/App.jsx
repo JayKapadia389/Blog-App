@@ -1,7 +1,7 @@
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
-import Home from "./Home.jsx";
-import Login from "./Login.jsx";
-import Signup from "./Signup.jsx";
+import Home from "/src/components/Home.jsx";
+import Login from "/src/components/Login.jsx";
+import Signup from "/src/components/Signup.jsx";
 
 function App() {
 

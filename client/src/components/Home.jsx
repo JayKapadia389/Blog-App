@@ -71,7 +71,7 @@ function Home() {
           <p className="home-p"> Just reading blogs can be boring. Express your thoughts and interact with other readers through comments. You can also leave a like to let the creator know about their amazing job. You can also share the blog with your friends and family.</p>
         </div>
         <div className='image'>
-           <img className="info-image" src="../../public/comment.jpg"></img>
+           <img className="info-image" src="/public/comment.jpg"></img>
         </div>
       </div>
 
@@ -81,7 +81,7 @@ function Home() {
           <p className="home-p">Ever read something so interesting that you wished that you could have more of it. Well, by following the creator you can make sure that you don’t miss any of their updates. </p>
         </div>
         <div className='image'>
-          <img className="info-image" src="../public/follow.png"></img>
+          <img className="info-image" src="/public/follow.png"></img>
         </div>
       </div>
 
@@ -92,7 +92,7 @@ function Home() {
 you can access all the liked blogs at one place  </p>
         </div>
         <div className='image'>
-          <img className="info-image" src="../public/like.jpg"></img>
+          <img className="info-image" src="/public/like.jpg"></img>
         </div>
       </div>
 

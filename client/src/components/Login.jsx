@@ -25,9 +25,9 @@ function Login() {
 
                 <button id="login-w-google-btn">login with google</button>
 
-                <p><a href="#">forgot password?</a></p>
+                <p className='auth-extra'><a href="#">forgot password?</a></p>
 
-                <p>dont have an account? <a href="/signup">create</a></p>
+                <p className='auth-extra'>dont have an account? <a href="/signup">create</a></p>
 
             </form>
 

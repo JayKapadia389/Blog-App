@@ -13,6 +13,9 @@ function Signup() {
     let [password , setPassword] = useState("");
     let [validPassword , setValidPassword] = useState(true);
 
+    // let [confirmPassword , setConfirmPassword] = useState("");
+    let [validConfirmPassword , setValidConfirmPassword] = useState(true);
+
     function handleEmailValidity(e){
 
         if(e.target.value == ""){
@@ -35,6 +38,16 @@ function Signup() {
             }
         
     },[password])
+
+    function handleConfirmPassword(e){
+
+        if(e.target.value == ""){
+            setValidConfirmPassword(true);
+        }
+        else{
+            setValidConfirmPassword(password == e.target.value);
+        }
+    }
 
     return(
 
@@ -60,6 +73,7 @@ function Signup() {
                 <label htmlFor='email' type='email'>email-Id</label>
                 <input id="email" 
                        className="auth-input" 
+                       type='email'
                        required
                        onChange={handleEmailValidity}></input>
                 <p className='error-box' style={{ display : validEmail ? "none" : "block"}}>
@@ -71,6 +85,8 @@ function Signup() {
                 <input id="pwd" 
                        className="auth-input" 
                        required
+                       type='password'
+                       autoComplete='off'
                        onChange={(e)=>{setPassword(e.target.value)}}></input>
                 <p className='error-box' 
                    style={{ display : validPassword ? "none" : "block"}}
@@ -81,7 +97,19 @@ function Signup() {
                 </p>       
 
                 <label htmlFor='c-pwd' type="password">confirm-password</label>
-                <input id="c-pwd" className="auth-input" required></input>
+                <input id="c-pwd" 
+                       className="auth-input" 
+                       required
+                       type="password"
+                       autoComplete='off'
+                       onChange={handleConfirmPassword}></input>
+
+                <p className='error-box' 
+                   style={{ display : validConfirmPassword ? "none" : "block"}}
+                   >
+                    <span className='error-icon-span'><AiOutlineExclamationCircle/></span>
+                    should match the above field<br/>
+                </p>
 
                 <button id="signup-btn">Create account</button>
 

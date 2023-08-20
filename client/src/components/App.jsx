@@ -1,7 +1,7 @@
-import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
-import Home from "/src/components/Home.jsx";
-import Login from "/src/components/Login.jsx";
-import Signup from "/src/components/Signup.jsx";
+import {BrowserRouter as Router,Route,Routes} from "react-router-dom";
+import Home from "./Home.jsx";
+import Login from "./Login.jsx";
+import Signup from "./Signup.jsx";
 
 function App() {
 
@@ -10,7 +10,7 @@ function App() {
             <Routes>
                 <Route exact path="/" element={<Home/>}></Route>
                 <Route exact path="/login" element={<Login/>}></Route>
-                <Route exact path="/Signup" element={<Signup/>}></Route>
+                <Route exact path="/signup" element={<Signup/>}></Route>
             </Routes>
         </Router>
     )

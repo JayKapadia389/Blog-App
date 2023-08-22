@@ -5,43 +5,14 @@ import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import Header from './Header.jsx';
 
 function Home() {
 
-  useEffect(()=>{
-    let header = document.getElementById("header");
-    let info = document.getElementById("info");
-
-      document.addEventListener("scroll",()=>{
-
-        console.log(header.classList.contains('top'));
-
-        if((window.pageYOffset != 0) && !header.classList.contains('middle')){
-          header.classList.add("middle");
-          header.classList.remove("top");
-
-          info.classList.add('info-shadow');
-
-          
-        }
-        else if(window.pageYOffset == 0 && !header.classList.contains('top')){
-          header.classList.add("top");
-          header.classList.remove("middle")
-
-          info.classList.remove('info-shadow');
-
-        }
-      })
-  })
-
   return (
     <>
-      <header id='header' className='top'>
-        <span id="header-blogspot" className='blogspot'>
-        blogspot
-        </span>
-      </header>
 
+      <Header></Header>
       <div id="signup-login-header">
           <form id="signup-login-wrap">
                 <a href="/signup" className="signup-login signup" >SignUp</a>
@@ -71,7 +42,7 @@ function Home() {
           <p className="home-p"> Just reading blogs can be boring. Express your thoughts and interact with other readers through comments. You can also leave a like to let the creator know about their amazing job. You can also share the blog with your friends and family.</p>
         </div>
         <div className='image'>
-           <img className="info-image" src="/src/assets/comment.jpg"></img>
+           <img className="info-image" src="../assets/comment.jpg"></img>
         </div>
       </div>
 
@@ -81,7 +52,7 @@ function Home() {
           <p className="home-p">Ever read something so interesting that you wished that you could have more of it. Well, by following the creator you can make sure that you don’t miss any of their updates. </p>
         </div>
         <div className='image'>
-          <img className="info-image" src="/src/assets/follow.png"></img>
+          <img className="info-image" src="../assets/follow.png"></img>
         </div>
       </div>
 
@@ -92,7 +63,7 @@ function Home() {
 you can access all the liked blogs at one place  </p>
         </div>
         <div className='image'>
-          <img className="info-image" src="/src/assets/like.jpg"></img>
+          <img className="info-image" src="../assets/like.jpg"></img>
         </div>
       </div>
 

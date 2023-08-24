@@ -28,57 +28,20 @@ function Home() {
                 <h2 id="sub-title">read, write and explore</h2>
               </div>
 
-              {/* <div id="swiper-div">
-              </div> */}
-             
-      </div>
-      </div>
-    </div>
+              <div id="swiper-div">
 
-    <section id="info">
-      <div className="block" id="block-1">
-        <div className = "text">
-          <h2 className='home-h2'>Share your thoughts</h2>
-          <p className="home-p"> Just reading blogs can be boring. Express your thoughts and interact with other readers through comments. You can also leave a like to let the creator know about their amazing job. You can also share the blog with your friends and family.</p>
-        </div>
-        <div className='image'>
-           <img className="info-image" src="../assets/comment.jpg"></img>
-        </div>
-      </div>
-
-      <div className="block" id="block-2">
-        <div className = "text">
-          <h2 className='home-h2'>Connect to your favourite creators</h2>
-          <p className="home-p">Ever read something so interesting that you wished that you could have more of it. Well, by following the creator you can make sure that you don’t miss any of their updates. </p>
-        </div>
-        <div className='image'>
-          <img className="info-image" src="../assets/follow.png"></img>
-        </div>
-      </div>
-
-      <div className="block" id="block-3">
-        <div className = "text">
-          <h2 className='home-h2'>Collect  your favourites</h2>
-          <p className="home-p"> 
-you can access all the liked blogs at one place  </p>
-        </div>
-        <div className='image'>
-          <img className="info-image" src="../assets/like.jpg"></img>
-        </div>
-      </div>
-
-      {/* <Swiper 
+              <Swiper 
               modules={[Navigation, Pagination, EffectCoverflow ,Autoplay]}
               effect='coverflow'
               // spaceBetween={100}
               centeredSlides={true}
               grabCursor={true}
-              loop={ true }
+              loop={true}
               slidesPerView={'auto'}
               coverflowEffect={{
                 rotate: 0,
                 stretch: 0,
-                depth: 200, 
+                depth: 150, 
                 modifier: 1,
                 // slideShadows: true,
               }}
@@ -100,7 +63,46 @@ you can access all the liked blogs at one place  </p>
         <img className="swiper-image" src={"../public/img-4.jpg"}></img>
         </SwiperSlide>
 
-      </Swiper> */}
+      </Swiper>
+              </div>
+             
+      </div>
+      </div>
+    </div>
+
+    <section id="info">
+      <div className="block" id="block-1">
+        <div className = "text">
+          <h2 className='home-h2'>Share your thoughts</h2>
+          <p className="home-p"> Just reading blogs can be boring. Express your thoughts and interact with other readers through comments. You can also leave a like to let the creator know about their amazing job. You can also share the blog with your friends and family.</p>
+        </div>
+        <div className='image'>
+           <img className="info-image" src="/src/assets/comment.jpg"></img>
+        </div>
+      </div>
+
+      <div className="block" id="block-2">
+        <div className = "text">
+          <h2 className='home-h2'>Connect to your favourite creators</h2>
+          <p className="home-p">Ever read something so interesting that you wished that you could have more of it. Well, by following the creator you can make sure that you don’t miss any of their updates. </p>
+        </div>
+        <div className='image'>
+          <img className="info-image" src="/src/assets/follow.png"></img>
+        </div>
+      </div>
+
+      <div className="block" id="block-3">
+        <div className = "text">
+          <h2 className='home-h2'>Collect  your favourites</h2>
+          <p className="home-p"> 
+you can access all the liked blogs at one place  </p>
+        </div>
+        <div className='image'>
+          <img className="info-image" src="/src/assets/like.jpg"></img>
+        </div>
+      </div>
+
+      
        </section>
     </>
   )

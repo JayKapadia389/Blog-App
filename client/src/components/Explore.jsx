@@ -1,11 +1,11 @@
-import Header from "./Header.jsx";
+import ExploreHeader from "./ExploreHeader.jsx";
 
 function Explore(){
 
     return(
 
         <>
-            <Header></Header>
+            <ExploreHeader></ExploreHeader>
 
             <main id="cards">
                 <div className="card">
@@ -82,6 +82,77 @@ function Explore(){
                         <p></p>
                     </div>
                 </div>
+                d<br/>
+                
+                d<br/>
+
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+                d<br/>
+
             </main>
         </>
     )

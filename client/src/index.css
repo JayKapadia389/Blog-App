@@ -37,31 +37,34 @@
     width:100%;
     background-color: rgba(0, 0, 0 , 0) ;
   }
-  
-  #header,#signup-login-header{
+
+  #home-header,#signup-login-header,#explore-header{
     width:100%;
     height:60px;
     position:fixed;
-    top:0px;
     display:flex;
     padding:0 10%;
     align-items: center;
-    z-index: 3;
   }
   
-  #header{
+  #home-header,#signup-login-header{
+    z-index: 3;
+    top:0px;
+  }
+  
+  #home-header{
     justify-content: flex-start;
     background-color: var(--dark);
     box-shadow: 0 0 8px 1px ;
     z-index: 2;
   }
-  
-  .top{
+
+  .hide{
     transform: translateY(-70px) ;
     transition-duration: 0.3s;
   }
   
-  .middle{
+  .show{
     transform: translateY(0px) ;
     transition-duration: 0.3s;
   }
@@ -121,9 +124,14 @@
     transform: scale(0.8);
   }
 
-  #header-blogspot{
-    font-size: 30px;
+  #home-header-blogspot{
     color:white;
+    font-size: 30px;
+  }
+
+  #explore-header-blogspot{
+    font-size: 30px;
+    color:var(--dark);
   }
   
   .blogspot{
@@ -341,6 +349,48 @@
 
   /* Explore */
 
+  #explore-header{
+    background-color: white;
+    border-bottom: 0.5px solid grey ;
+    z-index:999;
+    justify-content: space-evenly;
+  }
+
+  #explore-header .blogspot{
+    /* color:red; */
+    margin-right: 25px;
+  }
+
+  .empty{
+    flex:1 0 auto;
+  }
+
+  #search-bar{
+    height: 38px;
+    border-radius: 19px ;
+    border: none;
+    background-color:#E6E6E6;
+  }
+
+  #search-bar:hover{
+    border: 0.5px solid red;
+  }
+
+  #search-icon{
+    position: relative;
+    right:25px;
+    top:4px;
+  }
+
+  #profile-btn{
+    position: relative;
+    overflow: hidden;
+    background-color: #7c7b7b;
+    height: 38px;
+    width: 38px;
+    border-radius: 19px;
+  }
+
   #cards{
     padding:80px;
     display:grid;
@@ -383,10 +433,10 @@
 
   .profile-pic-div{
     position: relative;
+    overflow: hidden;
     height:25px;
     width:25px;
     border-radius: 50%;
-    overflow: hidden;
     margin-right: 10px;
   }
 
@@ -447,11 +497,27 @@
     }
   }
 
-  @media(max-width:300px){
+  @media(max-width:480px){
     #swiper-div{
-      width:40vw;
+      width:45vw;
+    }
+
+    .swiper-slide{
+      height:180px;
+      width: 45vw;
+    }
+
+    #home-trans-container{
+      padding:30px;
+      height: auto;
+    }
+
+    #sub-title{
+      font-weight: 300;
     }
   }
+
+  
   @media(min-width:900px){
     #h1-blogspot{
       font-size: 5rem;
@@ -461,7 +527,7 @@
   @media(max-width:960px){
 
     #h1-blogspot{
-      font-size: 5rem;
+      font-size: 4rem;
     }
     #block-1,#block-2,#block-3{
       flex-direction: column;

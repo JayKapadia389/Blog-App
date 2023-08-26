@@ -5,14 +5,18 @@ import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import Header from './Header.jsx';
+import HomeHeader from './HomeHeader.jsx';
 
 function Home() {
+
+  useEffect(()=>{
+    // logic for info section
+  })
 
   return (
     <>
 
-      <Header></Header>
+      <HomeHeader></HomeHeader>
       <div id="signup-login-header">
           <form id="signup-login-wrap">
                 <a href="/signup" className="signup-login signup" >SignUp</a>

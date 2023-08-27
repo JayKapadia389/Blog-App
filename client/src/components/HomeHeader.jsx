@@ -3,7 +3,6 @@ import { useEffect } from "react";
 function HomeHeader(){
 
     useEffect(()=>{
-        let info = document.getElementById("info");
         let homeHeader = document.getElementById("home-header");
     
           document.addEventListener("scroll",()=>{
@@ -11,16 +10,10 @@ function HomeHeader(){
             if((window.scrollY != 0) && !homeHeader.classList.contains('show')){
               homeHeader.classList.add("show");
               homeHeader.classList.remove("hide");
-    
-              info.classList.add('info-shadow');
-    
             }
             else if(window.scrollY == 0 && !homeHeader.classList.contains('hide')){
               homeHeader.classList.add("hide");
               homeHeader.classList.remove("show")
-    
-              info.classList.remove('info-shadow');
-    
             }
           })
       })

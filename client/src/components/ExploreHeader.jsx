@@ -35,7 +35,7 @@ function ExploreHeader(){
             </span>
 
             <div>
-             <input id="search-bar" type="search"/>
+             <input id="search-bar" type="search" placeholder="Search..." />
              <AiOutlineSearch id="search-icon"/>
             </div>
 

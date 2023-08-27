@@ -11,6 +11,17 @@ function Home() {
 
   useEffect(()=>{
     // logic for info section
+
+    let info = document.getElementById("info");
+
+    if((window.scrollY != 0) && !info.classList.contains('info-shadow')){
+      info.classList.add('info-shadow');
+    }
+    else if((window.scrollY == 0) && info.classList.contains('info-shadow')){
+
+      info.classList.remove('info-shadow');
+
+    }
   })
 
   return (
@@ -54,17 +65,17 @@ function Home() {
               onSwiper={(swiper) => console.log(swiper)}
               onSlideChange={() => console.log('slide change')}>
                 
-        <SwiperSlide style={{"backgroundImage" : "url(../../public/img-1.webp)"}}>
-          <img className="swiper-image" src={"../public/img-1.webp"}></img>
+        <SwiperSlide style={{"backgroundImage" : "url(/src/assets/img-1.webp)"}}>
+          {/* <img className="swiper-image" src={"../public/img-1.webp"}></img> */}
         </SwiperSlide>
-        <SwiperSlide style={{"background-image" : "url(../public/img-2.jpg)"}}>
-        <img className="swiper-image" src={"../public/img-2.jpg"}></img>
+        <SwiperSlide style={{"backgroundImage" : "url(/src/assets/img-2.jpg)"}}>
+        {/* <img className="swiper-image" src={"../public/img-2.jpg"}></img> */}
         </SwiperSlide>
-        <SwiperSlide style={{"background-image" : "url(../public/img-3.jpg)"}}>
-        <img className="swiper-image" src={"../public/img-3.jpg"}></img>
+        <SwiperSlide style={{"backgroundImage" : "url(/src/assets/img-3.jpg)"}}>
+        {/* <img className="swiper-image" src={"../public/img-3.jpg"}></img> */}
         </SwiperSlide>
-        <SwiperSlide style={{"background-image" : "url(../public/img-4.jpg)"}}>
-        <img className="swiper-image" src={"../public/img-4.jpg"}></img>
+        <SwiperSlide style={{"backgroundImage" : "url(/src/assets/img-4.jpg)"}}>
+        {/* <img className="swiper-image" src={"../public/img-4.jpg"}></img> */}
         </SwiperSlide>
 
       </Swiper>

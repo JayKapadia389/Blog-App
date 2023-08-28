@@ -1,5 +1,6 @@
 :root{
     --dark : #2d2c2c;
+    --glow : #00CAF7;
   }
 
   #root{
@@ -76,12 +77,16 @@
   #home-trans-container{
     width:80% ;
     height:60vh;
-    background-color: rgba(256 ,256 ,256 ,0.75);
+    background-color: rgba(256 ,256 ,256 ,0.5);
     border-radius:20px;
     padding:3vw 5vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  #h1-blogspot{
+    font-size: min(9vw,100px);
   }
   
   #home-blogspot-wrap{
@@ -177,10 +182,12 @@
   #info{
     position:absolute;
     top:100vh;
-    background-color: white;
+    background-color: rgb(79, 79, 79);
+    color:white;
     padding:10%;
     font-family: roboto;
     z-index: 1;
+    box-shadow: 0px -10px 25px 0px black;
   }
   
   .block{
@@ -229,7 +236,7 @@
   
   .info-shadow{
   
-    box-shadow: 0 0 30px 0px;
+    box-shadow: 0 0 30px 0px black;
   
   }
   
@@ -349,15 +356,9 @@
 
   /* Explore */
 
-
-  #explore-layer{
-    filter: blur(8px);
-  }
-
   #explore-header{
     background-color: white;
     border-bottom: 0.5px solid grey ;
-    z-index:999;
     justify-content: space-evenly;
   }
   
@@ -399,46 +400,108 @@
     padding:0px 10%;
   }
 
-  .filter-sort-wrap{
-    
+  #explore-layer{
+    transition: filter 0.3s;
+  }
+
+  #filter-sort-wrap{
+    display: flex;
   }
   
   #filter-btn , #sort-btn{
+    width:70px;
     height:30px;
     border-radius: 15px;
-    background-color: white;
     border:1px solid grey;
-    padding: 0px 30px 0px 10px;
+    color:grey;
+    text-align: center;
+    line-height: 30px;
+    font-family: poppins, sans-serif;
+    margin-right: 10px ;
   }
 
   #filter-btn:hover{
-    color:red;
+    color:var(--glow);
+    border-color: var(--glow);
+    cursor: pointer;
   }
   
 
   #filter-icon,#sort-icon{
     position:relative;
-    right:24px;
-    top:4px;
-  }
-
-  #filter-dialogbox{
-    width:300px;
-    height:300px;
-    background-color: rgb(255, 215, 215);
-    border-radius: 20px;
-    /* display:none; */
+    right:-3px;
+    top:3px;
   }
 
   #filter-dialogbox-wrap{
     width: 100%;
     height: 100vh;
     position: absolute;
+    background-color: rgba(0, 0, 0 , 0.3);
     top: 0;
     left:0;
     display: grid;
     place-items: center;
-    z-index: -10;
+    display: none;
+  }
+
+  #filter-dialogbox{
+    width:600px;
+    height:400px;
+    background-color: white;
+    border-radius: 20px;
+    position: absolute;
+    display: grid;
+    place-items: center;
+  }
+
+  #filter-sections-wrap{
+    font-family: sans-serif;
+    width:100%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .filter-sections{
+    width:150px;
+    height:200px;
+  }
+
+  .filter-section-headings{
+    text-align:center;
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid black;
+  }
+
+  #upload-date-list{
+    list-style: none;
+    padding-left: 20px;
+  }
+  
+  #upload-date-list li{
+    height:30px;
+    line-height: 30px;
+  }
+
+  #duration{
+    width:35px;
+  }
+
+  .close-btn{
+    position: absolute;
+    color:grey;
+    font-size: 20px;
+    right:10px;
+    top:10px;
+    border-radius: 10px;
+    cursor:pointer;
+  }
+
+  .close-btn:hover{
+
+    transform: scale(1.2);
+    transition: transform 0.3s;
   }
 
   #cards{
@@ -455,10 +518,11 @@
     background-color: white;
     border-radius:25px ;
     box-shadow:grey 0px 0px 10px 0px;
+    cursor: pointer;
   }
 
   .card:hover{
-    transform:scale(1.1);
+    transform:scale(1.05);
     transition: transform 0.3s;
   }
 
@@ -515,9 +579,7 @@
       padding:55px;
       width:auto;
     }
-    #h1-blogspot{
-      font-size: max(9vw,70px);
-    }
+    
     #sub-title{
       font-size: max(2vw,25px);
     }
@@ -547,6 +609,8 @@
   }
 
   @media(max-width:480px){
+    
+   
     #swiper-div{
       width:45vw;
     }
@@ -568,16 +632,12 @@
 
   
   @media(min-width:900px){
-    #h1-blogspot{
-      font-size: 5rem;
-    }
+    
   }
 
   @media(max-width:960px){
 
-    #h1-blogspot{
-      font-size: 4rem;
-    }
+    
     #block-1,#block-2,#block-3{
       flex-direction: column;
     }

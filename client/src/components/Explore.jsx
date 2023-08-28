@@ -2,6 +2,7 @@ import { useState } from "react";
 import ExploreHeader from "./ExploreHeader.jsx";
 import {BsFilter} from "react-icons/bs"
 import { BiSort } from "react-icons/bi"
+import {IoClose} from "react-icons/io5"
 
 function Explore(){
 
@@ -10,22 +11,24 @@ function Explore(){
     return(
         <div id="explore-wrap">
 
-            <div id="explore-layer" style={{"filter" : filter ?  "blur(8px)" :  "none" , 
-                                            "z-index" : filter ? 99999999 : -10} }>
+            <div id="explore-layer" 
+            style={{"filter" : filter ?  "blur(8px)" :  "none" } }
+            >
                 <ExploreHeader></ExploreHeader>
 
                 <main id="explore-main">
                     <div id="filter-sort-wrap">
-                        <button id="filter-btn" onClick={()=>{ console.log("cenvrb"); setFilter(filter => !filter)}}>
+                        
+                        <div id="filter-btn" onClick={()=>{setFilter(!filter)}}>
                             filter
-                        </button>
-                        <BsFilter id="filter-icon"></BsFilter>
+                            <BsFilter id="filter-icon"></BsFilter>
+                        </div>
 
-                        <button id="sort-btn">
+                        <div id="sort-btn">
                             sort
-                        </button>
-                        <BiSort id="sort-icon"></BiSort>
-                    
+                            <BiSort id="sort-icon"></BiSort>
+                        </div>
+
                     </div>
                     
                     <div id="cards">
@@ -109,9 +112,52 @@ function Explore(){
                     
                 </main>
             </div>
-            <div id="filter-dialogbox-wrap">
-                <div id="filter-dialogbox" style={{"display" : filter ?  "block" :  "none"}}>
-                        filtermfrmfrgrn
+            <div id="filter-dialogbox-wrap" style={{"display" : filter ?  "grid" :  "none"}}>
+                <div id="filter-dialogbox">
+                        <IoClose className="close-btn" onClick={()=>{ setFilter(!filter) }}></IoClose>
+
+                        <div id="filter-sections-wrap">
+                            <div className="filter-sections" id="upload-date-section">
+                                <div className="filter-section-headings">upload date</div>
+                                <ul id="upload-date-list">
+                                    <li>
+                                        <input type='radio' id="today" name="upload-date" value="today"/>
+                                        <label htmlFor="today">today</label>
+                                    </li>
+
+                                    <li>
+                                        <input type='radio' name="upload-date" value="this week"/>
+                                        <label htmlFor="this week">this week</label>
+                                    </li>
+
+                                    <li>
+                                        <input type='radio' name="upload-date" value="this month"/>
+                                        <label htmlFor="this month">this month</label>
+                                    </li>
+
+                                    <li>
+                                        <input type='radio' name="upload-date" value="this year"/>
+                                        <label htmlFor="this year">this year</label>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div className="filter-sections" id="duration-section">
+                                <div className="filter-section-headings">duration</div>
+                                <div> 
+                                    less than <input type="number" id="duration" name="duration"/> minutes
+                                </div>
+                                
+                            </div>
+
+                            <div className="filter-sections" id="categories-section">
+                                <div className="filter-section-headings">categries</div>
+                                <ul>
+                                    
+                                </ul>
+                            </div>
+
+                        </div>
                 </div>
             </div>
         </div>

@@ -24,7 +24,7 @@
   #home-bg-image-container{
     height:100vh;
     width:100%;
-    background-image: url(./assets/bg-image2.jpg);
+    background-image: url(./assets/bg-image.webp);
     background-size:cover;
     position:fixed;
     top:0px;
@@ -48,7 +48,7 @@
     align-items: center;
   }
   
-  #home-header,#signup-login-header{
+  #home-header,#signup-login-header,#explore-header{
     z-index: 3;
     top:0px;
   }
@@ -57,7 +57,6 @@
     justify-content: flex-start;
     background-color: var(--dark);
     box-shadow: 0 0 8px 1px ;
-    z-index: 2;
   }
 
   .hide{
@@ -77,7 +76,7 @@
   #home-trans-container{
     width:80% ;
     height:60vh;
-    background-color: rgba(256 ,256 ,256 ,0.5);
+    background-color: rgba(256 ,256 ,256 ,0.6);
     border-radius:20px;
     padding:3vw 5vw;
     display: flex;
@@ -145,8 +144,7 @@
   }
   
   #sub-title{
-    font-family:'Roboto';
-    font-weight: 600;
+    font-family:'poppins';
     font-size:30px;
   }
   
@@ -160,7 +158,7 @@
   .signup-login{
     width:48%;
     border-radius:25px;
-    border : 1px solid white;
+    border : 0.5px solid white;
     font-size: 16px;
     font-family: 'roboto';
     font-weight: 600;
@@ -182,8 +180,8 @@
   #info{
     position:absolute;
     top:100vh;
-    background-color: rgb(79, 79, 79);
-    color:white;
+    background-color: white;
+    color:var(--dark);
     padding:10%;
     font-family: roboto;
     z-index: 1;
@@ -385,7 +383,7 @@
     top:4px;
   }
   
-  #profile-btn{
+  #header-profile-btn{
     position: relative;
     overflow: hidden;
     background-color: #7c7b7b;
@@ -401,6 +399,7 @@
   }
 
   #explore-layer{
+    font-family: poppins;
     transition: filter 0.3s;
   }
 
@@ -560,15 +559,15 @@
     align-self: flex-end;
   }
 
-  #cards{
+  #blog-cards{
     display:grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 380px 380px;
+    grid-template-rows: 380px ;
     place-items:center ;
     font-family: 'Poppins';
   }
 
-  .card{
+  .blog-card{
     width:330px;
     height:330px;
     background-color: white;
@@ -577,30 +576,31 @@
     cursor: pointer;
   }
 
-  .card:hover{
+  .blog-card:hover{
     transform:scale(1.05);
     transition: transform 0.3s;
   }
 
-  .thumbnail{
+  .bc-tbnl-div{
     height:60%;
     overflow: hidden;
     border-radius: 25px 25px 0px 0px;
   }
 
-  .tbnl{
+  .bc-tbnl{
     width:100%;
   }
 
-  .description{
+  .bc-description{
     padding:15px;
   }
 
-  .profile{
+  .bc-profile , .pc-profile{
     display: flex;
+    align-items: center;
   }
 
-  .profile-pic-div{
+  .bc-profile-pic-div , .pc-profile-pic-div{
     position: relative;
     overflow: hidden;
     height:25px;
@@ -609,7 +609,7 @@
     margin-right: 10px;
   }
 
-  .profile-pic{
+  .bc-profile-pic , .pc-profile-pic , .header-profile-pic{
     height:100%;
     position: absolute;
     top: -9999px;
@@ -619,13 +619,55 @@
     margin: auto;
   }
 
-  .author{
+  .bc-author{
     color: #7c7b7b;
   }
 
-  .title{
+  .bc-title{
     font-size: 20px;
     font-weight: 600;
+  }
+
+  /* people */
+
+  #people-component{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .people-card{
+    display: flex;
+    height: 200px;
+  }
+
+  .pc-profile{
+    margin-bottom: 10px;
+  }
+
+  .pc-author{
+    font-size: 1.5rem;
+  }
+
+  .pc-bio{
+    font-size: 1rem;
+    color: #7c7b7b;
+  }
+
+  .pc-follow-wrap{
+      padding:0 30px;
+      display: flex;
+      align-items:center;
+  }
+
+  .pc-follow-btn{
+    width:100px;
+    height:40px;
+    border:none;
+    border-radius:20px;
+    background-color: #2c9ed3;
+    font-family: poppins;
+    color:white;
+    
   }
 
   @media(max-width:1180px){
@@ -662,6 +704,10 @@
     .swiper-button-prev::after,.swiper-button-next::after{
       transform: scale(0.6);
     }
+
+    #people-component{
+      grid-template-columns: 1fr;
+    }
   }
 
   @media(max-width:480px){
@@ -680,20 +726,10 @@
       padding:30px;
       height: auto;
     }
-
-    #sub-title{
-      font-weight: 300;
-    }
-  }
-
-  
-  @media(min-width:900px){
-    
   }
 
   @media(max-width:960px){
 
-    
     #block-1,#block-2,#block-3{
       flex-direction: column;
     }
@@ -729,6 +765,7 @@
       width:90%;
     }
   }
+
 
 
 

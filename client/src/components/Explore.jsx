@@ -115,7 +115,7 @@ function Explore(){
 
                 </div>
 
-                <button id="apply-filters" onClick={""}>Apply Filters</button>
+                <button id="apply-filters" >Apply Filters</button>
             </div>
             </div>
         </div>

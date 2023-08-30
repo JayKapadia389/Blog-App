@@ -65,16 +65,24 @@ function Home() {
               onSwiper={(swiper) => console.log(swiper)}
               onSlideChange={() => console.log('slide change')}>
                 
-        <SwiperSlide style={{"backgroundImage" : "url(/src/assets/img-1.webp)"}}>
+        <SwiperSlide 
+        // style={{"backgroundImage" : "url(/src/assets/img-1.webp)"}}
+        >
           {/* <img className="swiper-image" src={"../public/img-1.webp"}></img> */}
         </SwiperSlide>
-        <SwiperSlide style={{"backgroundImage" : "url(/src/assets/img-2.jpg)"}}>
+        <SwiperSlide 
+        // style={{"backgroundImage" : "url(/src/assets/img-2.jpg)"}}
+        >
         {/* <img className="swiper-image" src={"../public/img-2.jpg"}></img> */}
         </SwiperSlide>
-        <SwiperSlide style={{"backgroundImage" : "url(/src/assets/img-3.jpg)"}}>
+        <SwiperSlide 
+        // style={{"backgroundImage" : "url(/src/assets/img-3.jpg)"}}
+        >
         {/* <img className="swiper-image" src={"../public/img-3.jpg"}></img> */}
         </SwiperSlide>
-        <SwiperSlide style={{"backgroundImage" : "url(/src/assets/img-4.jpg)"}}>
+        <SwiperSlide 
+        // style={{"backgroundImage" : "url(/src/assets/img-4.jpg)"}}
+        >
         {/* <img className="swiper-image" src={"../public/img-4.jpg"}></img> */}
         </SwiperSlide>
 

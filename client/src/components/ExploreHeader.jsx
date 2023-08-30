@@ -41,8 +41,8 @@ function ExploreHeader(){
 
             <div className='empty'></div>
 
-            <div id="profile-btn">
-              <img className="profile-pic" src='/src/assets/jay.jpg'></img>
+            <div id="header-profile-btn">
+              <img className="header-profile-pic" src='/src/assets/jay.jpg'></img>
             </div>
         </header>
     )

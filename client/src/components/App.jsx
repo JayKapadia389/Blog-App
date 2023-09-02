@@ -5,6 +5,7 @@ import Login from "./Login.jsx";
 import Signup from "./Signup.jsx";
 import Explore from "./Explore.jsx";
 import Article from "./Article.jsx";
+import AuthorProfile from "./AuthorProfile.jsx";
 
 function App() {
 
@@ -17,6 +18,8 @@ function App() {
                 <Route exact path="/explore" element={<Explore/>}></Route>
                 <Route exact path="/article" element={<Article/>}></Route>
                 <Route exact path="/:slug" element={<CustomRoute/>}></Route>
+                <Route exact path="/authorprofile" element={<AuthorProfile/>}></Route>
+
             </Routes>
         </Router>
     )

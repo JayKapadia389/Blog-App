@@ -17,6 +17,25 @@ function Article(props){
                 <img id="article-tbnl" src="/src/assets/react.webp"></img>
             </div>
 
+            <div className="profile">
+                <div className="profile-pic-div article-profile-pic-div">
+                    <img className="profile-pic" src="/src/assets/jay.jpg"></img>
+                </div>
+
+                <div>
+                    <p id="article-author">Jay kapadia</p>
+                    <p id="article-time">5 days ago</p>
+                </div>
+
+                <div className="empty"></div>
+
+                <div id="article-follow-wrap">
+
+                    <button id="article-follow-btn">Follow</button>
+
+                </div>
+            </div>
+
             <h1 id="article-title">5 React useState Mistakes That Will Get You Fired</h1>
 
             <div id="article-body">
@@ -63,10 +82,10 @@ function Article(props){
 
                 <div className="comment-wrap">
 
-                    <div className="comment-profile">
+                    <div className="profile">
 
-                        <div className="comment-profile-pic-div">
-                            <img className="comment-profile-pic" src="/src/assets/jay.jpg"></img>
+                        <div className="profile-pic-div comment-profile-pic-div">
+                            <img className="profile-pic" src="/src/assets/jay.jpg"></img>
                         </div>
 
                         <div >
@@ -86,10 +105,10 @@ function Article(props){
 
                 <div className="comment-wrap">
 
-                    <div className="comment-profile">
+                    <div className="profile">
 
-                        <div className="comment-profile-pic-div">
-                            <img className="comment-profile-pic" src="/src/assets/jay.jpg"></img>
+                        <div className="profile-pic-div comment-profile-pic-div">
+                            <img className="profile-pic" src="/src/assets/jay.jpg"></img>
                         </div>
 
                         <div >
@@ -109,10 +128,10 @@ function Article(props){
 
                 <div className="comment-wrap">
 
-                    <div className="comment-profile">
+                    <div className="profile">
 
-                        <div className="comment-profile-pic-div">
-                            <img className="comment-profile-pic" src="/src/assets/jay.jpg"></img>
+                        <div className="profile-pic-div comment-profile-pic-div">
+                            <img className="profile-pic" src="/src/assets/jay.jpg"></img>
                         </div>
 
                         <div >
@@ -132,10 +151,10 @@ function Article(props){
 
                 <div className="comment-wrap">
 
-                    <div className="comment-profile">
+                    <div className="profile">
 
-                        <div className="comment-profile-pic-div">
-                            <img className="comment-profile-pic" src="/src/assets/jay.jpg"></img>
+                        <div className="profile-pic-div comment-profile-pic-div">
+                            <img className="profile-pic" src="/src/assets/jay.jpg"></img>
                         </div>
 
                         <div >

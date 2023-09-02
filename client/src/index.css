@@ -44,7 +44,7 @@
     height:60px;
     position:fixed;
     display:flex;
-    padding:0 10%;
+    padding:0 6%;
     align-items: center;
   }
   
@@ -146,6 +146,7 @@
   #sub-title{
     font-family: 'Roboto' ;
     font-size:30px;
+    font-weight: normal;
   }
   
   #signup-login-wrap{
@@ -395,7 +396,7 @@
   #explore-main{
     position: relative;
     top:60px;
-    padding:0px 10%;
+    padding:0px 6%;
   }
 
   #explore-layer{
@@ -543,7 +544,6 @@
   }
 
   .close-btn:hover{
-
     transform: scale(1.2);
     transition: transform 0.3s;
   }
@@ -562,18 +562,18 @@
   #blog-cards{
     display:grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 380px ;
     place-items:center ;
     font-family: 'Poppins';
   }
 
   .blog-card{
-    width:330px;
-    height:330px;
+    width:min(95%,360px);
+    aspect-ratio: 1;
     background-color: white;
     border-radius:25px ;
     box-shadow:grey 0px 0px 10px 0px;
     cursor: pointer;
+    margin:20px;
   }
 
   .blog-card:hover{
@@ -585,31 +585,41 @@
     height:60%;
     overflow: hidden;
     border-radius: 25px 25px 0px 0px;
+    position: relative;
   }
 
   .bc-tbnl{
     width:100%;
+    position: absolute;
+    top: -9999px;
+    bottom: -9999px;
+    left: -9999px;
+    right: -9999px;
+    margin: auto;
   }
 
   .bc-description{
     padding:15px;
   }
 
-  .bc-profile , .pc-profile , .comment-profile{
+  .profile{
     display: flex;
     align-items: center;
   }
 
-  .bc-profile-pic-div , .pc-profile-pic-div{
+  .profile-pic-div{
     position: relative;
     overflow: hidden;
-    height:25px;
-    width:25px;
     border-radius: 50%;
     margin-right: 10px;
   }
 
-  .bc-profile-pic , .pc-profile-pic , .header-profile-pic, .comment-profile-pic{
+  .bc-profile-pic-div,.pc-profile-pic-div {
+    height:25px;
+    width:25px;
+  }
+
+  .profile-pic {
     height:100%;
     position: absolute;
     top: -9999px;
@@ -638,10 +648,7 @@
   .people-card{
     display: flex;
     height: 200px;
-  }
-
-  .pc-profile{
-    margin-bottom: 10px;
+    margin: 20px 0;
   }
 
   .pc-author{
@@ -653,13 +660,13 @@
     color: #7c7b7b;
   }
 
-  .pc-follow-wrap{
+  .pc-follow-wrap,#article-follow-wrap{
       padding:0 30px;
       display: flex;
       align-items:center;
   }
 
-  .pc-follow-btn{
+  .pc-follow-btn,#article-follow-btn{
     width:100px;
     height:40px;
     border:none;
@@ -668,6 +675,10 @@
     font-family: poppins;
     color:white;
     
+  }
+
+  .pc-follow-btn-mobile{
+    display: none;
   }
 
   /* article */
@@ -679,11 +690,18 @@
     font-family: poppins;
   }
 
-  /* #article-tbnl-div{
-  } */
-
   #article-tbnl{
     width:100%;
+  }
+
+   .comment-profile-pic-div{
+    height: 30px;
+    width:30px;
+  }
+
+  .article-profile-pic-div {
+    height: 40px;
+    width:40px;
   }
 
   #article-title{
@@ -746,16 +764,7 @@
     margin:10px 0;
   }
 
-  .comment-profile-pic-div{
-    position: relative;
-    overflow: hidden;
-    height: 40px;;
-    width:40px;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
-
-  .comment-time{
+  .comment-time , #article-time{
     font-size:0.8rem;
     color:#888;
   }
@@ -804,6 +813,10 @@
 
     #people-component{
       grid-template-columns: 1fr;
+    }
+
+    .people-card{
+      height:auto;
     }
   }
 
@@ -866,6 +879,83 @@
     #comment-section h3{
       margin:10px 0;
     }
+
+    .article-profile-pic-div {
+      height: 35px;
+      width:35px;
+    }
+
+    .article-author{
+      font-size: 0.8rem;
+    }
+
+    #article-follow-wrap{
+      padding:0 15px;
+    }
+
+    #article-follow-btn{
+      width:70px;
+    }
+
+    #blog-cards{
+      grid-template-columns: 1fr;
+    }
+
+    .blog-card{
+      margin:10px;
+    }
+
+    .bc-title{
+      font-size: 1rem;
+    }
+
+    .bc-preview{
+      font-size:0.8rem
+    }
+
+    #explore-main{
+      padding:0 10px;
+    }
+
+    .pc-author{
+      font-size: 1.2rem;
+    }
+  
+    .pc-bio{
+      font-size: 0.9rem;
+    }
+
+    .pc-follow-btn-mobile{
+      height: 28px;
+      color :white;
+      background-color: #2c9ed3;
+      border:none;
+      border-radius:14px;
+      padding: 0 10px;
+      font-size: 0.9rem;
+    }
+  
+    .pc-follow-wrap{
+        display: none;
+    }
+
+    .people-card .profile{
+      margin-bottom: 10px;
+    }
+  
+    .people-card{
+      margin:15px 0px;
+    }
+
+    .pc-follow-btn-mobile{
+      display: inline;
+    }
+  }
+
+  @media (min-width:480px) and (max-width:960px) {
+    #blog-cards{
+      grid-template-columns: 1fr 1fr;
+    }
   }
 
   @media(max-width:960px){
@@ -884,6 +974,7 @@
     .block{
       height:auto;
     }
+
   }
 
   @media(max-width:600px){

@@ -51,13 +51,17 @@ function People(){
 
                 <div>
 
-                    <div className="pc-profile">
+                    <div className="profile">
 
-                        <div className="pc-profile-pic-div">
-                            <img className="pc-profile-pic" src="/src/assets/jay.jpg"></img>
+                        <div className="profile-pic-div pc-profile-pic-div">
+                            <img className="profile-pic" src="/src/assets/jay.jpg"></img>
                         </div>
 
                         <p className="pc-author">{obj.name}</p>
+
+                        <div className="empty"></div>
+
+                        <button className="pc-follow-btn-mobile">follow</button>
 
                     </div>
 

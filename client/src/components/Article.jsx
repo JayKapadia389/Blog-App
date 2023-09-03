@@ -14,12 +14,12 @@ function Article(props){
         <main id="article-component">
             
             <div id="article-tbnl-div">
-                <img id="article-tbnl" src="/src/assets/react.webp"></img>
+                <img id="article-tbnl" src="/public/images/react.webp"></img>
             </div>
 
             <div className="profile">
                 <div className="profile-pic-div article-profile-pic-div">
-                    <img className="profile-pic" src="/src/assets/jay.jpg"></img>
+                    <img className="profile-pic" src="/public/images/jay.jpg"></img>
                 </div>
 
                 <div>
@@ -85,7 +85,7 @@ function Article(props){
                     <div className="profile">
 
                         <div className="profile-pic-div comment-profile-pic-div">
-                            <img className="profile-pic" src="/src/assets/jay.jpg"></img>
+                            <img className="profile-pic" src="/public/images/jay.jpg"></img>
                         </div>
 
                         <div >
@@ -108,7 +108,7 @@ function Article(props){
                     <div className="profile">
 
                         <div className="profile-pic-div comment-profile-pic-div">
-                            <img className="profile-pic" src="/src/assets/jay.jpg"></img>
+                            <img className="profile-pic" src="/public/images/jay.jpg"></img>
                         </div>
 
                         <div >
@@ -131,7 +131,7 @@ function Article(props){
                     <div className="profile">
 
                         <div className="profile-pic-div comment-profile-pic-div">
-                            <img className="profile-pic" src="/src/assets/jay.jpg"></img>
+                            <img className="profile-pic" src="/public/images/jay.jpg"></img>
                         </div>
 
                         <div >
@@ -154,7 +154,7 @@ function Article(props){
                     <div className="profile">
 
                         <div className="profile-pic-div comment-profile-pic-div">
-                            <img className="profile-pic" src="/src/assets/jay.jpg"></img>
+                            <img className="profile-pic" src="/public/images/jay.jpg"></img>
                         </div>
 
                         <div >

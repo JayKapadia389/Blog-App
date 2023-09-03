@@ -24,7 +24,7 @@
   #home-bg-image-container{
     height:100vh;
     width:100%;
-    background-image: url(./assets/bg-image.webp);
+    background-image: url(/public/images/bg-image.webp);
     background-size:cover;
     position:fixed;
     top:0px;
@@ -76,7 +76,7 @@
   #home-trans-container{
     width:80% ;
     height:60vh;
-    background-color: rgba(256 ,256 ,256 ,0.6);
+    background-color: rgba(256 ,256 ,256 ,1);
     border-radius:20px;
     padding:3vw 5vw;
     display: flex;
@@ -86,6 +86,7 @@
 
   #h1-blogspot{
     font-size: min(9vw,100px);
+    
   }
   
   #home-blogspot-wrap{
@@ -690,6 +691,10 @@
     font-family: poppins;
   }
 
+  #article-component > *:not(:last-of-type){
+    margin-bottom: 20px;
+  }
+
   #article-tbnl{
     width:100%;
   }
@@ -706,7 +711,6 @@
 
   #article-title{
     font-size: 50px;
-    margin:30px 0px;
   }
 
   #article-body{
@@ -715,7 +719,6 @@
 
   #interaction-bar{
     display: flex;
-    margin:30px 0px;
   }
 
   #interaction-bar svg{
@@ -775,6 +778,95 @@
     margin:15px 0;
   }
 
+  /* author profile */
+
+  #authorprofile-component{
+    display:flex;
+    overflow: hidden;
+
+  }
+
+  #authorprofile-details{
+    width: 500px;
+    height:100vh;
+    background-color: #3498DB;
+    display: grid;
+    place-items: center;
+    position: fixed;
+  }
+
+  #authorprofile-details-wrap{
+    width:300px;
+    font-family: poppins;
+  }
+
+  #authorprofile-details-wrap > *:not(:last-of-type){
+    margin-bottom: 20px;
+  }
+
+  #authorprofile-profile-pic-div{
+    height:300px;
+    width:300px;
+    border:10px solid white;
+    margin:0;
+  }
+
+  .authorprofile-numbercount{
+    display: flex;
+    justify-content: space-between;
+    color:white;
+    font-size: 20px;
+  }
+
+  .authorprofile-numbercount > *{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .authorprofile-numbercount span{
+    text-align:center;
+    width:100%;
+  }
+
+  #authorprofile-btn-wrap{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #authorprofile-follow-btn ,#authorprofile-message-btn{
+    height:45px;
+    width:46%;
+    padding:0 10px;
+    border: none;
+    border-radius: 22.5px;
+    font-size: 20px;
+    color:#3498DB;
+  }
+
+  #authorprofile-bio-span{
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: white;
+  }
+
+  #authorprofile-bio{
+    color: #c6c6c6;
+  }
+
+  #authorprofile-posts{
+    width: calc(100vw - 500px);
+    position: relative;
+    left:500px;
+    font-family: poppins;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+    padding: 10px;
+  }
+
+  #authorprofile-details-mobile{
+    display:none;
+  }
 
   @media(max-width:1180px){
 
@@ -818,11 +910,18 @@
     .people-card{
       height:auto;
     }
+
+    #authorprofile-posts{
+      grid-template-columns: 1fr;
+    }
   }
 
   @media(max-width:480px){
     
-   
+    #h1-blogspot{
+      font-size: 60px;
+    }
+
     #swiper-div{
       width:45vw;
     }
@@ -933,6 +1032,7 @@
       border-radius:14px;
       padding: 0 10px;
       font-size: 0.9rem;
+      display: block;
     }
   
     .pc-follow-wrap{
@@ -947,13 +1047,22 @@
       margin:15px 0px;
     }
 
-    .pc-follow-btn-mobile{
-      display: inline;
+    #authorprofile-posts{
+      left:0px;
+      width:100%;
+      grid-template-columns: 1fr;
     }
+
   }
 
   @media (min-width:480px) and (max-width:960px) {
     #blog-cards{
+      grid-template-columns: 1fr 1fr;
+    }
+
+    #authorprofile-posts{
+      left:0px;
+      width:100%;
       grid-template-columns: 1fr 1fr;
     }
   }
@@ -974,6 +1083,44 @@
     .block{
       height:auto;
     }
+
+    #authorprofile-component{
+      flex-direction: column;
+    }
+
+    #authorprofile-details{
+      display:none;
+    }
+
+    #authorprofile-details-mobile{
+      display: block;
+      font-family: poppins;
+    }
+
+    #authorprofile-profile-pic-div-mobile{
+      height:40vw;
+      width:40vw;
+      border:1vh solid white;
+      margin:0;
+      position: relative;
+      margin: auto;
+      top:-15vw;
+    }
+
+    .authorprofile-numbercount-mobile{
+      color: #3498DB;
+    }
+
+    #authorprofile-details-wrap-mobile{
+      /* position: relative; */
+      /* top:30vw; */
+    }
+    
+    #authorprofile-blue-mobile{
+      background-color: #3498DB;
+      height: 40vw;
+    }
+
 
   }
 

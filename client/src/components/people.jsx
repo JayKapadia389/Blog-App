@@ -54,7 +54,7 @@ function People(){
                     <div className="profile">
 
                         <div className="profile-pic-div pc-profile-pic-div">
-                            <img className="profile-pic" src="/src/assets/jay.jpg"></img>
+                            <img className="profile-pic" src="/public/images/jay.jpg"></img>
                         </div>
 
                         <p className="pc-author">{obj.name}</p>

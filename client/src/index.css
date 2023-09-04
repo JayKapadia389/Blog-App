@@ -783,6 +783,7 @@
   #authorprofile-component{
     display:flex;
     overflow: hidden;
+    font-family: 'poppins';
 
   }
 
@@ -1094,33 +1095,50 @@
 
     #authorprofile-details-mobile{
       display: block;
-      font-family: poppins;
+      font-family: 'poppins';
+      margin-bottom: 18vw;
+    }
+
+    #authorprofile-blue-mobile{
+      background-color: #3498DB;
+      height: 35vw;
+      /* position: absolute; */
     }
 
     #authorprofile-profile-pic-div-mobile{
       height:40vw;
       width:40vw;
       border:1vh solid white;
-      margin:0;
-      position: relative;
       margin: auto;
-      top:-15vw;
-    }
-
-    .authorprofile-numbercount-mobile{
-      color: #3498DB;
-    }
-
-    #authorprofile-details-wrap-mobile{
-      /* position: relative; */
-      /* top:30vw; */
+      position: relative;
+      top:15vw;
     }
     
-    #authorprofile-blue-mobile{
-      background-color: #3498DB;
-      height: 40vw;
+    #authorprofile-details-wrap-mobile{
+      /* padding:0px 15px; */
+      position: relative;
+      top:20vw;
+      width:max(300px,50%);
+      margin: auto;
     }
 
+    #authorprofile-details-wrap-mobile > *{
+      margin-bottom: 20px;
+    }
+
+    #authorprofile-numbercount-mobile{
+      color: #3498DB;
+    }
+    
+    #authorprofile-bio-span{
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: black;
+    }
+
+    #authorprofile-bio{
+      color:#555
+    }
 
   }
 

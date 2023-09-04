@@ -9,7 +9,7 @@ function AuthorProfile(){
                         <img className="profile-pic" src="/public/images/alexander.jpg"></img>
                     </div>
                     <div>
-                        <div id="authorprofile-numbercount">
+                        <div className="authorprofile-numbercount">
                             <div>
                                 <span>posts</span>
                                 <span>43</span>
@@ -39,16 +39,15 @@ function AuthorProfile(){
 
             <div id="authorprofile-details-mobile">
 
-                <div id="authorprofile-blue-mobile"></div>
+                <div id="authorprofile-blue-mobile">
+                    <div className="profile-pic-div" id="authorprofile-profile-pic-div-mobile">
+                        <img className="profile-pic" src="/public/images/alexander.jpg"></img>
+                    </div>
+                </div>
 
                 <div id="authorprofile-details-wrap-mobile">
-
-                <div className="profile-pic-div" id="authorprofile-profile-pic-div-mobile">
-                    <img className="profile-pic" src="/public/images/alexander.jpg"></img>
-                </div>
-                
-                    <div>
-                        <div className="authorprofile-numbercount authorprofile-numbercount-mobile">
+                   
+                        <div id="authorprofile-numbercount-mobile" className="authorprofile-numbercount ">
                             <div>
                                 <span>posts</span>
                                 <span>43</span>
@@ -60,7 +59,6 @@ function AuthorProfile(){
                             <div>
                                 <span>following</span>
                                 <span>435</span>
-                            </div>
                         </div>
                     </div>
                     <div id="authorprofile-btn-wrap">

@@ -6,6 +6,7 @@ import Signup from "./Signup.jsx";
 import Explore from "./Explore.jsx";
 import Article from "./Article.jsx";
 import AuthorProfile from "./AuthorProfile.jsx";
+import PostArticle from "./PostArticle.jsx";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
                 <Route exact path="/signup" element={<Signup/>}></Route>
                 <Route exact path="/explore" element={<Explore/>}></Route>
                 <Route exact path="/article" element={<Article/>}></Route>
+                <Route exact path="/postarticle" element={<PostArticle/>}></Route>
                 <Route exact path="/:slug" element={<CustomRoute/>}></Route>
                 <Route exact path="/authorprofile" element={<AuthorProfile/>}></Route>
 

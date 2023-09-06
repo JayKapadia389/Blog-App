@@ -24,7 +24,7 @@
   #home-bg-image-container{
     height:100vh;
     width:100%;
-    background-image: url(/public/images/bg-image.webp);
+    background-image: url(images/bg-image.webp);
     background-size:cover;
     position:fixed;
     top:0px;

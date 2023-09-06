@@ -7,6 +7,7 @@ import Explore from "./Explore.jsx";
 import Article from "./Article.jsx";
 import AuthorProfile from "./AuthorProfile.jsx";
 import PostArticle from "./PostArticle.jsx";
+import UserProfile from "./Userprofile.jsx";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
                 <Route exact path="/explore" element={<Explore/>}></Route>
                 <Route exact path="/article" element={<Article/>}></Route>
                 <Route exact path="/postarticle" element={<PostArticle/>}></Route>
+                <Route exact path="/userprofile" element={<UserProfile/>}></Route>
                 <Route exact path="/:slug" element={<CustomRoute/>}></Route>
                 <Route exact path="/authorprofile" element={<AuthorProfile/>}></Route>
 

@@ -66,22 +66,22 @@ function Home() {
               onSlideChange={() => console.log('slide change')}>
                 
         <SwiperSlide 
-        // style={{"backgroundImage" : "url(/public/images/img-1.webp)"}}
+        // style={{"backgroundImage" : "url(images/img-1.webp)"}}
         >
           {/* <img className="swiper-image" src={"../public/img-1.webp"}></img> */}
         </SwiperSlide>
         <SwiperSlide 
-        // style={{"backgroundImage" : "url(/public/images/img-2.jpg)"}}
+        // style={{"backgroundImage" : "url(images/img-2.jpg)"}}
         >
         {/* <img className="swiper-image" src={"../public/img-2.jpg"}></img> */}
         </SwiperSlide>
         <SwiperSlide 
-        // style={{"backgroundImage" : "url(/public/images/img-3.jpg)"}}
+        // style={{"backgroundImage" : "url(images/img-3.jpg)"}}
         >
         {/* <img className="swiper-image" src={"../public/img-3.jpg"}></img> */}
         </SwiperSlide>
         <SwiperSlide 
-        // style={{"backgroundImage" : "url(/public/images/img-4.jpg)"}}
+        // style={{"backgroundImage" : "url(images/img-4.jpg)"}}
         >
         {/* <img className="swiper-image" src={"../public/img-4.jpg"}></img> */}
         </SwiperSlide>
@@ -100,7 +100,7 @@ function Home() {
           <p className="home-p"> Just reading blogs can be boring. Express your thoughts and interact with other readers through comments. You can also leave a like to let the creator know about their amazing job. You can also share the blog with your friends and family.</p>
         </div>
         <div className='image'>
-           <img className="info-image" src="/public/images/comment.png"></img>
+           <img className="info-image" src="images/comment.png"></img>
         </div>
       </div>
 
@@ -110,7 +110,7 @@ function Home() {
           <p className="home-p">Ever read something so interesting that you wished that you could have more of it. Well, by following the creator you can make sure that you don’t miss any of their updates. </p>
         </div>
         <div className='image'>
-          <img className="info-image" src="/public/images/follow.png"></img>
+          <img className="info-image" src="images/follow.png"></img>
         </div>
       </div>
 
@@ -121,7 +121,7 @@ function Home() {
 you can access all the liked blogs at one place  </p>
         </div>
         <div className='image'>
-          <img className="info-image" src="/public/images/like.png"></img>
+          <img className="info-image" src="images/like.png"></img>
         </div>
       </div>
 

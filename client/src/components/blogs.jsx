@@ -24,12 +24,12 @@ function Blogs(props){
             <div id="blog-cards">
                 <div className="blog-card">
                     <div className="bc-tbnl-div">
-                        <img className="bc-tbnl" src="/public/images/tn-1.jpg"></img>
+                        <img className="bc-tbnl" src="images/tn-1.jpg"></img>
                     </div>
                     <div className="bc-description">
                         <div className="profile">
                             <div className="profile-pic-div bc-profile-pic-div">
-                                <img className="profile-pic" src="/public/images/jay.jpg"></img>
+                                <img className="profile-pic" src="images/jay.jpg"></img>
                             </div>
                             <p className="bc-author">Jay Kapadia</p>
                         </div>
@@ -41,12 +41,12 @@ function Blogs(props){
 
             <div className="blog-card">
                     <div className="bc-tbnl-div">
-                        <img className="bc-tbnl" src="/public/images/tn-2.jpg"></img>
+                        <img className="bc-tbnl" src="images/tn-2.jpg"></img>
                     </div>
                     <div className="bc-description">
                         <div className="profile">
                             <div className="profile-pic-div bc-profile-pic-div">
-                                <img className="profile-pic" src="/public/images/jay.jpg"></img>
+                                <img className="profile-pic" src="images/jay.jpg"></img>
                             </div>
                             <p className="bc-author">Jay Kapadia</p>
                         </div>
@@ -59,12 +59,12 @@ function Blogs(props){
 
             <div className="blog-card">
                     <div className="bc-tbnl-div">
-                        <img className="bc-tbnl" src="/public/images/tn-3.jpg"></img>
+                        <img className="bc-tbnl" src="images/tn-3.jpg"></img>
                     </div>
                     <div className="bc-description">
                         <div className="profile">
                             <div className="profile-pic-div bc-profile-pic-div">
-                                <img className="profile-pic" src="/public/images/jay.jpg"></img>
+                                <img className="profile-pic" src="images/jay.jpg"></img>
                             </div>
                             <p className="bc-author">Jay Kapadia</p>
                         </div>
@@ -77,12 +77,12 @@ function Blogs(props){
                 
             <div className="blog-card">
                     <div className="bc-tbnl-div">
-                        <img className="bc-tbnl" src="/public/images/tn-4.jpg"></img>
+                        <img className="bc-tbnl" src="images/tn-4.jpg"></img>
                     </div>
                     <div className="bc-description">
                         <div className="profile">
                             <div className="profile-pic-div bc-profile-pic-div">
-                                <img className="profile-pic" src="/public/images/jay.jpg"></img>
+                                <img className="profile-pic" src="images/jay.jpg"></img>
                             </div>
                             <p className="bc-author">Jay Kapadia</p>
                         </div>
@@ -94,12 +94,12 @@ function Blogs(props){
 
             <div className="blog-card">
                     <div className="bc-tbnl-div">
-                        <img className="bc-tbnl" src="/public/images/tn-5.jpg"></img>
+                        <img className="bc-tbnl" src="images/tn-5.jpg"></img>
                     </div>
                     <div className="bc-description">
                         <div className="profile">
                             <div className="profile-pic-div bc-profile-pic-div">
-                                <img className="profile-pic" src="/public/images/jay.jpg"></img>
+                                <img className="profile-pic" src="images/jay.jpg"></img>
                             </div>
                             <p className="bc-author">Jay Kapadia</p>
                         </div>
@@ -111,12 +111,12 @@ function Blogs(props){
 
                 <div className="blog-card">
                         <div className="bc-tbnl-div">
-                            <img className="bc-tbnl" src="/public/images/tn-6.jpg"></img>
+                            <img className="bc-tbnl" src="images/tn-6.jpg"></img>
                         </div>
                         <div className="bc-description">
                             <div className="profile">
                                 <div className="profile-pic-div bc-profile-pic-div">
-                                    <img className="profile-pic" src="/public/images/jay.jpg"></img>
+                                    <img className="profile-pic" src="images/jay.jpg"></img>
                                 </div>
                                 <p className="bc-author">Jay Kapadia</p>
                             </div>

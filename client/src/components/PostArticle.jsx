@@ -30,6 +30,19 @@ function PostArticle(){
                 <label htmlFor='jodit-editor'>Body</label>
                 <JoditEditor id="jodit-editor"/>
 
+                <label htmlFor='duration-input'>Length</label>
+
+                <div>
+                    <input type='number'
+                        id='duration-input'
+                        min="1" max="30"/> 
+                    <span>minutes</span>
+                </div>
+
+                <div id="publish-btn-div">
+                    <button id="publish-btn">Publish</button>       
+                </div>
+
             </form>
             
         </main>

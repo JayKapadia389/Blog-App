@@ -24,7 +24,7 @@
   #home-bg-image-container{
     height:100vh;
     width:100%;
-    background-image: url(images/bg-image.webp);
+    background-image: url(/images/bg-image.webp);
     background-size:cover;
     position:fixed;
     top:0px;
@@ -778,13 +778,12 @@
     margin:15px 0;
   }
 
-  /* author profile */
+  /* authorprofile */
 
   #authorprofile-component{
     display:flex;
     overflow: hidden;
     font-family: 'poppins';
-
   }
 
   #authorprofile-details{
@@ -869,16 +868,127 @@
     display:none;
   }
 
+  /* userprofile */
+
+  #userprofile-component{
+    padding: 10px;
+    font-family: poppins;
+
+  }
+
+  #userprofile-details{
+    height: 40vh;
+    background-color: #3498DB;
+    padding:0 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  #userprofile-details-wrap{
+    display: flex;
+  }
+
+  #userprofile-only-details{
+    /* display: flex; */
+    flex-direction:column;
+    justify-content:space-between;
+  }
+  
+  #userprofile-profile-pic-div{
+    height:220px;
+    width:220px;
+    border:10px solid white;
+    margin-right:40px;
+  }
+
+  #userprofile-name{
+    color: white;
+    font-size: 2.5rem;
+    height:25%;
+  }
+
+  #userprofile-email-wrap{
+    height:15%;
+    display: flex;
+    align-items: center;
+
+  }
+
+  #userprofile-email{
+    color:#E6E6E6;
+    font-size: 0.9rem;
+  }
+
+  #userprofile-numbercount-wrap{
+    display: flex;
+    align-items: center;
+    height: 60%;
+  }
+
+
+  #userprofile-numbercount{
+    display: flex;
+    justify-content: space-between;
+    color:white;
+    font-size: 1.5rem;
+    width:350px;
+  }
+
+  #userprofile-numbercount > *{
+    display: flex;
+    flex-direction: column;
+  }
+
+  #userprofile-numbercount span{
+    text-align:center;
+    width:100%;
+  }
+
+  #userprofile-navbar-wrap{
+    padding-left: 10%;
+    margin-bottom: 10px;
+  }
+
+  #userprofile-navbar{
+    width:390px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .userprofile-navbar-btn{
+    border:none;
+    font-family: poppins;
+    font-size: 1rem;
+    background-color: white;
+  }
+
+  #userprofile-underline-container{
+    height: 2px;
+    border-radius: 1px;
+    background-color: #c6c6c6;
+  }
+
+  #userprofile-underline{
+    height:2px;
+    border-radius: 1px;
+    background-color: var(--dark);
+    width:100px;
+    position: relative;
+    transition: 0.3s;
+  }
+
   /* Post Article */
 
   #postarticle-component{
     width:min(900px,100%);
     margin:auto;
     padding: 10px;
+    font-family: poppins;
   }
 
   #postarticle-component  label{
-    font-family: poppins;
     font-weight: 200;
     font-size: 2rem;
     margin-bottom: 5px;
@@ -922,6 +1032,28 @@
   #cover-photo-icon{
     position: relative;
     top:2px;
+  }
+
+  #duration-input{
+    width:50px;
+    height:30px;
+    margin-right: 10px;
+  }
+
+  #publish-btn-div{
+    display: flex;
+    justify-content: flex-end ;
+  }
+
+  #publish-btn{
+    height:40px;
+    width:100px;
+    font-size: 1rem;
+    font-family: 'poppins';
+    border: none;
+    border-radius: 5px;
+    background-color:#00CAF7;
+    color:white;
   }
 
   @media(max-width:1180px){

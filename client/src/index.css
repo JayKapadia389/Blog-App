@@ -3,6 +3,10 @@
     --glow : #00CAF7;
   }
 
+  body{
+    overflow-x: clip;
+  }
+
   #root{
     width:100%;
   }
@@ -1074,6 +1078,76 @@
   #userprofile-plus-icon{
     color:white;
     font-size: 2rem;
+  }
+
+  #userprofile-hamburger-menu-icon-div{
+    position: absolute;
+    top:20px;
+    right:20px;
+    width:40px;
+    height: 50px;
+    cursor : pointer;
+    z-index: 1;
+  }
+
+  .hamburger-lines{
+    background-color:white;
+    height: 3px;
+    width:35px;
+    border-radius: 1.5px;
+    position: absolute;
+  }
+
+  #ham-1-close{
+    top:15px;
+    transition: transform 0.3s;
+  }
+  #ham-2-close{
+    top:25px;
+  }
+  #ham-3-close{
+    top:35px;
+    transition: transform 0.3s;
+  }
+
+  #ham-1-open{
+    top:25px;
+    transform : rotate(45deg);
+    transition: transform 0.3s;
+    animation: whiteToGrey 0.3s linear forwards;
+  }
+  #ham-2-open{
+    top:25px;
+    display: none;
+    animation: whiteToGrey 0.3s linear forwards;
+
+  }
+  #ham-3-open{
+    top:25px;
+    transform : rotate(-45deg);
+    transition: transform 0.3s;
+    animation: whiteToGrey 0.3s linear forwards;
+
+  }
+
+  #userprofile-hamburger-menu{
+    position: absolute;
+    right:-220px;
+    top:10px;
+    height:400px;
+    width:220px;
+    background-color: white;
+    transition: transform 0.3s;
+  }
+
+  @keyframes whiteToGrey {
+    from {
+      background-color: white;
+    }
+
+    to {
+      background-color: grey;
+    }
   }
 
   @media(max-width:1180px){

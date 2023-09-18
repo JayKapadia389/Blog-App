@@ -1,12 +1,27 @@
-import {useRef, useState} from 'react';
+import {useRef, useState , useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import MyPosts from './MyPosts.jsx';
 import LikedPosts from './LikedPosts.jsx';
 import SavedPosts from './SavedPosts.jsx';
 import {BsPlusLg} from 'react-icons/bs';
-import { RxHamburgerMenu } from 'react-icons/rx';
+import axios from 'axios';
+import { be_url } from '/config';
 
 function UserProfile(){
+
+    let [data ,setData] = useState(undefined) ;
+
+    useEffect(()=>{
+        console.log("run")
+        axios.get(be_url + "/userprofile")
+             .then((res)=>{
+                setData(res.data);
+                console.log(data);
+             })
+             .catch((err)=>{
+                console.log({"userprofile error" : err})
+             })
+    }, []);
 
     let underline = useRef();
     let [page,setPage] = useState(0);
@@ -37,7 +52,8 @@ function UserProfile(){
                 <div id="userprofile-details-wrap">
 
                     <div className="profile-pic-div" id="userprofile-profile-pic-div">
-                        <img className="profile-pic" src="images/alexander.jpg"></img>
+                        <img className="profile-pic" src=""></img>
+                        {console.log("render")}
                     </div>
 
                     <div id="userprofile-only-details">
@@ -58,12 +74,12 @@ function UserProfile(){
                             </div>
 
                             <p id="userprofile-name">
-                                Jay Kapadia
+                                <span>Jay</span> <span>Kapadia</span>
                             </p>
 
                             <div id="userprofile-email-wrap">
                                 <p id="userprofile-email">
-                                    jaykapadia389@gmail.com
+                                    jaykapa
                                 </p>
                             </div>
 
@@ -71,15 +87,15 @@ function UserProfile(){
                                 <div id="userprofile-numbercount" className="userprofile-numbercount ">
                                     <div>
                                         <span>posts</span>
-                                        <span>43</span>
+                                        <span></span>
                                     </div>
                                     <div>
                                         <span>followers</span>
-                                        <span>1441</span>
+                                        <span></span>
                                     </div>
                                     <div>
                                         <span>following</span>
-                                        <span>435</span>
+                                        <span></span>
                                 </div>
                             </div>
 

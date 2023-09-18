@@ -58,13 +58,14 @@ app.post("/signup" , (req , res)=>{
     
 })
 
-app.get("/userprofile" , (req , res)=>{
+app.get("/userprofile" , async (req , res)=>{
 
-    let user = Users.find({ UserId : 1});
+     let user = await Users.find();
 
-    res.json({
-        user
-    })
+    console.log(user[0]);
+
+    res.send(user[0]);
+
 })
 
 app.listen(PORT , ()=>{

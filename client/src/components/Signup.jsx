@@ -1,20 +1,20 @@
 import {useState, useRef ,useEffect} from 'react';
 import {AiOutlineExclamationCircle} from "react-icons/ai";
+import axios from 'axios';
+import { be_url } from '/config';
 
 function Signup() {
 
-    // let [email, setEmail] = useState()
-
     let emailRegex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
     let passwordRegex = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-
     let [validEmail , setValidEmail] = useState(true);
-    
-    let [password , setPassword] = useState("");
     let [validPassword , setValidPassword] = useState(true);
-
-    // let [confirmPassword , setConfirmPassword] = useState("");
     let [validConfirmPassword , setValidConfirmPassword] = useState(true);
+    let [firstName , setFirstName] = useState("");
+    let [lastName , setLastName] = useState("");
+    let [email , setEmail] = useState("");
+    let [password , setPassword] = useState("");
+    let [confirmPassword , setConfirmPassword] = useState("");
 
     function handleEmailValidity(e){
 
@@ -28,16 +28,40 @@ function Signup() {
 
     useEffect(()=>{
 
+        console.log(password);
+
             if(password == ""){
                 setValidPassword(true);
             }
             else{
-                console.log(password)
-                console.log(passwordRegex.test(password));
                 setValidPassword( passwordRegex.test(password));
             }
         
     },[password])
+
+    useEffect(()=>{
+
+        console.log(firstName);
+    
+    },[firstName])
+    useEffect(()=>{
+
+        console.log(lastName);
+
+    },[lastName])
+
+    useEffect(()=>{
+
+        console.log(confirmPassword);
+
+    },[confirmPassword]);
+
+    useEffect(()=>{
+
+        console.log(email);
+
+    },[email]);
+
 
     function handleConfirmPassword(e){
 
@@ -46,6 +70,25 @@ function Signup() {
         }
         else{
             setValidConfirmPassword(password == e.target.value);
+        }
+    }
+
+    function handleSubmit(e){
+
+        e.preventDefault();
+
+        if(!(firstName == "" || lastName == "" || email =="" || password == "" || confirmPassword == "") && (validEmail && validPassword)){
+
+            axios.post(be_url + "/signup" , {firstName , lastName , email , password})
+                  .then((res)=>{
+                    console.log(res);
+                  })
+                  .catch((err)=>{
+                    console.log(err);
+                  })  
+        }
+        else{
+            console.log("locha")
         }
     }
 
@@ -59,14 +102,19 @@ function Signup() {
 
                 <div id="username-wrap">
                     <label htmlFor='first-name'>first name
-                    <input id="first-name" 
-                           className="auth-input" 
-                           type='text' 
-                           autoComplete='on'
-                           required></input>
+                        <input id="first-name" 
+                            className="auth-input" 
+                            type='text' 
+                            autoComplete='on'
+                            required
+                            onChange={(e)=>{ setFirstName(e.target.value); }}></input>
                     </label>
                     <label htmlFor='last-name'>last name
-                    <input id="last-name" className="auth-input" type='text' required></input>
+                        <input  id="last-name"
+                                className="auth-input" 
+                                type='text' 
+                                required
+                                onChange={(e)=>{ setLastName(e.target.value) ; }}></input>
                     </label>
                 </div>
 
@@ -75,7 +123,7 @@ function Signup() {
                        className="auth-input" 
                        type='email'
                        required
-                       onChange={handleEmailValidity}></input>
+                       onChange={(e)=> { handleEmailValidity; setEmail(e.target.value); }}></input>
                 <p className='error-box' style={{ display : validEmail ? "none" : "block"}}>
                     <span className='error-icon-span'><AiOutlineExclamationCircle/></span>
                     email is invalid or already taken 
@@ -87,7 +135,7 @@ function Signup() {
                        required
                        type='password'
                        autoComplete='off'
-                       onChange={(e)=>{setPassword(e.target.value)}}></input>
+                       onChange={(e)=>{setPassword(e.target.value); }}></input>
                 <p className='error-box' 
                    style={{ display : validPassword ? "none" : "block"}}
                    >
@@ -102,7 +150,7 @@ function Signup() {
                        required
                        type="password"
                        autoComplete='off'
-                       onChange={handleConfirmPassword}></input>
+                       onChange={(e)=> {handleConfirmPassword(e) ; setConfirmPassword(e.target.value) ; }}></input>
 
                 <p className='error-box' 
                    style={{ display : validConfirmPassword ? "none" : "block"}}
@@ -111,7 +159,9 @@ function Signup() {
                     should match the above field<br/>
                 </p>
 
-                <button id="signup-btn">Create account</button>
+                <button type="submit" 
+                        id="signup-btn"
+                        onClick={handleSubmit}>Create account</button>
 
                 <div className='or-wrap'>
                     <div className='line'></div>

@@ -1,6 +1,7 @@
 require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const app = express();
 const PORT = 3000;
 const mongoUri = process.env.MONGO_URI;
@@ -55,6 +56,8 @@ const userSchema = mongoose.Schema({
 const Users = mongoose.model("Users" , userSchema);
 
 app.post("/signup" , (req , res)=>{
+
+    res.send("signup successful");
     
 })
 

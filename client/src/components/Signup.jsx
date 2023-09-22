@@ -12,18 +12,25 @@ function Signup() {
     let [validConfirmPassword , setValidConfirmPassword] = useState(true);
     let [firstName , setFirstName] = useState("");
     let [lastName , setLastName] = useState("");
-    let [email , setEmail] = useState("");
+    let [emailId , setEmailId] = useState("");
     let [password , setPassword] = useState("");
+    let [emailTaken , setEmailTaken] = useState(false);
     let [confirmPassword , setConfirmPassword] = useState("");
 
-    function handleEmailValidity(e){
+    function handleEmailValidity(n,e){
 
-        if(e.target.value == ""){
-            setValidEmail(true);
+        if(n==1){
+            if(e.target.value == ""){
+                setValidEmail(true);
+            }
+            else{
+                setValidEmail( emailRegex.test(e.target.value));
+            }
         }
         else{
-            setValidEmail( emailRegex.test(e.target.value));
+            setValidEmail(false);
         }
+
     }
 
     useEffect(()=>{
@@ -39,30 +46,6 @@ function Signup() {
         
     },[password])
 
-    useEffect(()=>{
-
-        console.log(firstName);
-    
-    },[firstName])
-    useEffect(()=>{
-
-        console.log(lastName);
-
-    },[lastName])
-
-    useEffect(()=>{
-
-        console.log(confirmPassword);
-
-    },[confirmPassword]);
-
-    useEffect(()=>{
-
-        console.log(email);
-
-    },[email]);
-
-
     function handleConfirmPassword(e){
 
         if(e.target.value == ""){
@@ -77,11 +60,16 @@ function Signup() {
 
         e.preventDefault();
 
-        if(!(firstName == "" || lastName == "" || email =="" || password == "" || confirmPassword == "") && (validEmail && validPassword)){
+        if(!(firstName == "" || lastName == "" || emailId =="" || password == "" || confirmPassword == "") && (validEmail && validPassword)){
 
-            axios.post(be_url + "/signup" , {firstName , lastName , email , password})
+            axios.post(be_url + "/signup" , {firstName , lastName , emailId , password})
                   .then((res)=>{
-                    console.log(res);
+
+                    if(res.data == "taken"){
+                        setEmailTaken(true);
+                        handleEmailValidity(2)
+                    }
+                    console.log("taken")
                   })
                   .catch((err)=>{
                     console.log(err);
@@ -123,7 +111,7 @@ function Signup() {
                        className="auth-input" 
                        type='email'
                        required
-                       onChange={(e)=> { handleEmailValidity; setEmail(e.target.value); }}></input>
+                       onChange={(e)=> { handleEmailValidity(1,e); setEmailId(e.target.value); }}></input>
                 <p className='error-box' style={{ display : validEmail ? "none" : "block"}}>
                     <span className='error-icon-span'><AiOutlineExclamationCircle/></span>
                     email is invalid or already taken 

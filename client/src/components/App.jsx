@@ -8,10 +8,12 @@ import Article from "./Article.jsx";
 import AuthorProfile from "./AuthorProfile.jsx";
 import PostArticle from "./PostArticle.jsx";
 import UserProfile from "./Userprofile.jsx";
+import UserState from '../contexts/userState';
 
 function App() {
 
     return(
+    <UserState>
         <Router>
             <Routes>
                 <Route exact path="/" element={<Home/>}></Route>
@@ -23,9 +25,9 @@ function App() {
                 <Route exact path="/userprofile" element={<UserProfile/>}></Route>
                 <Route exact path="/:slug" element={<CustomRoute/>}></Route>
                 <Route exact path="/authorprofile" element={<AuthorProfile/>}></Route>
-
             </Routes>
         </Router>
+    </UserState>
     )
 }
 

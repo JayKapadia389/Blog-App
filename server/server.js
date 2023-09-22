@@ -21,13 +21,13 @@ mongoose.connect(mongoUri , {
 }).then(console.log("connected to database")).catch((err)=>{ console.log(err)});
 
 const commentSchema = mongoose.Schema({
-    UserId : Number,
+    userId : Number,
     date : Date,
     comment : String
 });
 
 const blogSchema = mongoose.Schema({
-    UserId : Number,
+    userId : Number,
     date : Date,
     coverImage : String ,
     title :String,
@@ -40,8 +40,8 @@ const blogSchema = mongoose.Schema({
 })
 
 const userSchema = mongoose.Schema({
-    UserId : Number,
-    firstName:String,
+    userId : Number,
+    firstName:String ,
     lastName:String,
     emailId:String,
     password:String,
@@ -55,9 +55,34 @@ const userSchema = mongoose.Schema({
 
 const Users = mongoose.model("Users" , userSchema);
 
-app.post("/signup" , (req , res)=>{
+app.post("/signup" , async (req , res)=>{
 
-    res.send("signup successful");
+    let {firstName , lastName , emailId , password } = req.body ;
+
+    let user = await Users.findOne({emailId});
+
+    if(user){
+
+        res.send("taken");
+
+        return ;
+    }
+
+    // userID banavani che
+
+    Users.create({
+        // UserId
+        firstName,
+        lastName,
+        emailId,    
+        password
+    })
+
+    let token = jwt.sign( {} ,process.env.ACCESS_TOKEN_SECRET  );
+
+    res.cookie("authentication token" , token ,{ httpOnly : true , sameSite : "none" , secure : true})
+
+    console.log("sent")
     
 })
 

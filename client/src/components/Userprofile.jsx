@@ -7,6 +7,7 @@ import {BsPlusLg} from 'react-icons/bs';
 import axios from 'axios';
 import { be_url } from '/config';
 import { userContext } from '../contexts/userContext';
+
 function UserProfile(){
 
     let [data ,setData] = useState(undefined) ;
@@ -46,6 +47,13 @@ function UserProfile(){
 
     }
 
+    function testReq(){
+
+        axios.get(be_url + "/test").then(res => console.log(res.data))
+                                    .catch(err=>console.log(err))
+
+    }
+
     if(data){
 
         return(
@@ -54,6 +62,10 @@ function UserProfile(){
                 <div id="userprofile-details">
 
                     {a.userState.name}
+
+                    <button onClick={testReq}>
+                        testbutn
+                    </button>
 
                     <button onClick={()=>{a.setUserState(a.userState.name == "robert" ? {name : "hook"} : {name : "robert"})}}>change</button>
     

@@ -78,12 +78,34 @@ app.post("/signup" , async (req , res)=>{
         password
     })
 
-    let token = jwt.sign( {} ,process.env.ACCESS_TOKEN_SECRET  );
+    let token = jwt.sign( {} ,process.env.ACCESS_TOKEN_SECRET  ); // payload
 
     res.cookie("authentication token" , token ,{ httpOnly : true , sameSite : "none" , secure : true})
 
     console.log("sent")
     
+})
+
+app.post("/login" , async (req , res)=>{
+
+    let { emailId , password } = req.body ;
+
+    let user = await Users.findOne({emailId});
+
+    console.log(user)
+
+    if(!user || (password != user.password)){
+        res.json({ code : 1 , message : "emailId or password is incorrect"});
+    }
+    else{
+
+        let token = jwt.sign( {} , process.env.ACCESS_TOKEN_SECRET);
+
+        res.cookie("authentication token" , token ,{ httpOnly : true , sameSite : "none" , secure : true})
+        res.json({ code : 2 });
+
+    }
+
 })
 
 app.get("/userprofile" , async (req , res)=>{
@@ -94,6 +116,13 @@ app.get("/userprofile" , async (req , res)=>{
 
     res.send(user[0]);
 
+})
+
+app.get("/test" , (req,res)=>{
+
+    res.send("test")
+
+    console.log(req.cookies);
 })
 
 app.listen(PORT , ()=>{

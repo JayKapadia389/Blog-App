@@ -62,7 +62,7 @@ function Signup() {
 
         if(!(firstName == "" || lastName == "" || emailId =="" || password == "" || confirmPassword == "") && (validEmail && validPassword)){
 
-            axios.post(be_url + "/signup" , {firstName , lastName , emailId , password})
+            axios.post(be_url + "/signup" , {firstName , lastName , emailId , password} , { withCredentials : true})
                   .then((res)=>{
 
                     if(res.data == "taken"){

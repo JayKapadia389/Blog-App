@@ -1,4 +1,5 @@
 require('dotenv').config();
+const cookieParser = require('cookie-parser')
 const cors = require('cors');
 const express = require('express');
 const jwt = require('jsonwebtoken');
@@ -15,6 +16,7 @@ const corsOptions = {
 app.use(express.urlencoded({extended : true}));
 app.use(express.json());
 app.use(cors(corsOptions));
+app.use(cookieParser());
 
 mongoose.connect(mongoUri , {
     useNewUrlParser : true , useUnifiedTopology : true
@@ -55,11 +57,41 @@ const userSchema = mongoose.Schema({
 
 const Users = mongoose.model("Users" , userSchema);
 
+function AuthenticateToken(req,res,next){
+
+    let token = req.cookies.authToken ; 
+
+    if(!token){
+        res.sendStatus(401);
+        return;
+    }
+    else{
+
+        try{
+            let payload = jwt.verify(token , process.env.ACCESS_TOKEN_SECRET);
+
+            req.payload = payload;
+
+            next();
+
+            return;
+
+        }
+        catch{
+            res.sendStatus(498);
+
+            return;
+        }
+    }
+
+}
+
 app.post("/signup" , async (req , res)=>{
 
     let {firstName , lastName , emailId , password } = req.body ;
 
     let user = await Users.findOne({emailId});
+    let payload = { ok : "tested"};
 
     if(user){
 
@@ -78,12 +110,11 @@ app.post("/signup" , async (req , res)=>{
         password
     })
 
-    let token = jwt.sign( {} ,process.env.ACCESS_TOKEN_SECRET  ); // payload
+    let token = jwt.sign( payload ,process.env.ACCESS_TOKEN_SECRET  ); // payload
 
-    res.cookie("authentication token" , token ,{ httpOnly : true , sameSite : "none" , secure : true})
+    res.cookie("authToken" , token ,{ httpOnly : true , sameSite : "none" , secure : true})
 
-    console.log("sent")
-    
+    res.json({code : 2});    
 })
 
 app.post("/login" , async (req , res)=>{
@@ -91,6 +122,7 @@ app.post("/login" , async (req , res)=>{
     let { emailId , password } = req.body ;
 
     let user = await Users.findOne({emailId});
+    let payload = { ok : "tested"};
 
     console.log(user)
 
@@ -99,9 +131,9 @@ app.post("/login" , async (req , res)=>{
     }
     else{
 
-        let token = jwt.sign( {} , process.env.ACCESS_TOKEN_SECRET);
+        let token = jwt.sign( payload , process.env.ACCESS_TOKEN_SECRET);
 
-        res.cookie("authentication token" , token ,{ httpOnly : true , sameSite : "none" , secure : true})
+        res.cookie("authToken" , token ,{ httpOnly : true , sameSite : "none" , secure : true})
         res.json({ code : 2 });
 
     }
@@ -118,7 +150,7 @@ app.get("/userprofile" , async (req , res)=>{
 
 })
 
-app.get("/test" , (req,res)=>{
+app.get("/test" , AuthenticateToken , (req,res)=>{
 
     res.send("test")
 

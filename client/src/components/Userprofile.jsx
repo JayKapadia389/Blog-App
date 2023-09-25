@@ -49,7 +49,7 @@ function UserProfile(){
 
     function testReq(){
 
-        axios.get(be_url + "/test").then(res => console.log(res.data))
+        axios.get(be_url + "/test").then(res => console.log(res.status))
                                     .catch(err=>console.log(err))
 
     }

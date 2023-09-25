@@ -30,7 +30,6 @@ function Login() {
                     }
                     else{
                         navigate("/explore");
-                        console.log("navigate")
                     }
                   }) 
                   .catch((err)=>{

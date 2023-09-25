@@ -2,6 +2,7 @@ import {useState, useRef ,useEffect} from 'react';
 import {AiOutlineExclamationCircle} from "react-icons/ai";
 import axios from 'axios';
 import { be_url } from '/config';
+import { useNavigate} from 'react-router-dom';
 
 function Signup() {
 
@@ -16,6 +17,8 @@ function Signup() {
     let [password , setPassword] = useState("");
     let [emailTaken , setEmailTaken] = useState(false);
     let [confirmPassword , setConfirmPassword] = useState("");
+
+    let navigate = useNavigate();
 
     function handleEmailValidity(n,e){
 
@@ -68,6 +71,9 @@ function Signup() {
                     if(res.data == "taken"){
                         setEmailTaken(true);
                         handleEmailValidity(2)
+                    }
+                    else if( res.data.code == 2){
+                        navigate('/explore');
                     }
                     console.log("taken")
                   })

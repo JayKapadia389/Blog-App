@@ -348,7 +348,7 @@
     font-family: 'Poppins';
     font-size: 12px;
     padding: 5px;
-    display: none;
+    display: block;
   }
 
   .error-icon-span{

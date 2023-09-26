@@ -3,12 +3,37 @@ import { AiFillHeart } from "react-icons/ai"
 import { PiShareNetworkBold } from "react-icons/pi"
 import { BsBookmark } from "react-icons/bs"
 import { BsBookmarkFill } from "react-icons/bs"
-import {useState} from "react";
+import { useState , useEffect } from "react"; //snippet
+import axios from 'axios'; //snippet
+import { be_url } from '/config'; //snippet
+import { useNavigate } from "react-router-dom"; //snippet
 
 function Article(props){
-
+    
     let [liked,setLiked] = useState(false); 
     let [saved,setSaved] = useState(false); 
+
+    let navigate = useNavigate(); //snippet
+
+    useEffect(()=>{ //snippet
+
+        axios.get(be_url + "/article" , {withCredentials : true})
+
+        .then((res)=>{
+
+            console.log(res.data);
+
+            })
+
+        .catch((err)=>{
+            console.log(err);
+
+            if(err.response.status == 401 || err.response.status == 498){
+                navigate("/login");
+            }
+        }) // path
+
+    },[])
 
     return(
         <main id="article-component">

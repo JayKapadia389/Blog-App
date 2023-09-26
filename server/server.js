@@ -8,15 +8,15 @@ const PORT = 3000;
 const mongoUri = process.env.MONGO_URI;
 const mongoose = require('mongoose');
 const corsOptions = {
-    origin : "http://localhost:5173",
+    origin : "http://localhost:5173",     
     credentials:true,
     optionSuccessStatus:200 
 }
 
+app.use(cookieParser());
 app.use(express.urlencoded({extended : true}));
 app.use(express.json());
 app.use(cors(corsOptions));
-app.use(cookieParser());
 
 mongoose.connect(mongoUri , {
     useNewUrlParser : true , useUnifiedTopology : true
@@ -59,7 +59,9 @@ const Users = mongoose.model("Users" , userSchema);
 
 function AuthenticateToken(req,res,next){
 
-    let token = req.cookies.authToken ; 
+    console.log(req.headers);
+
+    let token = req.cookies.authToken ;
 
     if(!token){
         res.sendStatus(401);
@@ -124,10 +126,10 @@ app.post("/login" , async (req , res)=>{
     let user = await Users.findOne({emailId});
     let payload = { ok : "tested"};
 
-    console.log(user)
+    console.log("user>> ",user);
 
     if(!user || (password != user.password)){
-        res.json({ code : 1 , message : "emailId or password is incorrect"});
+        res.json({ code : 1 , message : "email or password is incorrect"});
     }
     else{
 
@@ -150,9 +152,18 @@ app.get("/userprofile" , async (req , res)=>{
 
 })
 
-app.get("/test" , AuthenticateToken , (req,res)=>{
+app.get("/article", AuthenticateToken , (req , res)=>{
 
-    res.send("test")
+    res.send("done");
+})
+
+app.get("/test" ,
+//  AuthenticateToken ,
+ (req,res)=>{
+
+    console.log(req.cookies);
+
+    res.send("test");
 
     console.log(req.cookies);
 })

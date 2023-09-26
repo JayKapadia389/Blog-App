@@ -31,7 +31,6 @@ function UserProfile(){
     let [ham, setHam] = useState(false);
     let navigate = useNavigate();
 
-
     function changeSection(n){
 
         if(n== 0)
@@ -49,7 +48,7 @@ function UserProfile(){
 
     function testReq(){
 
-        axios.get(be_url + "/test").then(res => console.log(res.status))
+        axios.get(be_url + "/test" , {withCredentials: true}).then(res => console.log(res.status))
                                     .catch(err=>console.log(err))
 
     }
@@ -64,7 +63,7 @@ function UserProfile(){
                     {a.userState.name}
 
                     <button onClick={testReq}>
-                        testbutn
+                        testbutn    
                     </button>
 
                     <button onClick={()=>{a.setUserState(a.userState.name == "robert" ? {name : "hook"} : {name : "robert"})}}>change</button>

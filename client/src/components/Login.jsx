@@ -1,12 +1,14 @@
 import { useState ,useEffect} from "react";
 import { useNavigate } from 'react-router-dom';
 import { be_url } from '/config';
+import {AiOutlineExclamationCircle} from "react-icons/ai";
 import axios from 'axios';
 
 function Login() {
 
     let [emailId,setEmailId] = useState("");
     let [password,setPassword] = useState("");  
+    let [ message , setMessage] = useState("");
     let navigate = useNavigate();
 
     // useEffect(()=>{
@@ -20,13 +22,16 @@ function Login() {
         e.preventDefault();
 
         if(emailId == "" || password == ""){
-            //error => please enter the fields
+
+            setMessage("please fill the fields");
         }
         else{
             axios.post(be_url + "/login" , { emailId , password} , { withCredentials : true})
                   .then((res)=>{
                     if(res.data.code == 1){
-                        console.log(res.data.message)
+
+                        setMessage(res.data.message);
+
                     }
                     else{
                         navigate("/explore");
@@ -46,6 +51,11 @@ function Login() {
             <form className="auth-form">
 
                 <h2 className='blogspot auth-blogspot' >blogspot</h2>
+
+                <p className='error-box' style={{ display : (message == "") ? "none" : "block"}}>
+                    <span className='error-icon-span'><AiOutlineExclamationCircle/></span>
+                    {message}
+                </p>
 
                 <label htmlFor='email'>email-Id</label>
                 <input id="email"

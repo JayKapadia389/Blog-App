@@ -1,10 +1,36 @@
 import JoditEditor  from 'jodit-react';
 import {HiPhoto} from "react-icons/hi2";
 import {useRef} from "react";
-
+import { useState , useEffect } from "react"; 
+import axios from 'axios'; 
+import { be_url } from '/config'; 
+import { useNavigate } from "react-router-dom"; 
+    
 function PostArticle(){
 
     let cover = useRef();
+
+    let navigate = useNavigate(); 
+    
+        useEffect(()=>{ 
+    
+            axios.get(be_url + "/postarticle" , {withCredentials : true})
+    
+            .then((res)=>{
+    
+                console.log(res.data);
+    
+                })
+    
+            .catch((err)=>{
+                console.log(err);
+    
+                if(err.response.status == 401 || err.response.status == 498){
+                    navigate("/login");
+                }
+            }) // path
+    
+        },[])
 
     return(
         <main id="postarticle-component">

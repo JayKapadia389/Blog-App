@@ -1,9 +1,11 @@
 import {useEffect} from 'react';
 import { AiOutlineSearch } from "react-icons/ai";
+import { useNavigate } from 'react-router-dom';
 
 function ExploreHeader(){
     
     let previousScroll = 0;
+    let navigate = useNavigate();
     
     useEffect(()=>{
           let exploreHeader = document.getElementById("explore-header");
@@ -41,7 +43,7 @@ function ExploreHeader(){
 
             <div className='empty'></div>
 
-            <div id="header-profile-btn">
+            <div id="header-profile-btn" onClick={()=>{ navigate("/userprofile"); console.log("userprofile")}}>
               <img className="profile-pic" src='images/jay.jpg'></img>
             </div>
         </header>

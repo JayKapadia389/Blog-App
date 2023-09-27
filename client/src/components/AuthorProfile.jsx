@@ -1,5 +1,32 @@
-import {BsFillEnvelopeFill} from "react-icons/bs"
+import {BsFillEnvelopeFill} from "react-icons/bs";
+import { useState , useEffect } from "react"; 
+import axios from 'axios'; 
+import { be_url } from '/config'; 
+import { useNavigate } from "react-router-dom"; 
+
 function AuthorProfile(){
+    
+    let navigate = useNavigate(); 
+    
+        useEffect(()=>{ 
+    
+            axios.get(be_url + "/authorprofile" , {withCredentials : true})
+    
+            .then((res)=>{
+    
+                console.log(res.data);
+    
+                })
+    
+            .catch((err)=>{
+                console.log(err);
+    
+                if(err.response.status == 401 || err.response.status == 498){
+                    navigate("/login");
+                }
+            }) // path
+    
+        },[])
 
     return(
         <main id="authorprofile-component">

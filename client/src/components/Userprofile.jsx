@@ -1,35 +1,43 @@
 import {useRef, useState , useEffect , useContext} from 'react';
-import { useNavigate } from 'react-router-dom';
 import MyPosts from './MyPosts.jsx';
 import LikedPosts from './LikedPosts.jsx';
 import SavedPosts from './SavedPosts.jsx';
 import {BsPlusLg} from 'react-icons/bs';
-import axios from 'axios';
-import { be_url } from '/config';
 import { userContext } from '../contexts/userContext';
+import axios from 'axios'; 
+import { be_url } from '/config'; 
+import { useNavigate } from "react-router-dom"; 
 
 function UserProfile(){
-
+    
     let [data ,setData] = useState(undefined) ;
-
+    
     let a = useContext(userContext);
-
-    useEffect(()=>{
-        console.log("run")
-        axios.get(be_url + "/userprofile")
-             .then((res)=>{
+    let navigate = useNavigate(); 
+    
+        useEffect(()=>{ 
+    
+            axios.get(be_url + "/userprofile" , {withCredentials : true})
+    
+            .then((res)=>{
+    
                 setData(res.data);
-                console.log(data);
-             })
-             .catch((err)=>{
-                console.log({"userprofile error" : err})
-             })
-    }, []);
+    
+                })
+    
+            .catch((err)=>{
+                console.log(err);
+    
+                if(err.response.status == 401 || err.response.status == 498){
+                    navigate("/login");
+                }
+            }) // path
+    
+        },[])
 
     let underline = useRef();
     let [page,setPage] = useState(0);
     let [ham, setHam] = useState(false);
-    let navigate = useNavigate();
 
     function changeSection(n){
 
@@ -46,13 +54,6 @@ function UserProfile(){
 
     }
 
-    function testReq(){
-
-        axios.get(be_url + "/test" , {withCredentials: true}).then(res => console.log(res.status))
-                                    .catch(err=>console.log(err))
-
-    }
-
     if(data){
 
         return(
@@ -60,13 +61,9 @@ function UserProfile(){
     
                 <div id="userprofile-details">
 
-                    {a.userState.name}
+                    {/* {a.userState.name} */}
 
-                    <button onClick={testReq}>
-                        testbutn    
-                    </button>
-
-                    <button onClick={()=>{a.setUserState(a.userState.name == "robert" ? {name : "hook"} : {name : "robert"})}}>change</button>
+                    {/* <button onClick={()=>{a.setUserState(a.userState.name == "robert" ? {name : "hook"} : {name : "robert"})}}>change</button> */}
     
                     <div id="userprofile-details-wrap">
     

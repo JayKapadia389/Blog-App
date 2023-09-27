@@ -73,6 +73,7 @@ function AuthenticateToken(req,res,next){
             let payload = jwt.verify(token , process.env.ACCESS_TOKEN_SECRET);
 
             req.payload = payload;
+            console.log(req.payload);
 
             next();
 
@@ -93,7 +94,7 @@ app.post("/signup" , async (req , res)=>{
     let {firstName , lastName , emailId , password } = req.body ;
 
     let user = await Users.findOne({emailId});
-    let payload = { ok : "tested"};
+    let payload = { emailId };
 
     if(user){
 
@@ -102,6 +103,9 @@ app.post("/signup" , async (req , res)=>{
         return ;
     }
 
+    firstName = firstName.slice(0,1).toUpperCase() + firstName.slice(1);
+    lastName = lastName.slice(0,1).toUpperCase() + lastName.slice(1);
+
     // userID banavani che
 
     Users.create({
@@ -109,7 +113,13 @@ app.post("/signup" , async (req , res)=>{
         firstName,
         lastName,
         emailId,    
-        password
+        password,
+        bio:"",
+        profilePic: "https://res.cloudinary.com/dgqba5trl/image/upload/v1695840031/blank-profile-picture-973460_1280_reoqj4.webp",
+        followerCount: 0,
+        followingCount: 0 ,
+        postsCount:0,
+        posts:[]
     })
 
     let token = jwt.sign( payload ,process.env.ACCESS_TOKEN_SECRET  ); // payload
@@ -124,7 +134,7 @@ app.post("/login" , async (req , res)=>{
     let { emailId , password } = req.body ;
 
     let user = await Users.findOne({emailId});
-    let payload = { ok : "tested"};
+    let payload = { emailId };
 
     console.log("user>> ",user);
 
@@ -142,30 +152,39 @@ app.post("/login" , async (req , res)=>{
 
 })
 
-app.get("/userprofile" , async (req , res)=>{
+app.get("/explore" ,AuthenticateToken, async (req , res)=>{
 
-     let user = await Users.find();
+   res.send("done");
 
-    console.log(user[0]);
+})
 
-    res.send(user[0]);
+app.get("/postarticle" ,AuthenticateToken, async (req , res)=>{
+
+    res.send("done");
+ 
+ })
+
+app.get("/userprofile" ,AuthenticateToken, async (req , res)=>{
+    
+    let emailId = req.payload.emailId ;
+
+     let user = await Users.findOne({emailId});
+
+    console.log(user);
+
+    res.send(user);
+
+})
+
+app.get("/authorprofile" ,AuthenticateToken, async (req , res)=>{
+
+   res.send("done");
 
 })
 
 app.get("/article", AuthenticateToken , (req , res)=>{
 
     res.send("done");
-})
-
-app.get("/test" ,
-//  AuthenticateToken ,
- (req,res)=>{
-
-    console.log(req.cookies);
-
-    res.send("test");
-
-    console.log(req.cookies);
 })
 
 app.listen(PORT , ()=>{

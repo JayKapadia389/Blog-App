@@ -1,13 +1,38 @@
-import { useState } from "react";
 import {IoClose} from "react-icons/io5"
 import ExploreHeader from "./ExploreHeader.jsx";
 import Blogs from "./blogs.jsx";
 import People from "./people.jsx";
+import { useState , useEffect } from "react"; 
+import axios from 'axios'; 
+import { be_url } from '/config'; 
+import { useNavigate } from "react-router-dom"; 
 
 function Explore(){
 
     let [filter , setFilter] = useState(false);
     let [blogsPeopleToggle , setBlogsPeopleToggle] = useState("blogs");
+
+    let navigate = useNavigate(); 
+
+    useEffect(()=>{ 
+
+        axios.get(be_url + "/explore" , {withCredentials : true})
+
+        .then((res)=>{
+
+            console.log(res.data);
+
+            })
+
+        .catch((err)=>{
+            console.log(err);
+
+            if(err.response.status == 401 || err.response.status == 498){
+                navigate("/login");
+            }
+        }) // path
+
+    },[])
 
     return(
         <div id="explore-wrap">
@@ -40,7 +65,7 @@ function Explore(){
              </main>       
 
             </div>
-                    <div id="filter-dialogbox-wrap" style={{"display" : filter ?  "grid" :  "none"}}>
+            <div id="filter-dialogbox-wrap" style={{"display" : filter ?  "grid" :  "none"}}>
             <div id="filter-dialogbox">
                 <IoClose className="close-btn" onClick={()=>{ setFilter(!filter) }}></IoClose>
 

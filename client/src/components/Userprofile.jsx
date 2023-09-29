@@ -74,18 +74,19 @@ function UserProfile(){
     
                         <div id="userprofile-only-details">
     
-                                <div id='userprofile-hamburger-menu-icon-div'
-                                     onClick={()=>{setHam(!ham) ;console.log(ham)}}>
-                                    <div id={ ham ? "ham-1-open" : "ham-1-close"} 
-                                         className='hamburger-lines'></div>
-                                    <div id={ ham ? "ham-2-open" : "ham-2-close"} 
-                                         className='hamburger-lines'></div>
-                                    <div id={ ham ? "ham-3-open" : "ham-3-close"} 
-                                         className='hamburger-lines'></div>
-                                </div>
-    
                                 <div id='userprofile-hamburger-menu' 
-                                     style={ham ? {"transform" : "translateX(-230px)"} : {"transform" : "translate(0px)"}}   >
+                                     style={ham ? {"transform" : "translateX(-200px)"} : {"transform" : "translate(0px)"}}   >
+
+                                        <ul id='userprofile-hamburger-options-list'>
+
+                                            <li className='userprofile-hamburger-options'>
+                                                <button onClick={()=>{navigate("/editprofile")}}>Edit profile</button>
+                                            </li>
+                                            <li className='userprofile-hamburger-options'>
+                                                <button>Log out</button>
+                                            </li>
+
+                                        </ul>
     
                                 </div>
     
@@ -119,6 +120,20 @@ function UserProfile(){
     
                     </div>
     
+                </div>
+
+                <div id="userprofile-handles-wrap">
+
+                    <div id='userprofile-hamburger-menu-icon-div'
+                         onClick={()=>{setHam(!ham) ;console.log(ham)}}>
+                        <div id={ ham ? "ham-1-open" : "ham-1-close"} 
+                             className='hamburger-lines'></div>
+                        <div id={ ham ? "ham-2-open" : "ham-2-close"} 
+                             className='hamburger-lines'></div>
+                        <div id={ ham ? "ham-3-open" : "ham-3-close"} 
+                             className='hamburger-lines'></div>
+                    </div>
+
                 </div>
     
                 </div>

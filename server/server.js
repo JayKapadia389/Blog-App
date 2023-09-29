@@ -115,7 +115,7 @@ app.post("/signup" , async (req , res)=>{
         emailId,    
         password,
         bio:"",
-        profilePic: "https://res.cloudinary.com/dgqba5trl/image/upload/v1695840031/blank-profile-picture-973460_1280_reoqj4.webp",
+        profilePic: "https://res.cloudinary.com/dgqba5trl/image/upload/v1696008033/tiktok-no-profile-picture_n2pgwo.avif",
         followerCount: 0,
         followingCount: 0 ,
         postsCount:0,
@@ -168,11 +168,16 @@ app.get("/userprofile" ,AuthenticateToken, async (req , res)=>{
     
     let emailId = req.payload.emailId ;
 
-     let user = await Users.findOne({emailId});
+    let user = await Users.findOne({emailId});
 
     console.log(user);
 
     res.send(user);
+
+})
+
+app.get("/editprofile" , AuthenticateToken , (req , res)=>{
+   res.send("editprofile");
 
 })
 

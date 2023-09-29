@@ -876,7 +876,7 @@
   /* userprofile */
 
   #userprofile-component{
-    padding: 10px;
+    /* padding: 10px; */
     font-family: poppins;
 
   }
@@ -889,6 +889,7 @@
     flex-direction: column;
     justify-content: center;
     margin-bottom: 20px;
+    position: relative;
   }
 
   #userprofile-details-wrap{
@@ -1081,67 +1082,104 @@
     font-size: 2rem;
   }
 
+  #userprofile-handles-wrap{
+    width:60px;
+    height:100%;
+    background-color: red;
+    position:absolute;
+    right:0;
+    margin:auto;
+    background-color: white;
+    border-left: 1px solid rgb(210, 205, 205)
+  }
+
   #userprofile-hamburger-menu-icon-div{
-    position: absolute;
-    top:20px;
-    right:20px;
-    width:40px;
-    height: 50px;
+    /* position: relative; */
+    width:35px;
+    height: 25px;
     cursor : pointer;
     z-index: 1;
-  }
-
-  .hamburger-lines{
-    background-color:white;
-    height: 3px;
-    width:35px;
-    border-radius: 1.5px;
-    position: absolute;
-  }
-
-  #ham-1-close{
-    top:15px;
-    transition: transform 0.3s;
-  }
-  #ham-2-close{
-    top:25px;
-  }
-  #ham-3-close{
-    top:35px;
-    transition: transform 0.3s;
-  }
-
-  #ham-1-open{
-    top:25px;
-    transform : rotate(45deg);
-    transition: transform 0.3s;
-    animation: whiteToGrey 0.3s linear forwards;
-  }
-  #ham-2-open{
-    top:25px;
-    display: none;
-    animation: whiteToGrey 0.3s linear forwards;
-
-  }
-  #ham-3-open{
-    top:25px;
-    transform : rotate(-45deg);
-    transition: transform 0.3s;
-    animation: whiteToGrey 0.3s linear forwards;
-
+    margin:10px auto 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between
+    
   }
 
   #userprofile-hamburger-menu{
     position: absolute;
-    right:-220px;
-    top:10px;
-    height:400px;
-    width:220px;
+    top:0px;
+    right:-140px;
+    height:40vh;
+    width:200px;
     background-color: white;
+    transition: transform 0.3s;
+    padding:25px;
+    /* box-shadow: grey 0px 0px 10px 2px; */
+
+  }
+
+  #userprofile-hamburger-options-list{
+    list-style: none;
+  }
+
+  .userprofile-hamburger-options{
+    height:40px;
+  }
+
+  .userprofile-hamburger-options > button{
+    width:100%;
+    height:100%;
+    font-family: poppins;
+    font-size: 1rem;
+    background-color: white;
+    border:none;
+  }
+
+  .userprofile-hamburger-options > button:hover{
+    font-size: 1.1rem;
+    transition: 0.3s;
+    color: grey;
+  }
+
+
+  .hamburger-lines{
+    background-color:var(--dark);
+    height: 3px;
+    width:100%;
+    border-radius: 1.5px;
+    /* position: absolute; */
+  }
+
+  #ham-1-close{
+    transition: transform 0.3s;
+  }
+  #ham-2-close{
+  }
+  #ham-3-close{
     transition: transform 0.3s;
   }
 
-  @keyframes whiteToGrey {
+  #ham-1-open{
+    transform : translateY(11px) rotate(45deg);
+    transition: transform 0.3s;
+    /* animation: whiteToGrey 0.3s linear forwards; */
+  }
+  #ham-2-open{
+    display: none;
+    /* animation: whiteToGrey 0.3s linear forwards; */
+
+  }
+  #ham-3-open{
+    transform : translateY(-11px) rotate(-45deg);
+    transition: transform 0.3s;
+    /* animation: whiteToGrey 0.3s linear forwards; */
+
+  }
+
+  
+
+  /* @keyframes whiteToGrey {
     from {
       background-color: white;
     }
@@ -1149,7 +1187,7 @@
     to {
       background-color: grey;
     }
-  }
+  } */
 
   @media(max-width:1180px){
 

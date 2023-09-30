@@ -1177,7 +1177,82 @@
 
   }
 
-  
+  #editprofile-component{
+    height:100vh;
+    width:100%;
+    /* background-color: red; */
+    display: grid;
+    place-items: center;
+  }
+
+  #editprofile-form{
+    color:var(--dark);
+    font-family: poppins;
+    font-size: 0.8rem;
+    background-color: white;
+    width:500px;
+    padding:50px;
+    border-radius:20px;
+    box-shadow: grey 0px 0px 10px 0px;
+  }
+
+  #editprofile-image-div{
+    height:120px;
+    width:120px;
+    border-radius:50%;
+    background-color: grey;
+    margin:0px auto 10px;
+  }
+
+  #editprofile-form > input{
+    height:35px;
+    width: 100%;
+    border:none;
+    background-color: #E6E6E6;
+    border-radius: 5px;
+    padding:10px;
+    margin-bottom:20px;
+  }
+
+  #editprofile-profilepic-input{
+    display:none;
+  }
+
+  #editprofile-profilepic-input-label{
+    text-align: center;
+    font-size: 1rem;
+    color: #00CAF7; 
+    cursor: pointer;
+  }
+
+  #editprofile-form > label{
+    display: block;
+    margin-bottom: 10px;
+  }
+  #editprofile-submit-btn-wrap{
+    display: flex;
+    justify-content: right;
+  }
+
+  #editprofile-submit-btn{
+    background-color: #00CAF7;
+    color:white;
+    font-size: 1rem;
+    font-family:poppins;
+    padding:10px;
+    border:none;
+    border-radius:5px;
+  }
+
+  #editprofile-profilepic-input-label:active{
+    color:#3498DB;
+  }
+
+  #editprofile-submit-btn:active{
+    background-color:#3498DB;
+  }
+
+
 
   /* @keyframes whiteToGrey {
     from {

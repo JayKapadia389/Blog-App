@@ -12,7 +12,7 @@ function UserProfile(){
     
     let [data ,setData] = useState(undefined) ;
     
-    let a = useContext(userContext);
+    let user = useContext(userContext);
     let navigate = useNavigate(); 
     
         useEffect(()=>{ 
@@ -61,7 +61,7 @@ function UserProfile(){
     
                 <div id="userprofile-details">
 
-                    {/* {a.userState.name} */}
+                    {user.userState.firstName}
 
                     {/* <button onClick={()=>{a.setUserState(a.userState.name == "robert" ? {name : "hook"} : {name : "robert"})}}>change</button> */}
     

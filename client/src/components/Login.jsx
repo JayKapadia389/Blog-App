@@ -1,8 +1,9 @@
-import { useState ,useEffect} from "react";
+import { useState ,useEffect , useContext} from "react";
 import { useNavigate } from 'react-router-dom';
 import { be_url } from '/config';
 import {AiOutlineExclamationCircle} from "react-icons/ai";
 import axios from 'axios';
+import {userContext} from '../contexts/userContext';
 
 function Login() {
 
@@ -10,6 +11,7 @@ function Login() {
     let [password,setPassword] = useState("");  
     let [ message , setMessage] = useState("");
     let navigate = useNavigate();
+    let user = useContext(userContext);
 
     // useEffect(()=>{
     //     console.log(emailId);
@@ -34,6 +36,8 @@ function Login() {
 
                     }
                     else{
+
+                        user.setUserState(res.data.user);
                         navigate("/explore");
                     }
                   }) 

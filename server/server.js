@@ -59,8 +59,6 @@ const Users = mongoose.model("Users" , userSchema);
 
 function AuthenticateToken(req,res,next){
 
-    console.log(req.headers);
-
     let token = req.cookies.authToken ;
 
     if(!token){
@@ -73,7 +71,6 @@ function AuthenticateToken(req,res,next){
             let payload = jwt.verify(token , process.env.ACCESS_TOKEN_SECRET);
 
             req.payload = payload;
-            console.log(req.payload);
 
             next();
 
@@ -122,11 +119,21 @@ app.post("/signup" , async (req , res)=>{
         posts:[]
     })
 
+    user = await Users.findOne({emailId});
+
+    firstName = user.firstName ;
+    lastName =user.lastName ;
+    emailId = user.emailId ;
+    let {profilePic,bio} = user;
+
+    user = {firstName , lastName , emailId ,profilePic, bio };
+    console.log("user>> " , user);
+
     let token = jwt.sign( payload ,process.env.ACCESS_TOKEN_SECRET  ); // payload
 
     res.cookie("authToken" , token ,{ httpOnly : true , sameSite : "none" , secure : true})
 
-    res.json({code : 2});    
+    res.json({code : 2 , user});    
 })
 
 app.post("/login" , async (req , res)=>{
@@ -145,8 +152,12 @@ app.post("/login" , async (req , res)=>{
 
         let token = jwt.sign( payload , process.env.ACCESS_TOKEN_SECRET);
 
+        let {firstName , lastName , emailId ,profilePic, bio } = user;
+
+        user = {firstName , lastName , emailId ,profilePic, bio };
+
         res.cookie("authToken" , token ,{ httpOnly : true , sameSite : "none" , secure : true})
-        res.json({ code : 2 });
+        res.json({ code : 2 , user});
 
     }
 
@@ -170,7 +181,7 @@ app.get("/userprofile" ,AuthenticateToken, async (req , res)=>{
 
     let user = await Users.findOne({emailId});
 
-    console.log(user);
+    // console.log(user);
 
     res.send(user);
 

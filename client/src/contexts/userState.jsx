@@ -3,7 +3,7 @@ import { userContext } from './userContext';
 
 function UserState (props){
 
-    let [ userState , setUserState] = useState({name : "robert" , age : 21});
+    let [ userState , setUserState] = useState(null);
 
     return (
         <userContext.Provider value={{userState , setUserState}}>

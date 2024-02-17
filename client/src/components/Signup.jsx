@@ -1,8 +1,9 @@
-import {useState, useRef ,useEffect} from 'react';
+import {useState, useRef ,useEffect , useContext} from 'react';
 import {AiOutlineExclamationCircle} from "react-icons/ai";
 import axios from 'axios';
 import { be_url } from '/config';
 import { useNavigate} from 'react-router-dom';
+import { userContext } from '../contexts/userContext';
 
 function Signup() {
 
@@ -17,6 +18,7 @@ function Signup() {
     let [password , setPassword] = useState("");
     let [emailTaken , setEmailTaken] = useState(false);
     let [confirmPassword , setConfirmPassword] = useState("");
+    let user = useContext(userContext) ;
 
     let navigate = useNavigate();
 
@@ -73,6 +75,7 @@ function Signup() {
                         handleEmailValidity(2)
                     }
                     else if( res.data.code == 2){
+                        user.setUserState(res.data.user) ;
                         navigate('/explore');
                     }
                     console.log("taken")

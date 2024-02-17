@@ -20,7 +20,7 @@ app.use(cors(corsOptions));
 
 mongoose.connect(mongoUri , {
     useNewUrlParser : true , useUnifiedTopology : true
-}).then(console.log("connected to database")).catch((err)=>{ console.log(err)});
+}).then(console.log("connected to database")).catch((err)=>{ console.log("catch : ",err)});
 
 const commentSchema = mongoose.Schema({
     userId : Number,

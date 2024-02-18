@@ -1,7 +1,8 @@
-import {useEffect , useState} from 'react';
+import {useEffect , useState , useContext} from 'react';
 import axios from 'axios'; 
 import { be_url } from '/config'; 
 import { useNavigate } from "react-router-dom"; 
+import { userContext } from "../contexts/userContext"; 
 
 // initial value of input jay
 
@@ -9,7 +10,10 @@ function EditProfile(){
 
     let navigate = useNavigate();
     let [data ,setData] = useState('');
-    let [firstName , setFirstName] = useState("jay");
+    let [firstName , setFirstName] = useState("");
+    let [lastName , setLastName] = useState("");
+    let [bio , setBio] = useState("");
+    let user = useContext(userContext);
 
     useEffect(()=>{ 
     
@@ -31,35 +35,63 @@ function EditProfile(){
 
     },[]);
 
-    return(
+    function handleSubmit(e){
 
-        <main id="editprofile-component">
-            <form id="editprofile-form">
+        e.preventDefault();
 
-                <div className="profile-pic-div" id='editprofile-image-div'>
-                    <img className="profile-pic" src='images/alexander.jpg'/>
-                </div>    
+        axios.post(be_url + "/editprofile" , { firstName , lastName , bio} , {withCredentials : true})
+             .then((res)=>{
+                if((res.data.code) === 2){
 
-                <label id="editprofile-profilepic-input-label" htmlFor="editprofile-profilepic-input">change profile picture</label>
-                <input id="editprofile-profilepic-input" type="file"/>
+                    console.log(res.data.user);
 
-                <label HtmlFor="editprofile-firstname-input">first name</label>
-                <input id="editprofile-firstname-input" type="text"></input>
+                    user.setUserState(res.data.user) ;
 
-                <label HtmlFor="editprofile-lastname-input" >last name</label>
-                <input id="editprofile-lastname-input" type="text"></input>
+                    navigate("/userprofile");
+                }
+                else{
+                    console.error(res.data.message);
+                }
+             })
+             .catch((err)=>{
+                console.error(err);
+             })
+    }
 
-                <label htmlFor='editprofile-bio-input'>bio</label>
-                <input id="editprofile-bio-input" type='textarea'></input>
+    if(user){
 
-                <div id="editprofile-submit-btn-wrap">
-                    <button id="editprofile-submit-btn" type="submit">Submit</button>
-                </div>
+        return(
+    
+            <main id="editprofile-component">
+                <form id="editprofile-form">
+    
+                    <div className="profile-pic-div" id='editprofile-image-div'>
+                        <img className="profile-pic" src='images/alexander.jpg'/>
+                    </div>    
+    
+                    <label id="editprofile-profilepic-input-label" htmlFor="editprofile-profilepic-input">change profile picture</label>
+                    <input id="editprofile-profilepic-input" type="file"/>
+    
+                    <label HtmlFor="editprofile-firstname-input">first name</label>
+                    <input id="editprofile-firstname-input" type="text" placeholder = {user.userState.firstName} onChange={(e)=>{ setFirstName(e.target.value)}}></input>
+    
+                    <label HtmlFor="editprofile-lastname-input" >last name</label>
+                    <input id="editprofile-lastname-input" type="text" placeholder = {user.userState.lastName} onChange={(e)=>{ setLastName(e.target.value)}}></input>
+    
+                    <label HtmlFor='editprofile-bio-input'>bio</label>
+                    <input id="editprofile-bio-input" type='textarea' placeholder = {user.userState.bio} onChange={(e)=>{ setBio(e.target.value)}}></input>
+    
+                    <div id="editprofile-submit-btn-wrap">
+                        <button id="editprofile-submit-btn" type="submit" onClick={handleSubmit}>Submit</button>
+                    </div>
+    
+    
+                </form>
+            </main>
+        )
 
+    }
 
-            </form>
-        </main>
-    )
 }
 
 export default EditProfile;

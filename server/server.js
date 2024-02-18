@@ -111,7 +111,7 @@ app.post("/signup" , async (req , res)=>{
         lastName,
         emailId,    
         password,
-        bio:"",
+        bio:"hey there ! I am using blogspot.",
         profilePic: "https://res.cloudinary.com/dgqba5trl/image/upload/v1696008033/tiktok-no-profile-picture_n2pgwo.avif",
         followerCount: 0,
         followingCount: 0 ,
@@ -189,6 +189,34 @@ app.get("/userprofile" ,AuthenticateToken, async (req , res)=>{
 
 app.get("/editprofile" , AuthenticateToken , (req , res)=>{
    res.send("editprofile");
+
+})
+
+app.post("/editprofile" , AuthenticateToken , async (req , res)=>{
+
+    let {firstName , lastName , bio} = req.body ;
+
+    let {emailId} = req.payload ;
+
+    try{
+        let user = await Users.findOne({emailId}) ;
+
+        user.firstName = firstName ;
+        user.lastName = lastName ;
+        user.bio = bio ;
+
+        await user.save() ;
+
+        res.json({user , code : 2 , message : "profile updated successfully."});
+
+    }
+    catch(err){
+
+        console.error("Error updating profile:" , err);
+
+        res.status(500).send({code : 1 , message : "An error occured while updating the profile."}) ;
+
+    }
 
 })
 

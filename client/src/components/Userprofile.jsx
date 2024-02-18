@@ -56,6 +56,8 @@ function UserProfile(){
 
     if(data){
 
+        console.log(user);
+
         return(
             <main id="userprofile-component">
     
@@ -116,6 +118,10 @@ function UserProfile(){
                                     </div>
                                 </div>
     
+                        </div>
+
+                        <div className='userprofile-bio'>
+                            {user.userState.bio}
                         </div>
     
                     </div>

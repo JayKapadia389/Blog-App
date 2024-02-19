@@ -32,26 +32,28 @@ function ExploreHeader(){
 
       })
 
-      console.log(user);
+      if(user){
 
-    return(
-        <header id="explore-header" className='show'>
-            <span id="explore-header-blogspot"className="blogspot">
-               blogspot
-            </span>
+          return(
+              <header id="explore-header" className='show'>
+                  <span id="explore-header-blogspot"className="blogspot">
+                    blogspot
+                  </span>
+      
+                  <div>
+                  <input id="search-bar" type="search" placeholder="Search..." />
+                  <AiOutlineSearch id="search-icon"/>
+                  </div>
+      
+                  <div className='empty'></div>
+      
+                  <div id="header-profile-btn" onClick={()=>{ navigate("/userprofile"); console.log("userprofile")}}>
+                    <img className="profile-pic" src={user.userState.profilePic}></img>
+                  </div>
+              </header>
+          )
+      }
 
-            <div>
-             <input id="search-bar" type="search" placeholder="Search..." />
-             <AiOutlineSearch id="search-icon"/>
-            </div>
-
-            <div className='empty'></div>
-
-            <div id="header-profile-btn" onClick={()=>{ navigate("/userprofile"); console.log("userprofile")}}>
-              <img className="profile-pic" src={user.userState.profilePic}></img>
-            </div>
-        </header>
-    )
 }
 
 export default ExploreHeader;

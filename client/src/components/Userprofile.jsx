@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 function UserProfile(){
     
-    let [data ,setData] = useState(undefined) ;
+    // let [data ,setData] = useState(undefined) ;
     
     let user = useContext(userContext);
     let navigate = useNavigate(); 
@@ -54,7 +54,7 @@ function UserProfile(){
 
     }
 
-    if(data){
+    if(user){
 
         console.log(user);
 
@@ -70,7 +70,7 @@ function UserProfile(){
                     <div id="userprofile-details-wrap">
     
                         <div className="profile-pic-div" id="userprofile-profile-pic-div">
-                            <img className="profile-pic" src={data.profilePic}></img>
+                            <img className="profile-pic" src={user.userState.profilePic}></img>
                             {console.log("render")}
                         </div>
     
@@ -93,12 +93,12 @@ function UserProfile(){
                                 </div>
     
                                 <p id="userprofile-name">
-                                    <span>{data.firstName}</span> <span>{data.lastName}</span>
+                                    <span>{user.userState.firstName}</span> <span>{user.userState.lastName}</span>
                                 </p>
     
                                 <div id="userprofile-email-wrap">
                                     <p id="userprofile-email">
-                                        {data.emailId}
+                                        {user.userState.emailId}
                                     </p>
                                 </div>
     
@@ -106,15 +106,15 @@ function UserProfile(){
                                     <div id="userprofile-numbercount" className="userprofile-numbercount ">
                                         <div>
                                             <span>posts</span>
-                                            <span>{data.postsCount}</span>
+                                            <span>{user.userState.postsCount}</span>
                                         </div>
                                         <div>
                                             <span>followers</span>
-                                            <span>{data.followerCount}</span>
+                                            <span>{user.userState.followerCount}</span>
                                         </div>
                                         <div>
                                             <span>following</span>
-                                            <span>{data.followingCount}</span>
+                                            <span>{user.userState.followingCount}</span>
                                     </div>
                                 </div>
     

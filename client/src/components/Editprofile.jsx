@@ -9,11 +9,11 @@ import { userContext } from "../contexts/userContext";
 function EditProfile(){
 
     let navigate = useNavigate();
-    let [data ,setData] = useState('');
-    let [firstName , setFirstName] = useState("");
-    let [lastName , setLastName] = useState("");
-    let [bio , setBio] = useState("");
-    let user = useContext(userContext);
+    let user = useContext(userContext)
+    let [firstName , setFirstName] = useState(user.userState.firstName);
+    let [lastName , setLastName] = useState(user.userState.lastName);
+    let [bio , setBio] = useState(user.userState.bio);
+    let [profilePic , setProfilePic] = useState(user.userState.profilePic) ;
 
     useEffect(()=>{ 
     
@@ -58,6 +58,16 @@ function EditProfile(){
              })
     }
 
+    function handleProfilePicChange(e){
+
+        console.log(e.target) ;
+        console.log(e.target.files
+            ) ;
+
+        setProfilePic(e.target.value) ;
+
+    }
+
     if(user){
 
         return(
@@ -66,20 +76,20 @@ function EditProfile(){
                 <form id="editprofile-form">
     
                     <div className="profile-pic-div" id='editprofile-image-div'>
-                        <img className="profile-pic" src='images/alexander.jpg'/>
+                        <img className="profile-pic" src={profilePic}/>
                     </div>    
     
                     <label id="editprofile-profilepic-input-label" htmlFor="editprofile-profilepic-input">change profile picture</label>
-                    <input id="editprofile-profilepic-input" type="file"/>
+                    <input id="editprofile-profilepic-input" type="file" onChange={(e)=>{handleProfilePicChange(e)}}/>
     
-                    <label HtmlFor="editprofile-firstname-input">first name</label>
-                    <input id="editprofile-firstname-input" type="text" placeholder = {user.userState.firstName} onChange={(e)=>{ setFirstName(e.target.value)}}></input>
+                    <label htmlFor="editprofile-firstname-input">first name</label>
+                    <input id="editprofile-firstname-input" type="text" value = {firstName} onChange={(e)=>{ setFirstName(e.target.value)}}></input>
     
-                    <label HtmlFor="editprofile-lastname-input" >last name</label>
-                    <input id="editprofile-lastname-input" type="text" placeholder = {user.userState.lastName} onChange={(e)=>{ setLastName(e.target.value)}}></input>
+                    <label htmlFor="editprofile-lastname-input" >last name</label>
+                    <input id="editprofile-lastname-input" type="text" value = {lastName} onChange={(e)=>{ setLastName(e.target.value)}}></input>
     
-                    <label HtmlFor='editprofile-bio-input'>bio</label>
-                    <input id="editprofile-bio-input" type='textarea' placeholder = {user.userState.bio} onChange={(e)=>{ setBio(e.target.value)}}></input>
+                    <label htmlFor='editprofile-bio-input'>bio</label>
+                    <input id="editprofile-bio-input" type='textarea' value = {bio} onChange={(e)=>{ setBio(e.target.value)}}></input>
     
                     <div id="editprofile-submit-btn-wrap">
                         <button id="editprofile-submit-btn" type="submit" onClick={handleSubmit}>Submit</button>

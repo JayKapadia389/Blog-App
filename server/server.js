@@ -152,9 +152,9 @@ app.post("/login" , async (req , res)=>{
 
         let token = jwt.sign( payload , process.env.ACCESS_TOKEN_SECRET);
 
-        let {firstName , lastName , emailId ,profilePic, bio } = user;
+        let {firstName , lastName , emailId ,profilePic, bio , postsCount , followerCount , followingCount} = user;
 
-        user = {firstName , lastName , emailId ,profilePic, bio };
+        user = {firstName , lastName , emailId ,profilePic, bio , postsCount , followerCount , followingCount};
 
         res.cookie("authToken" , token ,{ httpOnly : true , sameSite : "none" , secure : true})
         res.json({ code : 2 , user});

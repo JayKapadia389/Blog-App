@@ -56,8 +56,6 @@ function UserProfile(){
 
     if(user){
 
-        console.log(user);
-
         return(
             <main id="userprofile-component">
     

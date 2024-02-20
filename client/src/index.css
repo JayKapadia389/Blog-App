@@ -617,7 +617,7 @@
     position: relative;
     overflow: hidden;
     border-radius: 50%;
-    margin-right: 10px;
+    /* margin-right: 10px; */
   }
 
   .bc-profile-pic-div,.pc-profile-pic-div {
@@ -1196,14 +1196,6 @@
     box-shadow: grey 0px 0px 10px 0px;
   }
 
-  #editprofile-image-div{
-    height:120px;
-    width:120px;
-    border-radius:50%;
-    background-color: grey;
-    margin:0px auto 10px;
-  }
-
   #editprofile-form > input{
     height:35px;
     width: 100%;
@@ -1252,11 +1244,33 @@
     background-color:#3498DB;
   }
 
-  #editprofile-bio-input{
-    
+  #editprofile-image-div{
+    position: absolute;
+    height:120px;
+    width:120px;
+    border-radius:50%;
+    background-color: grey;
   }
 
+  #editprofile-image-div-wrap{
+    position: relative;
+    margin:0px auto 10px;
+    height : 120px ;
+    width : 120px ;
+  }
 
+  #edit-profilepic-icon-div{
+    position : absolute;
+    top: 70% ;
+    right : 0% ;
+    background-color: whitesmoke;
+    height : 20px ;
+    width : 20px ;
+    display : grid ;
+    place-items : center ;
+    border-radius: 5px;
+    box-shadow : grey 0px 0px 3px 0px ;
+  }
 
   /* @keyframes whiteToGrey {
     from {

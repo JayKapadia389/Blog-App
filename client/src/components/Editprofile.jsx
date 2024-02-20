@@ -1,8 +1,9 @@
-import {useEffect , useState , useContext} from 'react';
+import {useEffect , useState , useContext , useRef} from 'react';
 import axios from 'axios'; 
 import { be_url } from '/config'; 
 import { useNavigate } from "react-router-dom"; 
 import { userContext } from "../contexts/userContext"; 
+import { MdEdit } from "react-icons/md";
 
 // initial value of input jay
 
@@ -13,7 +14,8 @@ function EditProfile(){
     let [firstName , setFirstName] = useState(user.userState.firstName);
     let [lastName , setLastName] = useState(user.userState.lastName);
     let [bio , setBio] = useState(user.userState.bio);
-    let [profilePic , setProfilePic] = useState(user.userState.profilePic) ;
+    let [profilePic , setProfilePic] = useState(null) ;
+    let fileInputRef = useRef(null) ;
 
     useEffect(()=>{ 
     
@@ -35,11 +37,35 @@ function EditProfile(){
 
     },[]);
 
+    function uploadimage(){
+
+        let image = new FormData();
+        image.append('file', profilePic);
+        image.append('upload_preset','expense-tracker')
+        image.append('cloud_name','dgqba5trl')
+
+        return axios.post("https://api.cloudinary.com/v1_1/dgqba5trl/image/upload",image)
+    }
+
     function handleSubmit(e){
 
         e.preventDefault();
 
-        axios.post(be_url + "/editprofile" , { firstName , lastName , bio} , {withCredentials : true})
+        let ppURL = null ;
+
+        if(profilePic){
+            uploadimage()
+            .then((res)=>{
+                console.log(res.data.url) ;
+                ppURL = res.data.url ;
+            })
+            .catch((err)=>{
+                console.error(err) ;
+            })
+
+        }
+
+        axios.post(be_url + "/editprofile" , { firstName , lastName , bio , ppURL} , {withCredentials : true})
              .then((res)=>{
                 if((res.data.code) === 2){
 
@@ -58,14 +84,15 @@ function EditProfile(){
              })
     }
 
-    function handleProfilePicChange(e){
+    function handleProfilePicChange(e){ // inline
 
-        console.log(e.target) ;
-        console.log(e.target.files
-            ) ;
+        setProfilePic(e.target.files[0]) ;
 
-        setProfilePic(e.target.value) ;
+    }
 
+    function handleEditProfilePic(){
+
+        fileInputRef.current.click() ;
     }
 
     if(user){
@@ -74,13 +101,22 @@ function EditProfile(){
     
             <main id="editprofile-component">
                 <form id="editprofile-form">
+
+                    <div id = "editprofile-image-div-wrap">
+
+                        <div className="profile-pic-div" id='editprofile-image-div'>
+                            <img className="profile-pic" src={profilePic ? URL.createObjectURL(profilePic) : user.userState.profilePic}/>
+                        </div>    
+
+                        <div id='edit-profilepic-icon-div' onClick={handleEditProfilePic} >
+                            <MdEdit id="edit-profilepic-icon"/>
+                            <input id="editprofile-profilepic-input" type="file" ref = {fileInputRef} onChange={handleProfilePicChange}/>
+                        </div>
+
+                    </div>
     
-                    <div className="profile-pic-div" id='editprofile-image-div'>
-                        <img className="profile-pic" src={profilePic}/>
-                    </div>    
     
-                    <label id="editprofile-profilepic-input-label" htmlFor="editprofile-profilepic-input">change profile picture</label>
-                    <input id="editprofile-profilepic-input" type="file" onChange={(e)=>{handleProfilePicChange(e)}}/>
+                    {/* <label id="editprofile-profilepic-input-label" htmlFor="editprofile-profilepic-input">change profile picture</label> */}
     
                     <label htmlFor="editprofile-firstname-input">first name</label>
                     <input id="editprofile-firstname-input" type="text" value = {firstName} onChange={(e)=>{ setFirstName(e.target.value)}}></input>

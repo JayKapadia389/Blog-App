@@ -194,12 +194,18 @@ app.get("/editprofile" , AuthenticateToken , (req , res)=>{
 
 app.post("/editprofile" , AuthenticateToken , async (req , res)=>{
 
-    let {firstName , lastName , bio} = req.body ;
+    let {firstName , lastName , bio  , ppURL} = req.body ;
+
+    console.log(ppURL) ;
 
     let {emailId} = req.payload ;
 
     try{
         let user = await Users.findOne({emailId}) ;
+
+        if(ppURL){
+            user.profilePic = ppURL ;
+        }
 
         user.firstName = firstName ;
         user.lastName = lastName ;

@@ -13,20 +13,22 @@ function EditProfile(){
     let [user , setUser] = useState(null) ;
 
     useEffect(()=>{
-        console.log("test"); 
+
+        console.log("test") ;
         let data = JSON.parse(window.localStorage.getItem("user")) ;
 
-        console.log("data > editp" , data) ;
+        if(data){
+            setUser(data) ;
+        }
 
-        setUser(data) ;
       } , [])
 
     console.log("user",user) ;
 
-    let [firstName , setFirstName] = useState(user.firstName);
-    let [lastName , setLastName] = useState(user.lastName);
-    let [bio , setBio] = useState(user.bio);
-    let [profilePic , setProfilePic] = useState(null) ;
+    // let [firstName , setFirstName] = useState(user.firstName);
+    // let [lastName , setLastName] = useState(user.lastName);
+    // let [bio , setBio] = useState(user.bio);
+    // let [profilePic , setProfilePic] = useState(null) ;
 
     function uploadimage(){
 

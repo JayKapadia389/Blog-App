@@ -37,7 +37,8 @@ function Login() {
                     }   
                     else{
 
-                        user.setUserState(res.data.user);
+                        window.localStorage.setItem("user" , JSON.stringify(res.data.user)) ;
+                        // user.setUserState(res.data.user);
                         navigate("/explore");
                     }
                   }) 

@@ -5,37 +5,28 @@ import { useNavigate } from "react-router-dom";
 import { userContext } from "../contexts/userContext"; 
 import { MdEdit } from "react-icons/md";
 
-// initial value of input jay
-
 function EditProfile(){
 
     let navigate = useNavigate();
-    let user = useContext(userContext)
-    let [firstName , setFirstName] = useState(user.userState.firstName);
-    let [lastName , setLastName] = useState(user.userState.lastName);
-    let [bio , setBio] = useState(user.userState.bio);
-    let [profilePic , setProfilePic] = useState(null) ;
+    // let user = useContext(userContext);
     let fileInputRef = useRef(null) ;
+    let [user , setUser] = useState(null) ;
 
-    useEffect(()=>{ 
-    
-        axios.get(be_url + "/editprofile" , {withCredentials : true})
+    useEffect(()=>{
+        console.log("test"); 
+        let data = JSON.parse(window.localStorage.getItem("user")) ;
 
-        .then((res)=>{
+        console.log("data > editp" , data) ;
 
-            setData(res.data);
+        setUser(data) ;
+      } , [])
 
-            })
+    console.log("user",user) ;
 
-        .catch((err)=>{
-            console.log(err);
-
-            if(err.response.status == 401 || err.response.status == 498){
-                navigate("/login");
-            }
-        }) 
-
-    },[]);
+    let [firstName , setFirstName] = useState(user.firstName);
+    let [lastName , setLastName] = useState(user.lastName);
+    let [bio , setBio] = useState(user.bio);
+    let [profilePic , setProfilePic] = useState(null) ;
 
     function uploadimage(){
 
@@ -47,14 +38,14 @@ function EditProfile(){
         return axios.post("https://api.cloudinary.com/v1_1/dgqba5trl/image/upload",image)
     }
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
 
         e.preventDefault();
 
         let ppURL = null ;
 
         if(profilePic){
-            uploadimage()
+            await uploadimage()
             .then((res)=>{
                 console.log(res.data.url) ;
                 ppURL = res.data.url ;
@@ -105,7 +96,7 @@ function EditProfile(){
                     <div id = "editprofile-image-div-wrap">
 
                         <div className="profile-pic-div" id='editprofile-image-div'>
-                            <img className="profile-pic" src={profilePic ? URL.createObjectURL(profilePic) : user.userState.profilePic}/>
+                            <img className="profile-pic" src={profilePic ? URL.createObjectURL(profilePic) : user.profilePic}/>
                         </div>    
 
                         <div id='edit-profilepic-icon-div' onClick={handleEditProfilePic} >

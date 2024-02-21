@@ -75,7 +75,7 @@ function Signup() {
                         handleEmailValidity(2)
                     }
                     else if( res.data.code == 2){
-                        user.setUserState(res.data.user) ;
+                        // user.setUserState(res.data.user) ;
                         navigate('/explore');
                     }
                     console.log("taken")

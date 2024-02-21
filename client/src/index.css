@@ -617,7 +617,7 @@
     position: relative;
     overflow: hidden;
     border-radius: 50%;
-    /* margin-right: 10px; */
+    margin-right: 10px;
   }
 
   .bc-profile-pic-div,.pc-profile-pic-div {
@@ -1260,6 +1260,7 @@
   }
 
   #edit-profilepic-icon-div{
+    cursor:pointer ;
     position : absolute;
     top: 70% ;
     right : 0% ;
@@ -1270,6 +1271,10 @@
     place-items : center ;
     border-radius: 5px;
     box-shadow : grey 0px 0px 3px 0px ;
+  }
+
+  #edit-profilepic-icon-div:active{
+    background-color: rgb(185, 185, 185);
   }
 
   /* @keyframes whiteToGrey {

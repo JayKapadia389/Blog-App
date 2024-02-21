@@ -10,34 +10,21 @@ import { useNavigate } from "react-router-dom";
 
 function UserProfile(){
     
-    // let [data ,setData] = useState(undefined) ;
-    
-    let user = useContext(userContext);
+    // let user = useContext(userContext);
     let navigate = useNavigate(); 
-    
-        useEffect(()=>{ 
-    
-            axios.get(be_url + "/userprofile" , {withCredentials : true})
-    
-            .then((res)=>{
-    
-                setData(res.data);
-    
-                })
-    
-            .catch((err)=>{
-                console.log(err);
-    
-                if(err.response.status == 401 || err.response.status == 498){
-                    navigate("/login");
-                }
-            }) // path
-    
-        },[])
+    let [user , setUser] = useState(null) ;
 
     let underline = useRef();
     let [page,setPage] = useState(0);
     let [ham, setHam] = useState(false);
+
+    useEffect(()=>{
+        let data = JSON.parse(window.localStorage.getItem("user")) ;
+
+        console.log("data > userp" , data) ;
+
+        setUser(data) ;
+      } , [])
 
     function changeSection(n){
 
@@ -61,15 +48,10 @@ function UserProfile(){
     
                 <div id="userprofile-details">
 
-                    {user.userState.firstName}
-
-                    {/* <button onClick={()=>{a.setUserState(a.userState.name == "robert" ? {name : "hook"} : {name : "robert"})}}>change</button> */}
-    
                     <div id="userprofile-details-wrap">
     
                         <div className="profile-pic-div" id="userprofile-profile-pic-div">
-                            <img className="profile-pic" src={user.userState.profilePic}></img>
-                            {console.log("render")}
+                            <img className="profile-pic" src={user.profilePic}></img>
                         </div>
     
                         <div id="userprofile-only-details">
@@ -91,12 +73,12 @@ function UserProfile(){
                                 </div>
     
                                 <p id="userprofile-name">
-                                    <span>{user.userState.firstName}</span> <span>{user.userState.lastName}</span>
+                                    <span>{user.firstName}</span> <span>{user.lastName}</span>
                                 </p>
     
                                 <div id="userprofile-email-wrap">
                                     <p id="userprofile-email">
-                                        {user.userState.emailId}
+                                        {user.emailId}
                                     </p>
                                 </div>
     
@@ -104,22 +86,22 @@ function UserProfile(){
                                     <div id="userprofile-numbercount" className="userprofile-numbercount ">
                                         <div>
                                             <span>posts</span>
-                                            <span>{user.userState.postsCount}</span>
+                                            <span>{user.postsCount}</span>
                                         </div>
                                         <div>
                                             <span>followers</span>
-                                            <span>{user.userState.followerCount}</span>
+                                            <span>{user.followerCount}</span>
                                         </div>
                                         <div>
                                             <span>following</span>
-                                            <span>{user.userState.followingCount}</span>
+                                            <span>{user.followingCount}</span>
                                     </div>
                                 </div>
     
                         </div>
 
                         <div className='userprofile-bio'>
-                            {user.userState.bio}
+                            {user.bio}
                         </div>
     
                     </div>

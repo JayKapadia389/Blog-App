@@ -1,4 +1,4 @@
-import {useEffect, useContext} from 'react';
+import {useEffect, useContext , useState} from 'react';
 import { AiOutlineSearch } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom';
 import {userContext} from '../contexts/userContext';
@@ -7,7 +7,8 @@ function ExploreHeader(){
     
     let previousScroll = 0;
     let navigate = useNavigate();
-    let user = useContext(userContext);
+    // let user = useContext(userContext);
+    let [user , setUser] = useState(null) ;
     
     useEffect(()=>{
           let exploreHeader = document.getElementById("explore-header");
@@ -32,6 +33,12 @@ function ExploreHeader(){
 
       })
 
+      useEffect(()=>{
+        let data = JSON.parse(window.localStorage.getItem("user")) ;
+
+        setUser(data) ;
+      } , [])
+
       if(user){
 
           return(
@@ -48,7 +55,10 @@ function ExploreHeader(){
                   <div className='empty'></div>
       
                   <div id="header-profile-btn" onClick={()=>{ navigate("/userprofile"); console.log("userprofile")}}>
-                    <img className="profile-pic" src={user.userState.profilePic}></img>
+                    <img className="profile-pic" 
+                    // src={user.userState.profilePic}
+                    src={user.profilePic}
+                    ></img>
                   </div>
               </header>
           )

@@ -103,6 +103,8 @@ app.post("/signup" , async (req , res)=>{
     firstName = firstName.slice(0,1).toUpperCase() + firstName.slice(1);
     lastName = lastName.slice(0,1).toUpperCase() + lastName.slice(1);
 
+    console.log(firstName , " " , lastName) ;
+
     // userID banavani che
 
     Users.create({
@@ -121,14 +123,6 @@ app.post("/signup" , async (req , res)=>{
 
     user = await Users.findOne({emailId});
 
-    firstName = user.firstName ;
-    lastName =user.lastName ;
-    emailId = user.emailId ;
-    let {profilePic,bio} = user;
-
-    user = {firstName , lastName , emailId ,profilePic, bio };
-    console.log("user>> " , user);
-
     let token = jwt.sign( payload ,process.env.ACCESS_TOKEN_SECRET  ); // payload
 
     res.cookie("authToken" , token ,{ httpOnly : true , sameSite : "none" , secure : true})
@@ -142,8 +136,6 @@ app.post("/login" , async (req , res)=>{
 
     let user = await Users.findOne({emailId});
     let payload = { emailId };
-
-    console.log("user>> ",user);
 
     if(!user || (password != user.password)){
         res.json({ code : 1 , message : "email or password is incorrect"});
@@ -175,28 +167,9 @@ app.get("/postarticle" ,AuthenticateToken, async (req , res)=>{
  
  })
 
-app.get("/userprofile" ,AuthenticateToken, async (req , res)=>{
-    
-    let emailId = req.payload.emailId ;
-
-    let user = await Users.findOne({emailId});
-
-    // console.log(user);
-
-    res.send(user);
-
-})
-
-app.get("/editprofile" , AuthenticateToken , (req , res)=>{
-   res.send("editprofile");
-
-})
-
 app.post("/editprofile" , AuthenticateToken , async (req , res)=>{
 
     let {firstName , lastName , bio  , ppURL} = req.body ;
-
-    console.log(ppURL) ;
 
     let {emailId} = req.payload ;
 
@@ -207,9 +180,14 @@ app.post("/editprofile" , AuthenticateToken , async (req , res)=>{
             user.profilePic = ppURL ;
         }
 
+        firstName = firstName.slice(0,1).toUpperCase() + firstName.slice(1) ;
+        lastName = lastName.slice(0,1).toUpperCase() + lastName.slice(1) ;
+
         user.firstName = firstName ;
         user.lastName = lastName ;
         user.bio = bio ;
+
+        console.log(user) ;
 
         await user.save() ;
 

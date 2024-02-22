@@ -2,33 +2,34 @@ import {useEffect , useState , useContext , useRef} from 'react';
 import axios from 'axios'; 
 import { be_url } from '/config'; 
 import { useNavigate } from "react-router-dom"; 
-import { userContext } from "../contexts/userContext"; 
 import { MdEdit } from "react-icons/md";
 
 function EditProfile(){
 
     let navigate = useNavigate();
-    // let user = useContext(userContext);
     let fileInputRef = useRef(null) ;
     let [user , setUser] = useState(null) ;
 
     useEffect(()=>{
 
-        console.log("test") ;
         let data = JSON.parse(window.localStorage.getItem("user")) ;
 
         if(data){
             setUser(data) ;
+            setFirstName(data.firstName) ;
+            setLastName(data.lastName) ;
+            // setProfilePic(data.profilePic) ;
+            setBio(data.bio) ;
         }
 
       } , [])
 
-    console.log("user",user) ;
+    // console.log("user",user) ;
 
-    // let [firstName , setFirstName] = useState(user.firstName);
-    // let [lastName , setLastName] = useState(user.lastName);
-    // let [bio , setBio] = useState(user.bio);
-    // let [profilePic , setProfilePic] = useState(null) ;
+    let [firstName, setFirstName] = useState(''); 
+    let [lastName, setLastName] = useState(''); 
+    let [bio, setBio] = useState(''); 
+    let [profilePic, setProfilePic] = useState(null);
 
     function uploadimage(){
 
@@ -64,7 +65,9 @@ function EditProfile(){
 
                     console.log(res.data.user);
 
-                    user.setUserState(res.data.user) ;
+                    window.localStorage.setItem("user" , JSON.stringify(res.data.user)) ;
+
+                    // user.setUserState(res.data.user) ;
 
                     navigate("/userprofile");
                 }
@@ -89,23 +92,23 @@ function EditProfile(){
     }
 
     if(user){
-
+        
         return(
     
             <main id="editprofile-component">
                 <form id="editprofile-form">
-
+    
                     <div id = "editprofile-image-div-wrap">
-
+    
                         <div className="profile-pic-div" id='editprofile-image-div'>
                             <img className="profile-pic" src={profilePic ? URL.createObjectURL(profilePic) : user.profilePic}/>
                         </div>    
-
+    
                         <div id='edit-profilepic-icon-div' onClick={handleEditProfilePic} >
                             <MdEdit id="edit-profilepic-icon"/>
                             <input id="editprofile-profilepic-input" type="file" ref = {fileInputRef} onChange={handleProfilePicChange}/>
                         </div>
-
+    
                     </div>
     
     
@@ -128,7 +131,9 @@ function EditProfile(){
                 </form>
             </main>
         )
-
+    }
+    else{
+        return null ;
     }
 
 }

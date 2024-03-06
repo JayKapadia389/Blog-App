@@ -24,13 +24,14 @@ mongoose.connect(mongoUri , {
 }).then(console.log("connected to database")).catch((err)=>{ console.log("catch : ",err)});
 
 const commentSchema = mongoose.Schema({
-    userId : Number,
+    userId : String,
     date : Date,
     comment : String
 });
 
 const blogSchema = mongoose.Schema({
-    userId : Number,
+    blogId : String,
+    userId : String,
     date : Date,
     coverImage : String ,
     title :String,
@@ -43,7 +44,7 @@ const blogSchema = mongoose.Schema({
 })
 
 const userSchema = mongoose.Schema({
-    userId : Number,
+    userId : String,
     firstName:String ,
     lastName:String,
     emailId:String,
@@ -53,8 +54,18 @@ const userSchema = mongoose.Schema({
     followerCount:Number,
     followingCount:Number,
     postsCount:Number,
-    posts:[blogSchema]
+    posts:[String]
 })
+
+function generateUserId(){
+    
+    return "UID-"+ Math.floor(Math.random()*1000)+"-"+Math.floor(Math.random()*1000) ;
+}
+
+function generateBlogId(){
+    
+    return "BID-"+ Math.floor(Math.random()*1000)+"-"+Math.floor(Math.random()*1000) ;
+}
 
 const Users = mongoose.model("Users" , userSchema);
 
@@ -107,9 +118,10 @@ app.post("/signup" , async (req , res)=>{
     console.log(firstName , " " , lastName) ;
 
     // userID banavani che
+    let userId = generateUserId() ;
 
     Users.create({
-        // UserId
+        userId,
         firstName,
         lastName,
         emailId,    
@@ -166,6 +178,11 @@ app.get("/postarticle" ,AuthenticateToken, async (req , res)=>{
 
     res.send("done");
  
+ })
+
+ app.post("/postarticle" ,AuthenticateToken, async (req , res)=>{
+
+    
  })
 
 app.post("/editprofile" , AuthenticateToken , async (req , res)=>{

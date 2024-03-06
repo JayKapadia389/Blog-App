@@ -3,6 +3,12 @@
     --glow : #00CAF7;
   }
 
+  .unclickable-btn {
+    pointer-events: none;
+    opacity: 0.4; /* Optional: Add opacity to visually indicate that the button is disabled */
+    cursor: not-allowed; /* Optional: Change cursor style to indicate it's not clickable */
+}
+
   body{
     overflow-x: clip;
   }
@@ -988,6 +994,47 @@
 
   /* Post Article */
 
+  /* .error-box{
+    background-color: rgb(255, 239, 239);
+    color:red;
+    border-radius:5px;
+    font-family: 'Poppins';
+    font-size: 12px;
+    padding: 5px;
+    display: block;
+  }
+
+  .error-icon-span{
+    position:relative;
+    top:2px;
+    margin-right:2px;
+  } */
+
+  .postarticle-label-wrap{
+    height : 2rem ;
+    display: flex;
+    align-items: center;
+  }
+
+  .postarticle-errorbox{
+    height : 100% ;
+    aspect-ratio: 1;
+    display : inline-block ;
+    border-radius : 50% ;
+    background-color: rgb(255, 239, 239);
+    color:red;
+    display: grid;
+    place-items: center;
+  }
+
+  .postarticle-errorbox-icon{
+
+  }
+
+  #postarticle-coverimg-div img{
+    width : 100% ;
+  }
+
   #postarticle-component{
     width:min(900px,100%);
     margin:auto;
@@ -996,9 +1043,10 @@
   }
 
   #postarticle-component  label{
+    display: inline;
     font-weight: 200;
     font-size: 2rem;
-    margin-bottom: 5px;
+    margin : 0px 10px 5px 0px   ;
   }
 
   #postarticle-form{

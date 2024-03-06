@@ -43,13 +43,13 @@ function Home() {
                 <h2 id="sub-title">read, write and explore</h2>
               </div>
 
-              <div id="swiper-div">
+              {/* <div id="swiper-div"> */}
 
               <Swiper 
               modules={[Navigation, Pagination, EffectCoverflow ,Autoplay]}
               effect='coverflow'
-              // spaceBetween={100}
-              centeredSlides={true}
+              spaceBetween={-50}
+              // centeredSlides={true}
               grabCursor={true}
               loop={true}
               slidesPerView={'auto'}
@@ -87,7 +87,7 @@ function Home() {
         </SwiperSlide>
 
       </Swiper>
-              </div>
+              {/* </div> */}
              
       </div>
       </div>

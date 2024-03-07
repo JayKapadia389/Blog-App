@@ -19,11 +19,24 @@ function UserProfile(){
     let [ham, setHam] = useState(false);
 
     useEffect(()=>{
-        let data = JSON.parse(window.localStorage.getItem("user")) ;
+       
+        axios.get(be_url + "/user-profile" , {withCredentials : true})
+    
+            .then((res)=>{
+    
+                console.log(res.data);
 
-        console.log("data > userp" , data) ;
+                setUser(res.data);
 
-        setUser(data) ;
+                })
+    
+            .catch((err)=>{
+                console.log(err);
+    
+                if(err.response.status == 401 || err.response.status == 498){
+                    navigate("/login");
+                }
+            })
       } , [])
 
     function changeSection(n){

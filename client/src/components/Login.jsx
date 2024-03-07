@@ -37,7 +37,7 @@ function Login() {
                     }   
                     else{
 
-                        window.localStorage.setItem("user" , JSON.stringify(res.data.user)) ;
+                        // window.localStorage.setItem("user" , JSON.stringify(res.data.user)) ;
                         // user.setUserState(res.data.user);
                         navigate("/explore");
                     }

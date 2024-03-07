@@ -1058,6 +1058,14 @@
     margin-bottom:30px ;
   }
 
+  #red-div{
+    height: 10px;
+    width: 10px;
+    background-color: red;
+    display: none;
+
+  }
+
   #title-input{
     height: 50px;
     padding: 10px;

@@ -8,33 +8,44 @@ function EditProfile(){
 
     let navigate = useNavigate();
     let fileInputRef = useRef(null) ;
-    let [user , setUser] = useState(null) ;
+    let [firstName, setFirstName] = useState(''); 
+    let [lastName, setLastName] = useState(''); 
+    let [bio, setBio] = useState(''); 
+    let [profilePic, setProfilePic] = useState(null);
+    let [newProfilePic, setNewProfilePic] = useState(null);
 
     useEffect(()=>{
 
-        let data = JSON.parse(window.localStorage.getItem("user")) ;
+        axios.get(be_url + "/editprofile" , {withCredentials : true})
+    
+            .then((res)=>{
+    
+                console.log(res.data);
 
-        if(data){
-            setUser(data) ;
-            setFirstName(data.firstName) ;
-            setLastName(data.lastName) ;
-            // setProfilePic(data.profilePic) ;
-            setBio(data.bio) ;
-        }
+                setFirstName(res.data.firstName);
+                setLastName(res.data.lastName);
+                setBio(res.data.bio);
+                setProfilePic(res.data.profilePic);
+
+    
+                })
+    
+            .catch((err)=>{
+                console.log(err);
+    
+                if(err.response.status == 401 || err.response.status == 498){
+                    navigate("/login");
+                }
+            }) // path
 
       } , [])
 
     // console.log("user",user) ;
 
-    let [firstName, setFirstName] = useState(''); 
-    let [lastName, setLastName] = useState(''); 
-    let [bio, setBio] = useState(''); 
-    let [profilePic, setProfilePic] = useState(null);
-
     function uploadimage(){
 
         let image = new FormData();
-        image.append('file', profilePic);
+        image.append('file', newProfilePic);
         image.append('upload_preset','expense-tracker')
         image.append('cloud_name','dgqba5trl')
 
@@ -47,7 +58,7 @@ function EditProfile(){
 
         let ppURL = null ;
 
-        if(profilePic){
+        if(newProfilePic){
             await uploadimage()
             .then((res)=>{
                 console.log(res.data.url) ;
@@ -65,10 +76,6 @@ function EditProfile(){
 
                     console.log(res.data.user);
 
-                    window.localStorage.setItem("user" , JSON.stringify(res.data.user)) ;
-
-                    // user.setUserState(res.data.user) ;
-
                     navigate("/userprofile");
                 }
                 else{
@@ -82,7 +89,7 @@ function EditProfile(){
 
     function handleProfilePicChange(e){ // inline
 
-        setProfilePic(e.target.files[0]) ;
+        setNewProfilePic(e.target.files[0]) ;
 
     }
 
@@ -91,7 +98,7 @@ function EditProfile(){
         fileInputRef.current.click() ;
     }
 
-    if(user){
+    if(profilePic){
         
         return(
     
@@ -101,7 +108,7 @@ function EditProfile(){
                     <div id = "editprofile-image-div-wrap">
     
                         <div className="profile-pic-div" id='editprofile-image-div'>
-                            <img className="profile-pic" src={profilePic ? URL.createObjectURL(profilePic) : user.profilePic}/>
+                            <img className="profile-pic" src={newProfilePic ? URL.createObjectURL(newProfilePic) : profilePic}/>
                         </div>    
     
                         <div id='edit-profilepic-icon-div' onClick={handleEditProfilePic} >

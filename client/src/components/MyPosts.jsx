@@ -52,7 +52,7 @@ function MyPosts(){
                             <div className="bc-description">
                                 <div className="profile">
                                     <div className="profile-pic-div bc-profile-pic-div">
-                                        <img className="profile-pic" src="images/jay.jpg"></img>
+                                        <img className="profile-pic" src={user.profilePic}></img>
                                     </div>
                                     <p className="bc-author">{user.firstName} {user.lastName}</p>
                                 </div>

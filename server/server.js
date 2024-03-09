@@ -8,8 +8,8 @@ const PORT = 3000;
 const mongoUri = process.env.MONGO_URI;
 const mongoose = require('mongoose');
 const corsOptions = {
-    // origin : "http://localhost:5173",     
-    origin : "https://blog-app-five-wheat.vercel.app",     
+    origin : "http://localhost:5173",     
+    // origin : "https://blog-app-five-wheat.vercel.app",     
     credentials:true,
     optionSuccessStatus:200 
 }
@@ -255,9 +255,10 @@ app.get("/postarticle" ,AuthenticateToken, async (req , res)=>{
         let {coverImgURL , title , body , duration} = req.body ;
 
         let blogId = generateBlogId() ;
+        let date = new Date() ;
 
         Blogs.create({
-            userId : user.userId , blogId ,coverImgURL , title , body , duration
+            userId : user.userId , blogId ,coverImgURL , title , body , duration , date
         });
 
         user.posts.push(blogId) ;

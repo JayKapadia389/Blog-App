@@ -11,29 +11,37 @@ function ExploreHeader(){
     let navigate = useNavigate();
     // let user = useContext(userContext);
     let [profilePic , setProfilePic] = useState(null) ;
-    
-    useEffect(()=>{
+     
+        useEffect(()=>{
+
           let exploreHeader = document.getElementById("explore-header");
 
-          console.log(window.scrollY);
+          // console.log("1" , exploreHeader) ;
 
-          document.addEventListener("scroll",()=>{
+          if(exploreHeader){
 
-            let currentScroll = window.scrollY;
+              document.addEventListener("scroll",()=>{
     
-            if(((currentScroll - previousScroll) > 0) && !exploreHeader.classList.contains('hide')){
-              exploreHeader.classList.add("hide");
-              exploreHeader.classList.remove("show");
-            }
-            else if(((currentScroll - previousScroll) < 0) && !exploreHeader.classList.contains('show')){
-              exploreHeader.classList.add("show");
-              exploreHeader.classList.remove("hide")
-            }
-            previousScroll = currentScroll;
-          })
+                let currentScroll = window.scrollY;
+    
+                if(((currentScroll - previousScroll) > 0) 
+                && !exploreHeader.classList.contains('hide')
+              ){
+                  exploreHeader.classList.add("hide");
+                  exploreHeader.classList.remove("show");
+                }
+                else if(((currentScroll - previousScroll) < 0) 
+                && !exploreHeader.classList.contains('show')
+              ){
+                  exploreHeader.classList.add("show");
+                  exploreHeader.classList.remove("hide")
+                }
+                previousScroll = currentScroll;
+              })
 
+          }
 
-      })
+      } , ) ;
 
       useEffect(()=>{
         // let data = JSON.parse(window.localStorage.getItem("user")) ;
@@ -42,14 +50,14 @@ function ExploreHeader(){
     
             .then((res)=>{
     
-                console.log(res.data);
+                // console.log(res.data);
 
                 setProfilePic(res.data.profilePic);
 
                 })
     
             .catch((err)=>{
-                console.log(err);
+                // console.log(err);
     
                 if(err.response.status == 401 || err.response.status == 498){
                     navigate("/login");

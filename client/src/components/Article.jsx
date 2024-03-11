@@ -15,6 +15,7 @@ function Article(){
     let [blogId ,setBlogId] = useState(null);
     let [blog , setBlog] = useState(null) ;
     let [user , setUser] = useState(null) ;
+    let [viewerIsPoster , setViewerIsPoster] = useState(null) ;
 
     let navigate = useNavigate(); //snippet
 
@@ -36,6 +37,7 @@ function Article(){
                 console.log(res.data);
                 setBlog(res.data.blog) ;
                 setUser(res.data.user) ;
+                setViewerIsPoster(res.data.viewerIsPoster) ;
     
                 })
     
@@ -127,22 +129,33 @@ function Article(){
             </div>
 
             <div className="profile">
-                <div className="profile-pic-div article-profile-pic-div">
-                    <img className="profile-pic" src={user.profilePic}></img>
-                </div>
 
-                <div>
-                    <p id="article-author">{user.firstName} {user.lastName}</p>
-                    <p id="article-time">{getTimeStamp(blog.date)}</p>
+                <div className="profile-wrap" 
+                
+                onClick={()=>{
+
+                    viewerIsPoster ? navigate("/userprofile") : navigate(`/authorprofile?userId=${user.userId}`) ;
+
+                }}> 
+
+                        <div className="profile-pic-div article-profile-pic-div">
+                            <img className="profile-pic" src={user.profilePic}></img>
+                        </div>
+
+                        <div>
+                            <p id="article-author">{user.firstName} {user.lastName}</p>
+                            <p id="article-time">{getTimeStamp(blog.date)}</p>
+                        </div>
+
                 </div>
 
                 <div className="empty"></div>
 
-                <div id="article-follow-wrap">
+                {viewerIsPoster ? null : <div id="article-follow-wrap">
 
                     <button id="article-follow-btn">Follow</button>
 
-                </div>
+                </div> }
             </div>
 
             <h1 id="article-title">{blog.title}</h1>

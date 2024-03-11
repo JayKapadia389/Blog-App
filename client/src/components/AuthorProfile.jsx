@@ -7,14 +7,26 @@ import { useNavigate } from "react-router-dom";
 function AuthorProfile(){
     
     let navigate = useNavigate(); 
+    let [userId , setUserId] = useState(null) ;  
+    let [user , setUser] = useState(null) ;
+    let [blogs , setBlogs] = useState(null) ;
+
+        useEffect(()=>{
+            let urlParams = new URLSearchParams(window.location.search) ; 
+
+            setUserId(urlParams.get("userId")) ;
+        } , [])
     
         useEffect(()=>{ 
-    
-            axios.get(be_url + "/authorprofile" , {withCredentials : true})
+
+            if(userId)
+            {axios.post(be_url + "/authorprofile" , {userId} , {withCredentials : true})
     
             .then((res)=>{
     
                 console.log(res.data);
+                setUser(res.data.user);
+                setBlogs(res.data.blogs);
     
                 })
     
@@ -24,30 +36,36 @@ function AuthorProfile(){
                 if(err.response.status == 401 || err.response.status == 498){
                     navigate("/login");
                 }
-            }) // path
+            }) 
+        }
     
-        },[])
+        },[userId])
+
+
+    if(user && blogs){    
+
+        {console.log("user>> "  , user) ;  console.log("blogs>> "  , blogs) ;}
 
     return(
         <main id="authorprofile-component">
             <div id="authorprofile-details">
                 <div id="authorprofile-details-wrap">
                     <div className="profile-pic-div" id="authorprofile-profile-pic-div">
-                        <img className="profile-pic" src="images/alexander.jpg"></img>
+                        <img className="profile-pic" src={user.profilePic}></img>
                     </div>
                     <div>
                         <div className="authorprofile-numbercount">
                             <div>
                                 <span>posts</span>
-                                <span>43</span>
+                                <span>{user.postsCount}</span>
                             </div>
                             <div>
                                 <span>followers</span>
-                                <span>1441</span>
+                                <span>{user.followerCount}</span>
                             </div>
                             <div>
                                 <span>following</span>
-                                <span>435</span>
+                                <span>{user.followingCount}</span>
                             </div>
                         </div>
                     </div>
@@ -59,7 +77,8 @@ function AuthorProfile(){
                     </div>
                     <span id="authorprofile-bio-span">Bio</span>
                     <div id="authorprofile-bio">
-                    Founder of Convince & Convert, a digital media and marketing company. NY Times best-selling author, global keynote speaker. New book: Hug Your Haters
+
+                        {user.bio}
                     </div>
                 </div>
             </div>
@@ -68,25 +87,25 @@ function AuthorProfile(){
 
                 <div id="authorprofile-blue-mobile">
                     <div className="profile-pic-div" id="authorprofile-profile-pic-div-mobile">
-                        <img className="profile-pic" src="images/alexander.jpg"></img>
+                        <img className="profile-pic" src={user.profilePic}></img>
                     </div>
                 </div>
 
                 <div id="authorprofile-details-wrap-mobile">
                    
                         <div id="authorprofile-numbercount-mobile" className="authorprofile-numbercount ">
-                            <div>
+                        <div>
                                 <span>posts</span>
-                                <span>43</span>
+                                <span>{user.postsCount}</span>
                             </div>
                             <div>
                                 <span>followers</span>
-                                <span>1441</span>
+                                <span>{user.followerCount}</span>
                             </div>
                             <div>
                                 <span>following</span>
-                                <span>435</span>
-                        </div>
+                                <span>{user.followingCount}</span>
+                            </div>
                     </div>
                     <div id="authorprofile-btn-wrap">
                         <button id="authorprofile-follow-btn">follow</button>
@@ -96,7 +115,7 @@ function AuthorProfile(){
                     </div>
                     <span id="authorprofile-bio-span">Bio</span>
                     <div id="authorprofile-bio">
-                    Founder of Convince & Convert, a digital media and marketing company. NY Times best-selling author, global keynote speaker. New book: Hug Your Haters
+                        {user.bio}
                     </div>
                 </div>
             </div>
@@ -312,6 +331,6 @@ function AuthorProfile(){
             </div>
         </main>
     )
-}
+}}
 
 export default AuthorProfile

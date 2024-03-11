@@ -2,7 +2,7 @@ import {useEffect, useContext , useState} from 'react';
 import { AiOutlineSearch } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios' ;
-import {be_url} from '/config' ;
+import { be_url } from '/config'; 
 // import {userContext} from '../contexts/userContext';
 
 function ExploreHeader(){

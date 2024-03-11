@@ -695,6 +695,15 @@
 
   /* article */
 
+  .profile-wrap{
+    /* background-color: red; */
+    cursor:pointer ; 
+  }
+
+  .profile-wrap > div{
+    display: inline-block;
+  }
+
   #article-component{
     width: min(700px,100%);
     margin: auto;
@@ -716,6 +725,7 @@
   }
 
   .article-profile-pic-div {
+    /* display: inline-block; */
     height: 40px;
     width:40px;
   }
@@ -1632,6 +1642,10 @@
   @media(max-width:400px){
     .auth-form{
       width:90%;
+    }
+
+    #search-bar{
+      width: 100px;
     }
   }
 

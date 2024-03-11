@@ -11,6 +11,7 @@ function Explore(){
 
     let [filter , setFilter] = useState(false);
     let [blogsPeopleToggle , setBlogsPeopleToggle] = useState("blogs");
+    let [blogs , setBlogs] = useState( null ) ;
 
     let navigate = useNavigate(); 
 
@@ -21,6 +22,7 @@ function Explore(){
         .then((res)=>{
 
             console.log(res.data);
+            setBlogs(res.data.blogs) ;
 
             })
 
@@ -33,6 +35,8 @@ function Explore(){
         }) // path
 
     },[])
+
+    if(blogs){
 
     return(
         <div id="explore-wrap">
@@ -60,7 +64,7 @@ function Explore(){
 
                     </div>
 
-                    { blogsPeopleToggle == "blogs" ? <Blogs filter={filter} setFilter={setFilter}></Blogs> : <People></People>}
+                    { blogsPeopleToggle == "blogs" ? <Blogs blogs = {blogs} filter={filter} setFilter={setFilter}></Blogs> : <People></People>}
 
              </main>       
 
@@ -145,6 +149,7 @@ function Explore(){
             </div>
         </div>
     )
+    }
 }
 
 export default Explore; 

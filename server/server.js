@@ -11,7 +11,7 @@ const corsOptions = {
     // origin : "http://localhost:5173",     
     origin : "https://blog-app-five-wheat.vercel.app",     
     credentials:true,
-    optionSuccessStatus:200 
+    optionSuccessStatus:200         
 }
 
 app.use(cookieParser());
@@ -30,14 +30,16 @@ const commentSchema = mongoose.Schema({
 });
 
 const blogSchema = mongoose.Schema({
+    date : Date,
+    duration: Number,
+
     blogId : String,
     userId : String,
-    date : Date,
     coverImgURL : String ,
     title :String,
     body : String,
-    duration: Number,
     category : String,
+
     likeCount : Number,
     shareCount: Number,
     comments: [commentSchema]
@@ -146,7 +148,6 @@ app.post("/signup" , async (req , res)=>{
 
     console.log(firstName , " " , lastName) ;
 
-    // userID banavani che
     let userId = generateUserId() ;
 
     Users.create({
@@ -236,7 +237,18 @@ app.get("/myposts" , AuthenticateToken ,async (req , res)=>{
 
 app.get("/explore" ,AuthenticateToken, async (req , res)=>{
 
-   res.send("done");
+    let b = await Blogs.find({}) ;
+
+    let blogs = await Promise.all(b.map(async (blog)=>{
+
+        let user = await Users.findOne({userId : blog.userId}) ;
+
+        let {blogId ,userId ,coverImgURL  ,title ,body ,category ,likeCount } = blog ;
+
+        return {blogId ,userId ,coverImgURL  ,title ,body ,category ,likeCount , profilePic : user.profilePic ,firstName : user.firstName ,lastName : user.lastName}
+    })) ;
+
+    res.json({blogs});
 
 })
 
@@ -320,30 +332,50 @@ app.post("/editprofile" , AuthenticateToken , async (req , res)=>{
 
 })
 
-app.get("/authorprofile" ,AuthenticateToken, async (req , res)=>{
+app.post("/authorprofile" ,AuthenticateToken, async (req , res)=>{
 
-   res.send("done");
+    let userId = req.body.userId ; 
+
+    let user = await Users.findOne({userId}) ; 
+    let {profilePic , firstName , lastName , postsCount , followerCount , followingCount , bio} = user ;
+
+    let blogIds = user.posts ; 
+
+    let blogs = await Blogs.find({blogId : {$in : blogIds}}) ;
+
+   res.json({
+    user : {profilePic , firstName , lastName , postsCount , followerCount , followingCount , bio} , 
+    blogs
+   });
 
 })
 
 app.post("/article", AuthenticateToken , async (req , res)=>{
 
-    let blogId = req.body.blogId ;
+    // change to handle the cases of user opening his own post
 
-    console.log("blogId>>>>>" , blogId) ;
+    let emailId = req.payload.emailId ;
+    let blogId = req.body.blogId ;
 
     let blog = await Blogs.findOne({blogId});
 
-    let user = await Users.findOne({ userId : blog.userId})
+    let user_poster = await Users.findOne({ userId : blog.userId})
 
-    let {profilePic , firstName , lastName} = user ;
+    let user_viewer = await Users.findOne({ emailId});
 
-    console.log("blog>>>>>" , blog ) ;
+    let viewerIsPoster = false ;
+
+    if(user_poster.userId == user_viewer.userId){
+        viewerIsPoster = true ;
+    }
+
+    let {profilePic , firstName , lastName , userId} = user_poster ;
 
     res.json({
         blog 
         ,
-        user : {profilePic , firstName , lastName}
+        user : {profilePic , firstName , lastName , userId} ,
+        viewerIsPoster 
     });
 })
 

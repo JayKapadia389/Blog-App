@@ -1,7 +1,15 @@
 import {BsFilter} from "react-icons/bs"
 import { BiSort } from "react-icons/bi"
+import { useNavigate } from "react-router-dom"; 
 
 function Blogs(props){
+
+    let navigate = useNavigate() ; 
+
+    function handleBlog(id){
+
+        navigate(`/article?blogId=${id}`) ;
+    }
 
     return(<>
 
@@ -22,115 +30,41 @@ function Blogs(props){
             </div>
 
             <div id="blog-cards">
-                <div className="blog-card">
-                    <div className="bc-tbnl-div">
-                        <img className="bc-tbnl" src="images/tn-1.jpg"></img>
-                    </div>
-                    <div className="bc-description">
-                        <div className="profile">
-                            <div className="profile-pic-div bc-profile-pic-div">
-                                <img className="profile-pic" src="images/jay.jpg"></img>
+
+                {(props.blogs).map((obj)=>{
+
+                    return(
+
+                        <div 
+                        key = {obj.blogId}
+                        onClick={()=>{handleBlog(obj.blogId)}}
+                        className="blog-card"
+                        >
+                            <div className="bc-tbnl-div">
+                                <img className="bc-tbnl" src={obj.coverImgURL}></img>
                             </div>
-                            <p className="bc-author">Jay Kapadia</p>
-                        </div>
-                        
-                        <p className="bc-title">correct way to learn react</p>
-                        <p className="bc-preview">the correct way to learn react is not to watch tutorials...</p>
-                    </div>
-                </div>
-
-            <div className="blog-card">
-                    <div className="bc-tbnl-div">
-                        <img className="bc-tbnl" src="images/tn-2.jpg"></img>
-                    </div>
-                    <div className="bc-description">
-                        <div className="profile">
-                            <div className="profile-pic-div bc-profile-pic-div">
-                                <img className="profile-pic" src="images/jay.jpg"></img>
-                            </div>
-                            <p className="bc-author">Jay Kapadia</p>
-                        </div>
-                        
-                        <p className="bc-title">correct way to learn react</p>
-                        <p className="bc-preview">the correct way to learn react is not to watch tutorials...</p>
-                    </div>
-                </div>
-
-
-            <div className="blog-card">
-                    <div className="bc-tbnl-div">
-                        <img className="bc-tbnl" src="images/tn-3.jpg"></img>
-                    </div>
-                    <div className="bc-description">
-                        <div className="profile">
-                            <div className="profile-pic-div bc-profile-pic-div">
-                                <img className="profile-pic" src="images/jay.jpg"></img>
-                            </div>
-                            <p className="bc-author">Jay Kapadia</p>
-                        </div>
-                        
-                        <p className="bc-title">correct way to learn react</p>
-                        <p className="bc-preview">the correct way to learn react is not to watch tutorials...</p>
-                    </div>
-                </div>            
-
-                
-            <div className="blog-card">
-                    <div className="bc-tbnl-div">
-                        <img className="bc-tbnl" src="images/tn-4.jpg"></img>
-                    </div>
-                    <div className="bc-description">
-                        <div className="profile">
-                            <div className="profile-pic-div bc-profile-pic-div">
-                                <img className="profile-pic" src="images/jay.jpg"></img>
-                            </div>
-                            <p className="bc-author">Jay Kapadia</p>
-                        </div>
-                        
-                        <p className="bc-title">correct way to learn react</p>
-                        <p className="bc-preview">the correct way to learn react is not to watch tutorials...</p>
-                    </div>
-                </div>
-
-            <div className="blog-card">
-                    <div className="bc-tbnl-div">
-                        <img className="bc-tbnl" src="images/tn-5.jpg"></img>
-                    </div>
-                    <div className="bc-description">
-                        <div className="profile">
-                            <div className="profile-pic-div bc-profile-pic-div">
-                                <img className="profile-pic" src="images/jay.jpg"></img>
-                            </div>
-                            <p className="bc-author">Jay Kapadia</p>
-                        </div>
-                        
-                        <p className="bc-title">correct way to learn react</p>
-                        <p className="bc-preview">the correct way to learn react is not to watch tutorials...</p>
-                    </div>
-                </div> 
-
-                <div className="blog-card">
-                        <div className="bc-tbnl-div">
-                            <img className="bc-tbnl" src="images/tn-6.jpg"></img>
-                        </div>
-                        <div className="bc-description">
-                            <div className="profile">
-                                <div className="profile-pic-div bc-profile-pic-div">
-                                    <img className="profile-pic" src="images/jay.jpg"></img>
+                            <div className="bc-description">
+                                <div className="profile">
+                                    <div className="profile-pic-div bc-profile-pic-div">
+                                        <img className="profile-pic" src={obj.profilePic}></img>
+                                    </div>
+                                    <p className="bc-author">{obj.firstName} {obj.lastName}</p>
                                 </div>
-                                <p className="bc-author">Jay Kapadia</p>
+                                
+                                <p className="bc-title">{obj.title}</p>
+                                <p className="bc-preview">the correct way to learn react is not to watch tutorials...</p>
                             </div>
-                            
-                            <p className="bc-title">correct way to learn react</p>
-                            <p className="bc-preview">the correct way to learn react is not to watch tutorials...</p>
                         </div>
-                    </div>
+                    )
+
+                })}
 
                 </div>
 
             </div>
         </>
     )
+    
 }
 
 export default Blogs

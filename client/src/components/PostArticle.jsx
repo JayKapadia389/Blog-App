@@ -5,7 +5,7 @@ import { useState , useEffect } from "react";
 import axios from 'axios'; 
 import { be_url } from '/config'; 
 import { useNavigate } from "react-router-dom"; 
-import {AiOutlineExclamationCircle} from "react-icons/ai";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
     
 function PostArticle(){
 
@@ -13,8 +13,7 @@ function PostArticle(){
 
     let navigate = useNavigate(); 
     let publish = document.getElementById("publish-btn") ;
-    let redDiv = document.getElementById("red-div") ;
-
+    let [isClicked , setIsClicked] = useState(false) ;
 
     let [coverImg , setCoverImg] = useState(null) ; 
     let [title , setTitle] = useState("") ; 
@@ -56,7 +55,7 @@ function PostArticle(){
 
         async function handleSubmit(e){
 
-            redDiv.style.display = "block" ;
+            setIsClicked(true) ;
 
             e.preventDefault() ;
             let coverImgURL ;
@@ -87,10 +86,18 @@ function PostArticle(){
         }
         
         function handleFormChange(){
+
+            console.log("hdeu2h") ;
             
             if(publish){
+
+                console.log("1" ,coverImg) ;
+                console.log("2" ,title) ;
+                console.log("3" ,body) ;
+                console.log("4" ,duration) ;
+
                 if(coverImg != null && title != "" && body != "<p><br></p>" && duration != ""){
-                    // console.log("filled") ;
+                    console.log("filled") ;
                     publish.classList.remove("unclickable-btn") ;
     
                 }
@@ -125,7 +132,7 @@ function PostArticle(){
                     <input type="file" 
                            id='cover-photo-input'
                            ref={cover}
-                            onChange = {(e)=>{ console.log(e.target.files[0]) ; setCoverImg(e.target.files[0])}}
+                            onChange = {(e)=>{ setCoverImg(e.target.files[0])}}
                             >
                     </input>
                 <button id='cover-photo-button'
@@ -184,10 +191,19 @@ function PostArticle(){
                 </div>
 
                 <div id="publish-btn-div">
-                    <button id="publish-btn" 
-                    className='unclickable-btn' 
+
+                    {isClicked ?
+                     <div id="publish-btn-loading">
+
+                    <AiOutlineLoading3Quarters className="loading-icon"/>
+
+                    </div> 
+                    : 
+
+                    <button id="publish-btn" className="unclickable-btn" 
                     onClick={handleSubmit}
-                    >Publish</button>       
+                    >Publish</button> 
+                    }      
                 </div>
 
 

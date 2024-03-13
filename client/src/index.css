@@ -1129,6 +1129,37 @@
     color:white;
   }
 
+  #publish-btn-loading{
+    /* position: absolute; */
+    height:40px;
+    width:100px;
+    font-size: 1rem;
+    font-family: 'poppins';
+    border: none;
+    border-radius: 5px;
+    background-color:#00CAF7;
+    opacity: 0.4;
+    color:white;
+    display: grid;
+    place-items : center ;
+  }
+
+  .loading-icon{
+    animation: spin 1s infinite linear ;
+    font-size: 1.5rem;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    } 
+
+    100% {
+      transform: rotate(360deg);
+    } 
+
+  }
+
   #userprofile-postarticle-btn{
     height:75px;
     width:75px;

@@ -3,8 +3,8 @@ import ExploreHeader from "./ExploreHeader.jsx";
 import Blogs from "./blogs.jsx";
 import People from "./people.jsx";
 import { useState , useEffect } from "react"; 
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
+// import Backdrop from '@mui/material/Backdrop';
+// import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios'; 
 import { be_url } from '/config'; 
 import { useNavigate } from "react-router-dom"; 
@@ -14,7 +14,7 @@ function Explore(){
     let [filter , setFilter] = useState(false);
     let [blogsPeopleToggle , setBlogsPeopleToggle] = useState("blogs");
     let [blogs , setBlogs] = useState( null ) ;
-    let [open , setOpen] = useState(true) ;
+    // let [open , setOpen] = useState(true) ;
 
     let navigate = useNavigate(); 
 
@@ -26,7 +26,7 @@ function Explore(){
 
             console.log(res.data);
             setBlogs(res.data.blogs) ;
-            setOpen(false) ;
+            // setOpen(false) ;
 
             })
 
@@ -44,7 +44,7 @@ function Explore(){
     return(
         <div id="explore-wrap">
 
-        {blogs ? <><div id="explore-layer"
+            <div id="explore-layer"
                 style={{ "filter": filter ? "blur(8px)" : "none" }}
             >
 
@@ -150,17 +150,8 @@ function Explore(){
 
                         <button id="apply-filters">Apply Filters</button>
                     </div>
-                </div></>
-        :
-        <Backdrop
-                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                open={open}
-            >
-                <CircularProgress color="inherit" />
-            </Backdrop>
-        
-        }
-
+                </div>
+    
         </div>
     )
     }

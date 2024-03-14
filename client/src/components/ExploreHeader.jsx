@@ -67,7 +67,7 @@ function ExploreHeader(){
         // setUser(data) ;
       } , [])
 
-      if(profilePic){
+      
 
           return(
               <header id="explore-header" className='show'>
@@ -85,12 +85,12 @@ function ExploreHeader(){
                   <div id="header-profile-btn" onClick={()=>{ navigate("/userprofile"); console.log("userprofile")}}>
                     <img className="profile-pic" 
                     // src={user.userState.profilePic}
-                    src={profilePic}
+                    src={profilePic ? profilePic : null}
                     ></img>
                   </div>
               </header>
           )
-      }
+      
 
 }
 

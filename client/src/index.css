@@ -10,6 +10,7 @@
 }
 
   body{
+    height: 100vh;
     overflow-x: clip;
   }
 
@@ -57,7 +58,7 @@
     padding:0 6%;
     align-items: center;
   }
-  
+
   #home-header,#signup-login-header,#explore-header{
     z-index: 3;
     top:0px;
@@ -146,6 +147,7 @@
 
   #explore-header-blogspot{
     font-size: 30px;
+    margin-right: 25px;
     color:var(--dark);
   }
   
@@ -366,21 +368,9 @@
 
   /* Explore */
 
-  #explore-header{
-    background-color: white;
-    border-bottom: 0.5px solid grey ;
-    justify-content: space-evenly;
-  }
-  
-  #explore-header .blogspot{
-    margin-right: 25px;
-  }
-
-  .empty{
-    flex:1 0 auto;
-  }
-
   #search-bar{
+    position : relative ;
+    z-index : 3 ;
     height: 38px;
     border-radius: 19px ;
     border: none;
@@ -391,12 +381,26 @@
 
   #search-icon{
     position: relative;
+    z-index : 7; 
     right:25px;
     top:4px;
   }
-  
+
+  #search-bar-btn-for-mobile{
+    height: 30px;
+    width: 30px ;
+    display: grid ;
+    place-items: center;
+    /* background-color: red; */
+  }
+
+  #search-icon-mobile{
+    font-size: 1.4rem;
+  }
+
   #header-profile-btn{
     position: relative;
+    /* z-index : 2 ; */
     overflow: hidden;
     background-color: #7c7b7b;
     height: 38px;
@@ -404,6 +408,27 @@
     border-radius: 19px;
     cursor:pointer;
   }
+
+  #search-bar-bg{
+    position: absolute;
+    z-index : 2 ;
+    height : 200vh ;
+    width : 100% ;
+    background-color: rgba(0, 0, 0 , 0.5);
+  }
+
+  #explore-header{
+    background-color: white;
+    border-bottom: 0.5px solid grey ;
+    justify-content: space-evenly;
+  }
+  
+  .empty{
+    flex:1 0 auto;
+  }
+
+  
+  
   
   #explore-main{
     position: relative;
@@ -1384,6 +1409,12 @@
     }
   } */
 
+  #test{
+    height : 100px ;
+    width : 100% ;
+    background-color: grey;
+  }
+
   @media(max-width:1180px){
 
     #home-trans-container{
@@ -1671,13 +1702,47 @@
   }
 
   @media(max-width:400px){
+
+    .auth-form{
+      width:90%;
+    }
+  }
+
+  @media(max-width:480px){
+
+    #explore-header-blogspot{
+      margin-right: 15px;
+    }
+
+    #test{
+      display: none;
+    }
+    #search-bar-div{
+      display: none;
+    }
+    #search-bar-btn-for-mobile{
+      display: grid;
+    }
+  }
+
+  @media(min-width:480px){
+
     .auth-form{
       width:90%;
     }
 
-    #search-bar{
-      width: 100px;
+    #test{
+      display: none;
     }
+
+    #search-bar-div{
+      display: block;
+    }
+    #search-bar-btn-for-mobile{
+      display: none;
+    }
+
+    
   }
 
 

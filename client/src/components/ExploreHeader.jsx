@@ -1,4 +1,4 @@
-import {useEffect, useContext , useState} from 'react';
+import {useEffect, useRef , useState} from 'react';
 import { AiOutlineSearch } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios' ;
@@ -11,12 +11,20 @@ function ExploreHeader(){
     let navigate = useNavigate();
     // let user = useContext(userContext);
     let [profilePic , setProfilePic] = useState(null) ;
+    let [showSearchBG , setShowSearchBG] = useState(false) ;
+    let [showTest , setShowTest] = useState(false) ;
+    let vw ;
      
         useEffect(()=>{
+
+          vw = window.innerWidth ;
+
+          // console.log(vw) ;
 
           let exploreHeader = document.getElementById("explore-header");
 
           // console.log("1" , exploreHeader) ;
+
 
           if(exploreHeader){
 
@@ -70,15 +78,32 @@ function ExploreHeader(){
       
 
           return(
+
+            <div>
               <header id="explore-header" className='show'>
+
                   <span id="explore-header-blogspot"className="blogspot">
                     blogspot
                   </span>
       
-                  <div>
-                  <input id="search-bar" type="search" placeholder="Search..." />
+                  <div id="search-bar-div">
+                  <input id="search-bar" type="search" placeholder="Search..." 
+                  onClick={()=>{setShowSearchBG(true)}}/>
                   <AiOutlineSearch id="search-icon"/>
                   </div>
+
+                  <div id='search-bar-btn-for-mobile'
+                  onClick={()=>{console.log(vw) ;setShowTest(true)}}
+                  >
+
+                  <AiOutlineSearch id="search-icon-mobile"/>
+                  </div>
+
+                  <div id ="search-bar-bg" 
+                    style={{display : showSearchBG ? "block" : "none" }}
+                  onClick={()=>{setShowSearchBG(false)}}
+
+                    ></div>
       
                   <div className='empty'></div>
       
@@ -88,7 +113,18 @@ function ExploreHeader(){
                     src={profilePic ? profilePic : null}
                     ></img>
                   </div>
+
+                  
               </header>
+
+              <div id='test'
+              style={{display : (showTest && (vw <= 480)) ? "block" : "none" }}
+              
+              >
+
+              </div>
+
+              </div>
           )
       
 

@@ -47,8 +47,6 @@ function Explore(){
             <div id="explore-layer"
                 style={{ "filter": filter ? "blur(8px)" : "none" }}
             >
-
-
                 <ExploreHeader></ExploreHeader>
 
                 <main id="explore-main">
@@ -73,7 +71,8 @@ function Explore(){
 
                 </main>
 
-            </div><div id="filter-dialogbox-wrap" style={{ "display": filter ? "grid" : "none" }}>
+            </div>
+            <div id="filter-dialogbox-wrap" style={{ "display": filter ? "grid" : "none" }}>
                     <div id="filter-dialogbox">
                         <IoClose className="close-btn" onClick={() => { setFilter(!filter); } }></IoClose>
 
@@ -150,6 +149,10 @@ function Explore(){
 
                         <button id="apply-filters">Apply Filters</button>
                     </div>
+                </div>
+
+                <div id="search-dark-bg">
+
                 </div>
     
         </div>

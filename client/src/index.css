@@ -369,6 +369,7 @@
   /* Explore */
 
   #search-bar{
+    
     position : relative ;
     z-index : 3 ;
     height: 38px;
@@ -1713,36 +1714,47 @@
     #explore-header-blogspot{
       margin-right: 15px;
     }
-
-    #test{
-      display: none;
-    }
-    #search-bar-div{
-      display: none;
-    }
+  
     #search-bar-btn-for-mobile{
       display: grid;
+    }
+
+    /* start */
+
+    .search-bar-div-active{
+      /* display: block; */
+      position: absolute;
+      width : 90% ;
+    }
+
+    .search-bar-div-active #search-icon{
+      position: absolute;
+      z-index : 7; 
+      right:10px;
+      top:10px;
+    }
+
+    .search-bar-div-active input {
+      width : 100% ;
+    }
+
+    /* end */
+
+    .search-bar-div-inactive{
+      display: none;
     }
   }
 
   @media(min-width:480px){
 
-    .auth-form{
-      width:90%;
-    }
-
-    #test{
-      display: none;
-    }
-
-    #search-bar-div{
-      display: block;
-    }
     #search-bar-btn-for-mobile{
       display: none;
     }
 
-    
+    .search-bar-div-active , .search-bar-div-inactive{
+      display: block;
+    }
+   
   }
 
 

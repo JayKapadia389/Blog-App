@@ -9,22 +9,12 @@ function ExploreHeader(){
     
     let previousScroll = 0;
     let navigate = useNavigate();
-    // let user = useContext(userContext);
     let [profilePic , setProfilePic] = useState(null) ;
-    let [showSearchBG , setShowSearchBG] = useState(false) ;
-    let [showTest , setShowTest] = useState(false) ;
-    let vw ;
-     
+    let [searchActive , setSearchActive] = useState(false) ;
+
         useEffect(()=>{
 
-          vw = window.innerWidth ;
-
-          // console.log(vw) ;
-
           let exploreHeader = document.getElementById("explore-header");
-
-          // console.log("1" , exploreHeader) ;
-
 
           if(exploreHeader){
 
@@ -52,30 +42,40 @@ function ExploreHeader(){
       } , ) ;
 
       useEffect(()=>{
-        // let data = JSON.parse(window.localStorage.getItem("user")) ;
 
         axios.get(be_url + "/explore-header" , {withCredentials : true})
     
             .then((res)=>{
     
-                // console.log(res.data);
-
                 setProfilePic(res.data.profilePic);
 
                 })
     
             .catch((err)=>{
-                // console.log(err);
     
                 if(err.response.status == 401 || err.response.status == 498){
                     navigate("/login");
                 }
             })
 
-        // setUser(data) ;
       } , [])
 
-      
+      useEffect(()=>{
+        let searchBarDiv = document.getElementById("search-bar-div") ;
+
+        if(searchActive){
+
+          searchBarDiv.classList.add("search-bar-div-active") ;
+          searchBarDiv.classList.remove("search-bar-div-inactive") ;
+
+        }
+        else{
+          searchBarDiv.classList.add("search-bar-div-inactive") ;
+          searchBarDiv.classList.remove("search-bar-div-active") ;
+        }
+        
+
+      } , [searchActive])
 
           return(
 
@@ -88,20 +88,20 @@ function ExploreHeader(){
       
                   <div id="search-bar-div">
                   <input id="search-bar" type="search" placeholder="Search..." 
-                  onClick={()=>{setShowSearchBG(true)}}/>
+                  onClick={()=>{setSearchActive(true)}}/>
                   <AiOutlineSearch id="search-icon"/>
                   </div>
 
-                  <div id='search-bar-btn-for-mobile'
-                  onClick={()=>{console.log(vw) ;setShowTest(true)}}
+                  <div id='search-bar-btn-for-mobile' 
+                  onClick={()=>{setSearchActive(true)}}
                   >
 
                   <AiOutlineSearch id="search-icon-mobile"/>
                   </div>
 
                   <div id ="search-bar-bg" 
-                    style={{display : showSearchBG ? "block" : "none" }}
-                  onClick={()=>{setShowSearchBG(false)}}
+                    style={{display : searchActive ? "block" : "none" }}
+                  onClick={()=>{setSearchActive(false)}}
 
                     ></div>
       
@@ -116,13 +116,6 @@ function ExploreHeader(){
 
                   
               </header>
-
-              <div id='test'
-              style={{display : (showTest && (vw <= 480)) ? "block" : "none" }}
-              
-              >
-
-              </div>
 
               </div>
           )

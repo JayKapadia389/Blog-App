@@ -54,6 +54,15 @@ function UserProfile(){
 
     }
 
+    useEffect(()=>{
+        if(ham){
+            document.body.style.overflowY = "hidden" ;
+        }
+        else{
+            document.body.style.overflowY = "" ;
+        }
+    } , [ham])
+
     if(user){
 
         return(
@@ -69,31 +78,18 @@ function UserProfile(){
     
                         <div id="userprofile-only-details">
     
-                                <div id='userprofile-hamburger-menu' 
-                                     style={ham ? {"transform" : "translateX(-200px)"} : {"transform" : "translate(0px)"}}   >
-
-                                        <ul id='userprofile-hamburger-options-list'>
-
-                                            <li className='userprofile-hamburger-options'>
-                                                <button onClick={()=>{navigate("/editprofile")}}>Edit profile</button>
-                                            </li>
-                                            <li className='userprofile-hamburger-options'>
-                                                <button>Log out</button>
-                                            </li>
-
-                                        </ul>
-    
-                                </div>
-    
                                 <p id="userprofile-name">
                                     <span>{user.firstName}</span> <span>{user.lastName}</span>
                                 </p>
     
-                                <div id="userprofile-email-wrap">
+                                <div id='userprofile-bio'>
+                                    {user.bio}
+                                </div>
+                                {/* <div id="userprofile-email-wrap">
                                     <p id="userprofile-email">
                                         {user.emailId}
                                     </p>
-                                </div>
+                                </div> */}
     
                                 <div id="userprofile-numbercount-wrap">
                                     <div id="userprofile-numbercount" className="userprofile-numbercount ">
@@ -113,25 +109,12 @@ function UserProfile(){
     
                         </div>
 
-                        <div className='userprofile-bio'>
-                            {user.bio}
-                        </div>
     
                     </div>
     
                 </div>
 
                 <div id="userprofile-handles-wrap">
-
-                    <div id='userprofile-hamburger-menu-icon-div'
-                         onClick={()=>{setHam(!ham) ;console.log(ham)}}>
-                        <div id={ ham ? "ham-1-open" : "ham-1-close"} 
-                             className='hamburger-lines'></div>
-                        <div id={ ham ? "ham-2-open" : "ham-2-close"} 
-                             className='hamburger-lines'></div>
-                        <div id={ ham ? "ham-3-open" : "ham-3-close"} 
-                             className='hamburger-lines'></div>
-                    </div>
 
                 </div>
     
@@ -175,7 +158,45 @@ function UserProfile(){
                 <button id='userprofile-postarticle-btn' onClick={()=>{navigate("/postarticle")}}>
                     <BsPlusLg id="userprofile-plus-icon"/>
                 </button>
-                                            
+
+                 <div id = "userprofile-dark-bg" 
+                        style={{"display"  : ham ? "block" : "none"}}
+                        onClick={()=>{setHam(!ham)}}
+                        >
+
+                    </div>
+
+                <div id='userprofile-hamburger-menu' 
+                                     style={ham ? {"transform" : "translateX(-270px)"} : {"transform" : "translate(0px)"}}   >
+
+                                        <ul id='userprofile-hamburger-options-list'>
+
+                                            <li className='userprofile-hamburger-options'>
+                                                <button onClick={()=>{navigate("/editprofile")}}>Edit profile</button>
+                                            </li>
+                                            <li className='userprofile-hamburger-options'>
+                                                <button>Log out</button>
+                                            </li>
+
+                                        </ul>
+    
+                </div>
+
+                <div id="userprofile-hamburger-menu-icon-div-wrap">
+
+                    <div id='userprofile-hamburger-menu-icon-div'
+                            onClick={()=>{setHam(!ham) ;console.log(ham)}}>
+                            <div id={ ham ? "ham-1-open" : "ham-1-close"} 
+                                className='hamburger-lines'></div>
+                            <div id={ ham ? "ham-2-open" : "ham-2-close"} 
+                                className='hamburger-lines'></div>
+                            <div id={ ham ? "ham-3-open" : "ham-3-close"} 
+                                className='hamburger-lines'></div>
+                    </div>     
+
+                </div>
+
+                            
             </main>
         )
     }

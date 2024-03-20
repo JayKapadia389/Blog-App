@@ -11,11 +11,14 @@
 
   body{
     height: 100vh;
+    width : 100% ;
     overflow-x: clip;
   }
 
   #root{
     width:100%;
+    overflow-x: clip;
+
   }
   
   *{
@@ -368,6 +371,8 @@
 
   /* Explore */
 
+  
+
   #search-bar{
     
     position : relative ;
@@ -413,8 +418,16 @@
   #search-bar-bg{
     position: absolute;
     z-index : 2 ;
-    height : 200vh ;
+    height : 250vh ;
     width : 100% ;
+    transition: background-color 3s ease;
+  }
+
+  .search-bar-bg-inactive{
+    background-color: rgba(0, 1, 0 , 0);
+  }
+  
+  .search-bar-bg-active{
     background-color: rgba(0, 0, 0 , 0.5);
   }
 
@@ -935,6 +948,7 @@
   }
 
   #userprofile-details-wrap{
+    height: 32vh;
     display: flex;
   }
 
@@ -945,19 +959,20 @@
   }
   
   #userprofile-profile-pic-div{
-    height:220px;
-    width:220px;
-    border:10px solid white;
+    height:100%;
+    /* width:220px; */
+    aspect-ratio : 1 ;
+    border:5px solid white;
     margin-right:40px;
   }
 
   #userprofile-name{
     color: white;
     font-size: 2.5rem;
-    height:25%;
+    /* height:25%; */
   }
 
-  #userprofile-email-wrap{
+  /* #userprofile-email-wrap{
     height:15%;
     display: flex;
     align-items: center;
@@ -967,26 +982,35 @@
   #userprofile-email{
     color:#E6E6E6;
     font-size: 0.9rem;
-  }
+  } */
 
   #userprofile-numbercount-wrap{
     display: flex;
     align-items: center;
-    height: 60%;
+    /* height: 60%; */
+  }
+
+  #userprofile-bio{
+
   }
 
 
   #userprofile-numbercount{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     color:white;
     font-size: 1.5rem;
-    width:350px;
+    /* width:350px; */
   }
 
   #userprofile-numbercount > *{
+    width:125px ;
     display: flex;
     flex-direction: column;
+  }
+
+  #userprofile-numbercount > *:not(:last-of-type){
+    border-right : 1px solid white ;
   }
 
   #userprofile-numbercount span{
@@ -1208,6 +1232,7 @@
   #userprofile-handles-wrap{
     width:60px;
     height:100%;
+    z-index : 1 ;
     background-color: red;
     position:absolute;
     right:0;
@@ -1217,27 +1242,38 @@
   }
 
   #userprofile-hamburger-menu-icon-div{
-    /* position: relative; */
     width:35px;
     height: 25px;
     cursor : pointer;
-    z-index: 1;
-    margin:10px auto 0px;
+    z-index: 4;
+    /* margin:10px auto 0px; */
     display: flex;
     flex-direction: column;
     justify-content:space-between
     
   }
 
+  #userprofile-hamburger-menu-icon-div-wrap{
+    display: grid;
+    place-items: center;
+    position: absolute;
+    top:0px ;
+    right:0px ;
+    width : 60px ;
+    height : 60px ;
+  }
+
   #userprofile-hamburger-menu{
+    border-radius : 10px ;
     position: absolute;
     top:0px;
-    right:-140px;
-    height:40vh;
+    right:-200px;
+    /* height:40vh; */
     width:200px;
     background-color: white;
     transition: transform 0.3s;
     padding:25px;
+    z-index: 3;
     /* box-shadow: grey 0px 0px 10px 2px; */
 
   }
@@ -1298,6 +1334,15 @@
     transition: transform 0.3s;
     /* animation: whiteToGrey 0.3s linear forwards; */
 
+  }
+
+  #userprofile-dark-bg{
+    position : absolute ;
+    height : 100vh ;
+    width : 100% ;
+    background-color: rgba(0, 0, 0 , 0.5);
+    top : 0px ;
+    z-index: 2;
   }
 
   #editprofile-component{

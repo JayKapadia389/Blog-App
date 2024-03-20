@@ -67,14 +67,14 @@ function ExploreHeader(){
 
           searchBarDiv.classList.add("search-bar-div-active") ;
           searchBarDiv.classList.remove("search-bar-div-inactive") ;
-
+          
         }
         else{
           searchBarDiv.classList.add("search-bar-div-inactive") ;
           searchBarDiv.classList.remove("search-bar-div-active") ;
+
         }
         
-
       } , [searchActive])
 
           return(
@@ -101,6 +101,7 @@ function ExploreHeader(){
 
                   <div id ="search-bar-bg" 
                     style={{display : searchActive ? "block" : "none" }}
+                    className={searchActive ? "search-bar-bg-active" : "search-bar-bg-inactive"}
                   onClick={()=>{setSearchActive(false)}}
 
                     ></div>

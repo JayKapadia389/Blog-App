@@ -8,8 +8,8 @@ const PORT = 3000;
 const mongoUri = process.env.MONGO_URI;
 const mongoose = require('mongoose');
 const corsOptions = {
-    // origin : "http://localhost:5173",     
-    origin : "https://blog-app-five-wheat.vercel.app",     
+    origin : "http://localhost:5173",     
+    // origin : "https://blog-app-five-wheat.vercel.app",     
     credentials:true,
     optionSuccessStatus:200         
 }
@@ -32,16 +32,16 @@ const commentSchema = mongoose.Schema({
 const blogSchema = mongoose.Schema({
     date : Date,
     duration: Number,
+    userId : String,
 
     blogId : String,
-    userId : String,
     coverImgURL : String ,
     title :String,
     body : String,
     category : String,
-
     likeCount : Number,
     shareCount: Number,
+    saveCount: Number,
     comments: [commentSchema]
 })
 
@@ -56,7 +56,9 @@ const userSchema = mongoose.Schema({
     followerCount:Number,
     followingCount:Number,
     postsCount:Number,
-    posts:[String]
+    posts:[String] ,
+    likedPosts : [String] ,
+    savedPosts : [String] 
 })
 
 const Users = mongoose.model("Users" , userSchema);
@@ -235,6 +237,66 @@ app.get("/myposts" , AuthenticateToken ,async (req , res)=>{
     })
 })
 
+app.get("/likedposts" , AuthenticateToken ,async (req , res)=>{
+
+    let emailId = req.payload.emailId ;
+
+    let user = await Users.findOne({emailId}) ;
+
+    let blogIds = user.likedPosts;
+
+    let likedPosts = await Blogs.find({ blogId : { $in : blogIds}}) ;
+
+    let posts = await Promise.all(likedPosts.map(async (post)=>{
+
+        let userId = post.userId ;
+
+        let user = await Users.findOne({userId}) ;
+
+        let {profilePic , firstName , lastName} = user ;
+
+        let {blogId ,coverImgURL,title , body} = post ;
+
+        post = {profilePic , firstName , lastName ,  blogId ,coverImgURL,title , body } ;
+
+        return post ;
+    }))
+
+    console.log(posts) ;
+
+    res.json({posts})
+})
+
+app.get("/savedposts" , AuthenticateToken ,async (req , res)=>{
+
+    let emailId = req.payload.emailId ;
+
+    let user = await Users.findOne({emailId}) ;
+
+    let blogIds = user.savedPosts;
+
+    let savedPosts = await Blogs.find({ blogId : { $in : blogIds}}) ;
+
+    let posts = await Promise.all(savedPosts.map(async (post)=>{
+        
+        let userId = post.userId ;
+
+        let user = await Users.findOne({userId}) ;
+
+        let {profilePic , firstName , lastName} = user ;
+
+        let {blogId ,coverImgURL,title , body} = post ;
+
+        post = {profilePic , firstName , lastName ,  blogId ,coverImgURL,title , body } ;
+
+        return post ;
+    }))
+
+    console.log(posts) ;
+
+    res.json({posts})
+})
+
 app.get("/explore" ,AuthenticateToken, async (req , res)=>{
 
     let b = await Blogs.find({}) ;
@@ -269,8 +331,23 @@ app.get("/postarticle" ,AuthenticateToken, async (req , res)=>{
         let blogId = generateBlogId() ;
         let date = new Date() ;
 
+
+        //     date : Date,
+        // duration: Number,
+
+        // blogId : String,
+        // userId : String,
+        // coverImgURL : String ,
+        // title :String,
+        // body : String,
+        // category : String,
+        // likeCount : Number,
+        // shareCount: Number,
+        // comments: [commentSchema]
+
         Blogs.create({
-            userId : user.userId , blogId ,coverImgURL , title , body , duration , date
+            userId : user.userId , blogId ,coverImgURL , title , body , duration , date , likeCount : 0,
+            shareCount: 0 , saveCount : 0
         });
 
         user.posts.push(blogId) ;
@@ -363,6 +440,9 @@ app.post("/article", AuthenticateToken , async (req , res)=>{
 
     let user_viewer = await Users.findOne({ emailId});
 
+    let isLiked = user_viewer.likedPosts.includes(blogId) ;
+    let isSaved = user_viewer.savedPosts.includes(blogId) ;
+
     let viewerIsPoster = false ;
 
     if(user_poster.userId == user_viewer.userId){
@@ -375,9 +455,98 @@ app.post("/article", AuthenticateToken , async (req , res)=>{
         blog 
         ,
         user : {profilePic , firstName , lastName , userId} ,
-        viewerIsPoster 
+        viewerIsPoster ,
+        isLiked ,
+        isSaved
+
     });
 })
+
+app.post("/handle-post-like" , AuthenticateToken  , async (req , res)=>{
+
+    let user = await Users.findOne({emailId : req.payload.emailId}) ;
+
+    let {blogId , newStatus} = req.body ;
+    
+    let blog = await Blogs.findOne({blogId}) ;
+
+    console.log("newStatus>>" ,newStatus) ;
+
+    if(newStatus){
+
+        console.log(user.likedPosts) ;
+        user.likedPosts.push(blogId) ;
+        console.log(user.likedPosts) ;
+
+        (blog.likeCount)++ ; 
+
+        console.log(blog.likeCount) ;
+
+        await user.save() ;
+        await blog.save() ;
+
+        res.send("post liked successfully") ;
+    }
+    else{
+
+        let newLikedPosts = user.likedPosts.filter((id)=>{
+                return (id != blogId) ;
+        })
+
+        user.likedPosts = newLikedPosts ;
+
+        (blog.likeCount)-- ;
+
+        await user.save() ;
+        await blog.save() ;
+
+        res.send("liked removed successfully") ;
+
+    }
+
+})
+
+app.post("/handle-post-save" , AuthenticateToken  , async (req , res)=>{
+
+    let user = await Users.findOne({emailId : req.payload.emailId}) ;
+
+    let {blogId , newStatus} = req.body ;
+    
+    let blog = await Blogs.findOne({blogId}) ;
+
+    console.log("newStatus>>" ,newStatus) ;
+
+    if(newStatus){
+
+        user.savedPosts.push(blogId) ;
+
+        (blog.saveCount)++ ; 
+
+        await user.save() ;
+        await blog.save() ;
+
+        res.send("post saved successfully") ;
+    }
+    else{
+
+        let newSavedPosts = user.savedPosts.filter((id)=>{
+                return (id != blogId) ;
+        })
+
+        user.savedPosts = newSavedPosts ;
+
+        (blog.saveCount)-- ;
+
+        await user.save() ;
+        await blog.save() ;
+
+        res.send("unsaved successfully") ;
+
+    }
+
+})
+
+
 
 app.listen(PORT , ()=>{
     console.log(`listening on port ${PORT}`);

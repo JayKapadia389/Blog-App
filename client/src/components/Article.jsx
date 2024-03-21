@@ -12,6 +12,9 @@ function Article(){
     
     let [liked,setLiked] = useState(false); 
     let [saved,setSaved] = useState(false); 
+    let [likeCount , setLikeCount] = useState(null) ;
+    let [saveCount , setSaveCount] = useState(null) ;
+    let [shareCount , setShareCount] = useState(null) ;
     let [blogId ,setBlogId] = useState(null);
     let [blog , setBlog] = useState(null) ;
     let [user , setUser] = useState(null) ;
@@ -38,7 +41,12 @@ function Article(){
                 setBlog(res.data.blog) ;
                 setUser(res.data.user) ;
                 setViewerIsPoster(res.data.viewerIsPoster) ;
-    
+                setLiked(res.data.isLiked) ;
+                setSaved(res.data.isSaved) ;
+                setLikeCount(res.data.blog.likeCount) ;
+                setSaveCount(res.data.blog.saveCount) ;
+                setShareCount(res.data.blog.shareCount) ;
+
                 })
     
             .catch((err)=>{
@@ -55,13 +63,7 @@ function Article(){
 
     function getTimeStamp(d){
 
-        console.log(d) ;
-        console.log(typeof(d)) ;
-
         let date = new Date(d) ;
-
-        console.log(date) ;
-        console.log(typeof(date)) ;
 
         let today = new Date() ;
 
@@ -118,9 +120,58 @@ function Article(){
             return Math.floor(msDifference / (1000)) + " seconds ago";
         }
         }
+
+    function handleLike(){
+
+        let l = liked ;
+        let newStatus = !l ;
+
+        if(liked){
+            setLikeCount(likeCount - 1) ;
+        }
+        else{
+            setLikeCount(likeCount + 1) ;
+        }
+
+        setLiked(!liked) ;
+
+        console.log("newStatus" , newStatus) ;
+
+        axios.post(be_url + "/handle-post-like" , {blogId , newStatus} , {withCredentials : true})
+             .then((res)=>{
+                console.log(res) ;
+             })
+             .catch((err)=>{
+                console.log(err) ;
+             })
+    }   
+    
+    function handleSave(){
+
+        let s = saved ;
+        let newStatus = !s ;
+
+        if(saved){
+            setSaveCount(saveCount - 1) ;
+        }
+        else{
+            setSaveCount(saveCount + 1) ;
+        }
+
+        setSaved(!saved) ;
+
+        console.log("newStatus" , newStatus) ;
+
+        axios.post(be_url + "/handle-post-save" , {blogId , newStatus} , {withCredentials : true})
+             .then((res)=>{
+                console.log(res) ;
+             })
+             .catch((err)=>{
+                console.log(err) ;
+             })
+    }
         
     if(blog && user){
-        console.log(blog.body);
     return(
         <main id="article-component">
             
@@ -166,21 +217,35 @@ function Article(){
             </div>
 
             <div id="interaction-bar">
-                <span>
-                    { liked ? <AiFillHeart onClick={()=>{ setLiked(!liked)}}/> : <AiOutlineHeart onClick={()=>{ setLiked(!liked)}}/>}
-                </span>
 
-                <span className="empty">
+                <div>
+                    <div>
+                        { liked ? <AiFillHeart onClick={handleLike}/> : <AiOutlineHeart onClick={handleLike}/>}
+                    </div>
+
+                    <p>{likeCount}</p>
+                </div>
+
+                <div className="empty">
                     
-                </span>
+                </div>
 
-                <span>
-                    <PiShareNetworkBold/>
-                </span>
+                <div>
+                    <div>
+                        <PiShareNetworkBold/>
+                    </div>
+                    <p>{shareCount}</p>
+                </div>
 
-                <span>
-                     { saved ? <BsBookmarkFill onClick={()=>{ setSaved(!saved)}}/> : <BsBookmark onClick={()=>{ setSaved(!saved)}}/>}  
-                </span>
+                <div>
+
+                    <div>
+                        { saved ? <BsBookmarkFill onClick={handleSave}/> : <BsBookmark onClick={handleSave}/>}  
+                    </div>
+
+                    <p>{saveCount}</p>
+                </div>
+
 
             </div>
 

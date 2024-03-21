@@ -779,6 +779,19 @@
 
   #interaction-bar{
     display: flex;
+    height :30px ;
+  }
+
+  #interaction-bar > div{
+    display : flex ;
+    flex-direction: row;
+    height: 100%;
+
+  }
+
+  #interaction-bar p{
+    line-height: 30px;
+    padding-left: 8px;
   }
 
   #interaction-bar svg{
@@ -790,7 +803,7 @@
     cursor: pointer;
   }
 
-  #interaction-bar span:last-of-type {
+  #interaction-bar > div:last-of-type {
     margin-left:20px;
   }
 

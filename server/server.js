@@ -8,8 +8,8 @@ const PORT = 3000;
 const mongoUri = process.env.MONGO_URI;
 const mongoose = require('mongoose');
 const corsOptions = {
-    origin : "http://localhost:5173",     
-    // origin : "https://blog-app-five-wheat.vercel.app",     
+    // origin : "http://localhost:5173",     
+    origin : "https://blog-app-five-wheat.vercel.app",     
     credentials:true,
     optionSuccessStatus:200         
 }
@@ -278,7 +278,7 @@ app.get("/savedposts" , AuthenticateToken ,async (req , res)=>{
     let savedPosts = await Blogs.find({ blogId : { $in : blogIds}}) ;
 
     let posts = await Promise.all(savedPosts.map(async (post)=>{
-        
+
         let userId = post.userId ;
 
         let user = await Users.findOne({userId}) ;

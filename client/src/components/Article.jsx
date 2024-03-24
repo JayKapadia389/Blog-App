@@ -7,6 +7,7 @@ import { useState , useEffect } from "react"; //snippet
 import axios from 'axios'; //snippet
 import { be_url } from '/config'; //snippet
 import { useNavigate } from "react-router-dom"; //snippet
+import { IoSend } from "react-icons/io5";
 
 function Article(){
     
@@ -19,6 +20,7 @@ function Article(){
     let [blog , setBlog] = useState(null) ;
     let [user , setUser] = useState(null) ;
     let [viewerIsPoster , setViewerIsPoster] = useState(null) ;
+    let [comment , setComment] = useState("") ;
 
     let navigate = useNavigate(); //snippet
 
@@ -170,6 +172,17 @@ function Article(){
                 console.log(err) ;
              })
     }
+
+    function handlePostComment(){
+
+        axios.post(be_url + "/handle-post-comment" , {comment , blogId} , {withCredentials : true})
+        .then((res)=>{
+            console.log(res.data) ;
+        })
+        .catch((err)=>{
+            console.log(err) ;
+        })
+    } 
         
     if(blog && user){
     return(
@@ -251,107 +264,59 @@ function Article(){
 
             <div id="comment-section">
 
-                <input type="text" 
-                       id="comment-input"
-                       placeholder="Write a comment..."/>
+                <div id="comment-input-wrap">
+
+                    <input type="text"
+                        id="comment-input"
+                        placeholder="Write a comment..."
+                        onChange={(e)=>{ setComment(e.target.value) }} 
+                        />
+
+                    <span 
+                    id="comment-input-icon-span"
+                    onClick={handlePostComment}
+                    >
+                        <IoSend />
+                    </span>
+                </div>
+
 
                 <h3>Comments</h3>
 
                 <div id="all-comments">
 
-                <div className="comment-wrap">
+               {blog.comments.map((cmt)=>{
 
-                    <div className="profile">
+                    return(
 
-                        <div className="profile-pic-div comment-profile-pic-div">
-                            <img className="profile-pic" src="images/jay.jpg"></img>
+                    <div className="comment-wrap" key={cmt.cmtId}>
+
+                        <div className="profile">
+
+                            <div className="profile-pic-div comment-profile-pic-div">
+                                <img className="profile-pic" src="images/jay.jpg"></img>
+                            </div>
+
+                            <div >
+                                <p className="comment-author">jay kapadia</p>
+                                <p className="comment-time">{getTimeStamp(cmt.date)}</p>
+                            </div>
+
                         </div>
 
-                        <div >
-                            <p className="comment-author">jay kapadia</p>
-                            <p className="comment-time">2 days ago</p>
-                        </div>
+                        <p className="comments">{cmt.comment}</p>
+
+                        <span>
+                            { liked ? <AiFillHeart onClick={()=>{ setLiked(!liked)}}/> : <AiOutlineHeart onClick={()=>{ setLiked(!liked)}}/>}
+                        </span>
 
                     </div>
 
-                    <p className="comments">Actually, I also use presentational and containers Pattern for UI re-usability in NextJS rather than traditional components. </p>
+                    )
 
-                    <span>
-                        { liked ? <AiFillHeart onClick={()=>{ setLiked(!liked)}}/> : <AiOutlineHeart onClick={()=>{ setLiked(!liked)}}/>}
-                    </span>
+               })}   
 
-                </div>
-
-                <div className="comment-wrap">
-
-                    <div className="profile">
-
-                        <div className="profile-pic-div comment-profile-pic-div">
-                            <img className="profile-pic" src="images/jay.jpg"></img>
-                        </div>
-
-                        <div >
-                            <p className="comment-author">jay kapadia</p>
-                            <p className="comment-time">2 days ago</p>
-                        </div>
-
-                    </div>
-
-                    <p className="comments">Actually, I also use presentational and containers Pattern for UI re-usability in NextJS rather than traditional components. </p>
-
-                    <span>
-                        { liked ? <AiFillHeart onClick={()=>{ setLiked(!liked)}}/> : <AiOutlineHeart onClick={()=>{ setLiked(!liked)}}/>}
-                    </span>
-
-                </div>
-
-                <div className="comment-wrap">
-
-                    <div className="profile">
-
-                        <div className="profile-pic-div comment-profile-pic-div">
-                            <img className="profile-pic" src="images/jay.jpg"></img>
-                        </div>
-
-                        <div >
-                            <p className="comment-author">jay kapadia</p>
-                            <p className="comment-time">2 days ago</p>
-                        </div>
-
-                    </div>
-
-                    <p className="comments">Actually, I also use presentational and containers Pattern for UI re-usability in NextJS rather than traditional components. </p>
-
-                    <span>
-                        { liked ? <AiFillHeart onClick={()=>{ setLiked(!liked)}}/> : <AiOutlineHeart onClick={()=>{ setLiked(!liked)}}/>}
-                    </span>
-
-                </div>
-
-                <div className="comment-wrap">
-
-                    <div className="profile">
-
-                        <div className="profile-pic-div comment-profile-pic-div">
-                            <img className="profile-pic" src="images/jay.jpg"></img>
-                        </div>
-
-                        <div >
-                            <p className="comment-author">jay kapadia</p>
-                            <p className="comment-time">2 days ago</p>
-                        </div>
-
-                    </div>
-
-                    <p className="comments">Actually, I also use presentational and containers Pattern for UI re-usability in NextJS rather than traditional components. </p>
-
-                    <span>
-                        { liked ? <AiFillHeart onClick={()=>{ setLiked(!liked)}}/> : <AiOutlineHeart onClick={()=>{ setLiked(!liked)}}/>}
-                    </span>
-
-                </div> 
-
-                </div>      
+            </div>      
 
             </div>
             

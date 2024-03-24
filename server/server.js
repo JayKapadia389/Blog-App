@@ -11,7 +11,7 @@ const corsOptions = {
     // origin : "http://localhost:5173",     
     origin : "https://blog-app-five-wheat.vercel.app",     
     credentials:true,
-    optionSuccessStatus:200         
+    optionSuccessStatus:200        
 }
 
 app.use(cookieParser());
@@ -24,16 +24,17 @@ mongoose.connect(mongoUri , {
 }).then(console.log("connected to database")).catch((err)=>{ console.log("catch : ",err)});
 
 const commentSchema = mongoose.Schema({
+    cmtId : String ,
     userId : String,
     date : Date,
-    comment : String
+    comment : String ,
+    likeCount : Number
 });
 
 const blogSchema = mongoose.Schema({
     date : Date,
     duration: Number,
     userId : String,
-
     blogId : String,
     coverImgURL : String ,
     title :String,
@@ -102,6 +103,25 @@ function generateBlogId(){
     return "BID-"+ Math.floor(first*1000) + "-" + Math.floor(second*1000) ;
 }
 
+function generateCommentId(){
+
+    let first , second ;
+
+    do{
+
+        first = Math.random() ;
+        
+    }while(first < 0.1 ) ;
+
+    do{
+
+        second = Math.random() ;
+        
+    }while(second < 0.1 ) ;
+    
+    return "CID-"+ Math.floor(first*1000) + "-" + Math.floor(second*1000) ;
+}
+
 function AuthenticateToken(req,res,next){
 
     let token = req.cookies.authToken ;
@@ -163,7 +183,9 @@ app.post("/signup" , async (req , res)=>{
         followerCount: 0,
         followingCount: 0 ,
         postsCount:0,
-        posts:[]
+        posts:[] ,
+        likedPosts : [] ,
+        savedPosts : [] 
     })
 
     user = await Users.findOne({emailId});
@@ -332,7 +354,7 @@ app.get("/postarticle" ,AuthenticateToken, async (req , res)=>{
         let date = new Date() ;
 
 
-        //     date : Date,
+        // date : Date,
         // duration: Number,
 
         // blogId : String,
@@ -347,7 +369,7 @@ app.get("/postarticle" ,AuthenticateToken, async (req , res)=>{
 
         Blogs.create({
             userId : user.userId , blogId ,coverImgURL , title , body , duration , date , likeCount : 0,
-            shareCount: 0 , saveCount : 0
+            shareCount: 0 , saveCount : 0 , comments : []
         });
 
         user.posts.push(blogId) ;
@@ -546,7 +568,35 @@ app.post("/handle-post-save" , AuthenticateToken  , async (req , res)=>{
 
 })
 
+app.post("/handle-post-comment" ,AuthenticateToken , async (req , res)=>{
 
+    // cmtId : String ,
+    // userId : String,
+    // date : Date,
+    // comment : String ,
+    // likeCount : Number
+
+    let user = await Users.findOne({emailId : req.payload.emailId}) ;
+    let cmtId = generateCommentId() ;
+    let date = new Date() ;
+
+    let cmt = {
+        cmtId , userId : user.userId , date , comment : req.body.comment , likeCount : 0
+    }
+
+    let blog = await Blogs.findOne({blogId : req.body.blogId}) ;
+
+    console.log(req.body.blogId) ;
+
+    console.log(blog) ;
+
+    blog.comments.push(cmt) ;
+
+    await blog.save() ;
+
+    res.json({message : "comment added successfully" , code : 2}) ;
+
+})
 
 app.listen(PORT , ()=>{
     console.log(`listening on port ${PORT}`);

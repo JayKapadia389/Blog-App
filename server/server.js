@@ -8,8 +8,8 @@ const PORT = 3000;
 const mongoUri = process.env.MONGO_URI;
 const mongoose = require('mongoose');
 const corsOptions = {
-    // origin : "http://localhost:5173",     
-    origin : "https://blog-app-five-wheat.vercel.app",     
+    origin : "http://localhost:5173",     
+    // origin : "https://blog-app-five-wheat.vercel.app",     
     credentials:true,
     optionSuccessStatus:200        
 }
@@ -59,7 +59,10 @@ const userSchema = mongoose.Schema({
     postsCount:Number,
     posts:[String] ,
     likedPosts : [String] ,
-    savedPosts : [String] 
+    savedPosts : [String] ,
+    likedComments : { 
+        type: mongoose.Schema.Types.Mixed
+    }
 })
 
 const Users = mongoose.model("Users" , userSchema);
@@ -156,9 +159,12 @@ app.post("/signup" , async (req , res)=>{
     let {firstName , lastName , emailId , password } = req.body ;
 
     let user = await Users.findOne({emailId});
+    console.log("1") ;
     let payload = { emailId };
 
     if(user){
+
+        console.log("2") ;
 
         res.send("taken");
 
@@ -185,10 +191,13 @@ app.post("/signup" , async (req , res)=>{
         postsCount:0,
         posts:[] ,
         likedPosts : [] ,
-        savedPosts : [] 
+        savedPosts : [] ,
+        likedComments : {}
     })
 
     user = await Users.findOne({emailId});
+
+    console.log(user) ;
 
     let token = jwt.sign( payload ,process.env.ACCESS_TOKEN_SECRET  ); // payload
 
@@ -575,7 +584,7 @@ app.post("/handle-post-comment" ,AuthenticateToken , async (req , res)=>{
     // date : Date,
     // comment : String ,
     // likeCount : Number
-
+    
     let user = await Users.findOne({emailId : req.payload.emailId}) ;
     let cmtId = generateCommentId() ;
     let date = new Date() ;

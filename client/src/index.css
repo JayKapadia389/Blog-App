@@ -867,6 +867,10 @@
     margin:15px 0;
   }
 
+  .none{
+    display : none;
+  }
+
   /* authorprofile */
 
   #authorprofile-component{

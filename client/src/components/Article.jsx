@@ -8,6 +8,7 @@ import axios from 'axios'; //snippet
 import { be_url } from '/config'; //snippet
 import { useNavigate } from "react-router-dom"; //snippet
 import { IoSend } from "react-icons/io5";
+import getTimeStamp from "../functions/getTimeStamp" ;
 
 function Article(){
     
@@ -21,19 +22,27 @@ function Article(){
     let [user , setUser] = useState(null) ;
     let [viewerIsPoster , setViewerIsPoster] = useState(null) ;
     let [comment , setComment] = useState("") ;
+    let [likedComments , setLikedComments] = useState(["CID-449-457" , "CID-516-625"]) ;
 
     let navigate = useNavigate(); //snippet
 
     useEffect(()=>{
 
+        console.log("ue1") ;
+
         let urlParams = new URLSearchParams(window.location.search) ;
 
         setBlogId(urlParams.get('blogId')) ; 
+        
     },[])
 
     useEffect(()=>{ //snippet
 
+        console.log("ue2") ;
+
         if(blogId){
+
+        console.log("ue2 true") ;
 
             axios.post(be_url + "/article" , {blogId}, {withCredentials : true})
     
@@ -63,65 +72,32 @@ function Article(){
 
     },[blogId])
 
-    function getTimeStamp(d){
+    useEffect(()=>{
 
-        let date = new Date(d) ;
+        console.log("y1")
+        
+        if(blog){
 
-        let today = new Date() ;
+            console.log("y2")
+            
+            blog.comments.forEach(cmt => {
 
-        let msDifference =  today.getTime() - date.getTime()  ;
+            // console.log(cmt.cmtId) ;
+    
+            if(likedComments.includes(cmt.cmtId)){
 
-        let daysDifference = Math.floor(msDifference / (1000 * 60 * 60 * 24));
-
-        if(daysDifference > 365){
-
-            if(Math.floor(daysDifference/365) == 1){
-                return Math.floor(daysDifference/365) + " year ago" ;
+                console.log(">>>>", cmt.cmtId) ;
+    
+                document.getElementById(cmt.cmtId).querySelector(".fill").classList.remove("none") ;
+                document.getElementById(cmt.cmtId).querySelector(".outline").classList.add("none") ;
+    
             }
-            return Math.floor(daysDifference/365) + " years ago" ;
-        }
+    
+        })}
 
-        else if(daysDifference > 30){
+    } , [blog])
 
-            if(Math.floor(daysDifference/30) == 1){
-                return Math.floor(daysDifference/30) + " month ago" ;
-            }
-            return Math.floor(daysDifference/30) + " months ago" ;
-        }
-
-        else if(daysDifference > 6){
-            if(Math.floor(daysDifference/7) == 1){
-                return Math.floor(daysDifference/7) + " week ago" ;
-            }
-            return Math.floor(daysDifference/7) + " weeks ago" ;
-        }
-
-        else if(daysDifference >= 1 && daysDifference <= 6){
-            if(Math.floor(daysDifference) == 1){
-                return Math.floor(daysDifference) + " day ago" ;
-            }
-            return Math.floor(daysDifference) + " days ago" ;
-        }
-
-        else if(Math.floor(msDifference / (1000 * 60 * 60)) > 0){
-            if(Math.floor(msDifference / (1000 * 60 * 60)) == 1){
-                return Math.floor(msDifference / (1000 * 60 * 60)) + " hour ago" ;
-            }
-            return Math.floor(msDifference / (1000 * 60 * 60)) + " hours ago" ;
-        }
-
-        else if(Math.floor(msDifference / (1000 * 60)) > 0){
-
-            if(Math.floor(msDifference / (1000 * 60)) == 1){
-                return Math.floor(msDifference / (1000 * 60)) + " minute ago" ;
-            }
-            return Math.floor(msDifference / (1000 * 60)) + " minutes ago";
-        }
-
-        else{
-            return Math.floor(msDifference / (1000)) + " seconds ago";
-        }
-        }
+    
 
     function handleLike(){
 
@@ -183,6 +159,25 @@ function Article(){
             console.log(err) ;
         })
     } 
+
+    function handleCommentLike(key , code){
+        console.log(key , code) ;
+
+        let div = document.getElementById(key) ;
+
+        console.log(div) ;
+        console.log(div.querySelector("fill")) ;
+
+
+        if(code == 1){
+            div.querySelector(".fill").classList.add("none") ;
+            div.querySelector(".outline").classList.remove("none") ;
+        }
+        else{
+            div.querySelector(".fill").classList.remove("none") ;
+            div.querySelector(".outline").classList.add("none") ;
+        }
+    }
         
     if(blog && user){
     return(
@@ -289,7 +284,7 @@ function Article(){
 
                     return(
 
-                    <div className="comment-wrap" key={cmt.cmtId}>
+                    <div className="comment-wrap" key={cmt.cmtId} id={cmt.cmtId}>
 
                         <div className="profile">
 
@@ -307,7 +302,9 @@ function Article(){
                         <p className="comments">{cmt.comment}</p>
 
                         <span>
-                            { liked ? <AiFillHeart onClick={()=>{ setLiked(!liked)}}/> : <AiOutlineHeart onClick={()=>{ setLiked(!liked)}}/>}
+                           <AiFillHeart className="none fill" 
+                           onClick={()=>{handleCommentLike(cmt.cmtId , 1)}}/><AiOutlineHeart className="outline" 
+                           onClick={()=>{handleCommentLike(cmt.cmtId , 2)}}/>
                         </span>
 
                     </div>

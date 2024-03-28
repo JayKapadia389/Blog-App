@@ -9,6 +9,7 @@ import { be_url } from '/config'; //snippet
 import { useNavigate } from "react-router-dom"; //snippet
 import { IoSend } from "react-icons/io5";
 import getTimeStamp from "../functions/getTimeStamp" ;
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 function Article(){
     
@@ -22,7 +23,7 @@ function Article(){
     let [user , setUser] = useState(null) ;
     let [viewerIsPoster , setViewerIsPoster] = useState(null) ;
     let [comment , setComment] = useState("") ;
-    let [likedComments , setLikedComments] = useState(["CID-449-457" , "CID-516-625"]) ;
+    let [likedComments , setLikedComments] = useState([]) ;    
 
     let navigate = useNavigate(); //snippet
 
@@ -57,6 +58,7 @@ function Article(){
                 setLikeCount(res.data.blog.likeCount) ;
                 setSaveCount(res.data.blog.saveCount) ;
                 setShareCount(res.data.blog.shareCount) ;
+                setLikedComments(res.data.likedComments) ;
 
                 })
     
@@ -97,7 +99,20 @@ function Article(){
 
     } , [blog])
 
-    
+    useEffect(()=>{
+
+        let s = document.querySelector(".comment-input-icon-span") ;
+
+        if(s){
+            if(comment == ""){
+                s.classList.add("unclickable-btn") ;
+            }
+            else{
+                s.classList.remove("unclickable-btn") ;
+            }
+        }
+
+    } , [comment]) ;
 
     function handleLike(){
 
@@ -151,8 +166,19 @@ function Article(){
 
     function handlePostComment(){
 
+        let p = document.querySelector(".comment-input-icon-span") ;
+        let l = document.querySelector(".post-comment-btn-loading") ;
+
+        p.classList.add("none");
+        l.classList.remove("none");
+
         axios.post(be_url + "/handle-post-comment" , {comment , blogId} , {withCredentials : true})
         .then((res)=>{
+
+            setBlog({...blog , comments : res.data.newComments}) ;
+            setComment("") ;
+            p.classList.remove("none");
+            l.classList.add("none");
             console.log(res.data) ;
         })
         .catch((err)=>{
@@ -165,18 +191,28 @@ function Article(){
 
         let div = document.getElementById(key) ;
 
-        console.log(div) ;
-        console.log(div.querySelector("fill")) ;
-
-
-        if(code == 1){
+        if(code == 1){ // filled is clicked (unlike)
             div.querySelector(".fill").classList.add("none") ;
             div.querySelector(".outline").classList.remove("none") ;
+
+            // like count change
+
         }
-        else{
+        else{ // outline is clicked (like)
             div.querySelector(".fill").classList.remove("none") ;
             div.querySelector(".outline").classList.add("none") ;
+
+            // like count change
+
         }
+
+        axios.post(be_url + "/handle-comment-like" , {blogId , cmtId : key , code } , {withCredentials : true})
+        .then((res)=>{
+            console.log(res) ;
+        })
+        .catch((err)=>{
+            console.log(err) ;
+        })
     }
         
     if(blog && user){
@@ -264,11 +300,22 @@ function Article(){
                     <input type="text"
                         id="comment-input"
                         placeholder="Write a comment..."
+                        value={comment}
                         onChange={(e)=>{ setComment(e.target.value) }} 
                         />
 
                     <span 
-                    id="comment-input-icon-span"
+                    // id="post-comment-btn-loading"
+                    className="none post-comment-btn-loading"
+                    >
+
+                        <AiOutlineLoading3Quarters className="loading-icon"/>
+
+                    </span>
+
+                    <span 
+                    // id="comment-input-icon-span"
+                    className="unclickable-btn comment-input-icon-span"
                     onClick={handlePostComment}
                     >
                         <IoSend />
@@ -301,7 +348,7 @@ function Article(){
 
                         <p className="comments">{cmt.comment}</p>
 
-                        <span>
+                        <span className="comment-icon-span">
                            <AiFillHeart className="none fill" 
                            onClick={()=>{handleCommentLike(cmt.cmtId , 1)}}/><AiOutlineHeart className="outline" 
                            onClick={()=>{handleCommentLike(cmt.cmtId , 2)}}/>

@@ -820,7 +820,7 @@
     height: 50px;
   }
 
-  #comment-input-icon-span{
+  .comment-input-icon-span , .post-comment-btn-loading {
     position: absolute;
     height: 100% ;
     aspect-ratio: 1 ;
@@ -829,6 +829,10 @@
     top : 0px ;
     right : 0px ;
     font-size: 1.3rem;
+  }
+
+  #comment-input-icon-span:hover{
+    cursor: pointer;
   }
 
   #comment-input{
@@ -867,8 +871,16 @@
     margin:15px 0;
   }
 
+  .grid{
+    display: grid;
+  }
+
   .none{
     display : none;
+  }
+
+  .comment-icon-span:hover{
+    cursor : pointer ;
   }
 
   /* authorprofile */

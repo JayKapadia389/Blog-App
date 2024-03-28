@@ -60,9 +60,7 @@ const userSchema = mongoose.Schema({
     posts:[String] ,
     likedPosts : [String] ,
     savedPosts : [String] ,
-    likedComments : { 
-        type: mongoose.Schema.Types.Mixed
-    }
+    likedComments : { type : Map , of : [String] }
 })
 
 const Users = mongoose.model("Users" , userSchema);
@@ -471,6 +469,8 @@ app.post("/article", AuthenticateToken , async (req , res)=>{
 
     let user_viewer = await Users.findOne({ emailId});
 
+    console.log(user_viewer) ;
+
     let isLiked = user_viewer.likedPosts.includes(blogId) ;
     let isSaved = user_viewer.savedPosts.includes(blogId) ;
 
@@ -481,6 +481,11 @@ app.post("/article", AuthenticateToken , async (req , res)=>{
     }
 
     let {profilePic , firstName , lastName , userId} = user_poster ;
+    let likedComments = [];
+
+    if(user_viewer.likedComments && user_viewer.likedComments.get(blogId)){
+        likedComments = user_viewer.likedComments.get(blogId) ;
+    }
 
     res.json({
         blog 
@@ -488,7 +493,8 @@ app.post("/article", AuthenticateToken , async (req , res)=>{
         user : {profilePic , firstName , lastName , userId} ,
         viewerIsPoster ,
         isLiked ,
-        isSaved
+        isSaved ,
+        likedComments
 
     });
 })
@@ -595,15 +601,79 @@ app.post("/handle-post-comment" ,AuthenticateToken , async (req , res)=>{
 
     let blog = await Blogs.findOne({blogId : req.body.blogId}) ;
 
-    console.log(req.body.blogId) ;
-
-    console.log(blog) ;
-
     blog.comments.push(cmt) ;
 
     await blog.save() ;
 
-    res.json({message : "comment added successfully" , code : 2}) ;
+    blog = await Blogs.findOne({blogId : req.body.blogId}) ;
+
+    res.json({message : "comment added successfully" , code : 2  , newComments : blog.comments}) ;
+
+})
+
+app.post("/handle-comment-like" , AuthenticateToken , async (req , res)=>{
+
+    let {blogId , cmtId ,code} = req.body ;
+    let {emailId} = req.payload ;
+
+    let user = await Users.findOne({emailId}) ;
+    let blog = await Blogs.findOne({blogId}) ;
+
+    console.log(code) ;
+
+    // like
+    let arr = [] ;
+
+    if(user.likedComments && user.likedComments.get(blogId)){
+        arr = user.likedComments.get(blogId) ;
+    }
+
+    if(code == 1){ //unlike
+
+        let newArr = arr.filter((c)=>{
+
+            console.log(cmtId , " " , c) ;
+            return (cmtId != c) ;
+        })
+
+        console.log(newArr) ;
+        
+        user.likedComments.set(blogId ,newArr) ;
+
+    }
+    else{//like
+        arr.push(cmtId) ;
+        user.likedComments.set(blogId ,arr) ;
+    }
+    
+    let newCmts = blog.comments.map((cmt)=>{
+
+        if(cmt.cmtId == cmtId){
+
+            if(code == 1){ //unlike
+                cmt.likeCount-- ;
+            }
+            else{//like
+                cmt.likeCount++ ;
+            }
+        }
+
+        return cmt ;
+
+    })
+
+    blog.comments = newCmts ;
+
+    await user.save() ;
+    await blog.save() ;
+
+    if(code == 1){
+        res.json({message : "comment unliked"})
+    }
+    else{
+        res.json({message : "comment liked"})
+    }
+
 
 })
 

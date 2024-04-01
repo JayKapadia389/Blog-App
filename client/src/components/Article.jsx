@@ -3,13 +3,14 @@ import { AiFillHeart } from "react-icons/ai"
 import { PiShareNetworkBold } from "react-icons/pi"
 import { BsBookmark } from "react-icons/bs"
 import { BsBookmarkFill } from "react-icons/bs"
-import { useState , useEffect } from "react"; //snippet
-import axios from 'axios'; //snippet
-import { be_url } from '/config'; //snippet
-import { useNavigate } from "react-router-dom"; //snippet
+import { useState , useEffect , useRef } from "react"; 
+import axios from 'axios'; 
+import { be_url } from '/config'; 
+import { useNavigate } from "react-router-dom"; 
 import { IoSend } from "react-icons/io5";
 import getTimeStamp from "../functions/getTimeStamp" ;
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { GoDotFill } from "react-icons/go";
 
 function Article(){
     
@@ -23,13 +24,14 @@ function Article(){
     let [user , setUser] = useState(null) ;
     let [viewerIsPoster , setViewerIsPoster] = useState(null) ;
     let [comment , setComment] = useState("") ;
-    let [likedComments , setLikedComments] = useState([]) ;    
+    let [likedComments , setLikedComments] = useState([]) ;  
+    let [mappedComments , setMappedComments] = useState([]) ;    
+    let [isInputActive , setIsInputActive] = useState(false) ;    
 
-    let navigate = useNavigate(); //snippet
+    let navigate = useNavigate(); 
+    let enterCmt = useRef(null); 
 
     useEffect(()=>{
-
-        console.log("ue1") ;
 
         let urlParams = new URLSearchParams(window.location.search) ;
 
@@ -37,13 +39,9 @@ function Article(){
         
     },[])
 
-    useEffect(()=>{ //snippet
-
-        console.log("ue2") ;
+    useEffect(()=>{ 
 
         if(blogId){
-
-        console.log("ue2 true") ;
 
             axios.post(be_url + "/article" , {blogId}, {withCredentials : true})
     
@@ -51,6 +49,7 @@ function Article(){
     
                 console.log(res.data);
                 setBlog(res.data.blog) ;
+                setMappedComments(res.data.mappedComments) ;
                 setUser(res.data.user) ;
                 setViewerIsPoster(res.data.viewerIsPoster) ;
                 setLiked(res.data.isLiked) ;
@@ -76,20 +75,12 @@ function Article(){
 
     useEffect(()=>{
 
-        console.log("y1")
-        
         if(blog){
 
-            console.log("y2")
-            
             blog.comments.forEach(cmt => {
 
-            // console.log(cmt.cmtId) ;
-    
             if(likedComments.includes(cmt.cmtId)){
 
-                console.log(">>>>", cmt.cmtId) ;
-    
                 document.getElementById(cmt.cmtId).querySelector(".fill").classList.remove("none") ;
                 document.getElementById(cmt.cmtId).querySelector(".outline").classList.add("none") ;
     
@@ -114,6 +105,21 @@ function Article(){
 
     } , [comment]) ;
 
+    useEffect(() => {
+        const handleKeyPress = (e) => {
+          
+          if (e.key == 'Enter' && isInputActive && comment !== "") {
+            enterCmt.current.click();
+          }
+        };
+    
+        document.addEventListener("keypress", handleKeyPress);
+    
+        return () => {
+          document.removeEventListener("keypress", handleKeyPress);
+        };
+      }, [isInputActive, comment]);
+
     function handleLike(){
 
         let l = liked ;
@@ -127,8 +133,6 @@ function Article(){
         }
 
         setLiked(!liked) ;
-
-        console.log("newStatus" , newStatus) ;
 
         axios.post(be_url + "/handle-post-like" , {blogId , newStatus} , {withCredentials : true})
              .then((res)=>{
@@ -153,8 +157,6 @@ function Article(){
 
         setSaved(!saved) ;
 
-        console.log("newStatus" , newStatus) ;
-
         axios.post(be_url + "/handle-post-save" , {blogId , newStatus} , {withCredentials : true})
              .then((res)=>{
                 console.log(res) ;
@@ -175,11 +177,10 @@ function Article(){
         axios.post(be_url + "/handle-post-comment" , {comment , blogId} , {withCredentials : true})
         .then((res)=>{
 
-            setBlog({...blog , comments : res.data.newComments}) ;
+            setMappedComments(res.data.newComments) ;
             setComment("") ;
             p.classList.remove("none");
             l.classList.add("none");
-            console.log(res.data) ;
         })
         .catch((err)=>{
             console.log(err) ;
@@ -187,7 +188,6 @@ function Article(){
     } 
 
     function handleCommentLike(key , code){
-        console.log(key , code) ;
 
         let div = document.getElementById(key) ;
 
@@ -196,6 +196,20 @@ function Article(){
             div.querySelector(".outline").classList.remove("none") ;
 
             // like count change
+            setMappedComments(
+                mappedComments.map((obj)=>{
+
+                    let newObj = obj ;
+
+                    if(obj.cmtId == key){
+                        obj.likeCount-- ;
+                    }
+
+                    // return obj ;
+                    return newObj ;
+
+                })
+            ) ;
 
         }
         else{ // outline is clicked (like)
@@ -203,8 +217,22 @@ function Article(){
             div.querySelector(".outline").classList.add("none") ;
 
             // like count change
+            setMappedComments(
+                mappedComments.map((obj)=>{
 
-        }
+                    let newObj = obj ;
+
+                    if(obj.cmtId == key){
+                        obj.likeCount++ ;
+                    }
+
+                    // return obj ;
+                    return newObj ;
+
+                })
+            ) ;
+
+            }
 
         axios.post(be_url + "/handle-comment-like" , {blogId , cmtId : key , code } , {withCredentials : true})
         .then((res)=>{
@@ -302,6 +330,8 @@ function Article(){
                         placeholder="Write a comment..."
                         value={comment}
                         onChange={(e)=>{ setComment(e.target.value) }} 
+                        onFocus={()=>{ setIsInputActive(true)}}
+                        onBlur={()=>{ setIsInputActive(false)}}
                         />
 
                     <span 
@@ -315,6 +345,7 @@ function Article(){
 
                     <span 
                     // id="comment-input-icon-span"
+                    ref = {enterCmt}
                     className="unclickable-btn comment-input-icon-span"
                     onClick={handlePostComment}
                     >
@@ -327,7 +358,7 @@ function Article(){
 
                 <div id="all-comments">
 
-               {blog.comments.map((cmt)=>{
+               {mappedComments.map((cmt)=>{
 
                     return(
 
@@ -336,11 +367,12 @@ function Article(){
                         <div className="profile">
 
                             <div className="profile-pic-div comment-profile-pic-div">
-                                <img className="profile-pic" src="images/jay.jpg"></img>
+                                <img className="profile-pic" src={cmt.profilePic}></img>
                             </div>
 
-                            <div >
-                                <p className="comment-author">jay kapadia</p>
+                            <div className="test">
+                                <p className="comment-author">{cmt.firstName} {cmt.lastName}</p>
+                                <GoDotFill className="dot"/>
                                 <p className="comment-time">{getTimeStamp(cmt.date)}</p>
                             </div>
 
@@ -348,11 +380,18 @@ function Article(){
 
                         <p className="comments">{cmt.comment}</p>
 
-                        <span className="comment-icon-span">
-                           <AiFillHeart className="none fill" 
-                           onClick={()=>{handleCommentLike(cmt.cmtId , 1)}}/><AiOutlineHeart className="outline" 
-                           onClick={()=>{handleCommentLike(cmt.cmtId , 2)}}/>
-                        </span>
+                        <div className="comment-like-div">
+                            <span className="comment-icon-span">
+                            <AiFillHeart className="none fill" 
+                            onClick={()=>{handleCommentLike(cmt.cmtId , 1)}}/><AiOutlineHeart className="outline" 
+                            onClick={()=>{handleCommentLike(cmt.cmtId , 2)}}/>
+                            </span>
+
+                            <span>
+                                {cmt.likeCount}
+                            </span>
+
+                        </div>
 
                     </div>
 

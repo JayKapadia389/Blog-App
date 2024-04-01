@@ -8,8 +8,8 @@ const PORT = 3000;
 const mongoUri = process.env.MONGO_URI;
 const mongoose = require('mongoose');
 const corsOptions = {
-    // origin : "http://localhost:5173",     
-    origin : "https://blog-app-five-wheat.vercel.app",     
+    origin : "http://localhost:5173",     
+    // origin : "https://blog-app-five-wheat.vercel.app",     
     credentials:true,
     optionSuccessStatus:200        
 }
@@ -464,12 +464,8 @@ app.post("/article", AuthenticateToken , async (req , res)=>{
     let blogId = req.body.blogId ;
 
     let blog = await Blogs.findOne({blogId});
-
     let user_poster = await Users.findOne({ userId : blog.userId})
-
     let user_viewer = await Users.findOne({ emailId});
-
-    console.log(user_viewer) ;
 
     let isLiked = user_viewer.likedPosts.includes(blogId) ;
     let isSaved = user_viewer.savedPosts.includes(blogId) ;
@@ -487,14 +483,33 @@ app.post("/article", AuthenticateToken , async (req , res)=>{
         likedComments = user_viewer.likedComments.get(blogId) ;
     }
 
+    let mappedComments = await Promise.all(blog.comments.map(async (cmt)=>{
+
+        let user = await Users.findOne({userId : cmt.userId}) ;
+
+        let {cmtId , date , comment ,userId , likeCount} = cmt ; 
+        let {firstName , lastName , profilePic} = user ;
+
+        cmt = {cmtId , date , comment ,userId ,firstName , lastName , profilePic , likeCount} ;
+
+        console.log("cmt>>" , cmt) ;
+
+        return cmt ;
+
+    })) ;
+
+    console.log("mappedc>> " , mappedComments) ;
+
+    console.log("blog>> " ,blog) ;
+
     res.json({
-        blog 
-        ,
+        blog ,
         user : {profilePic , firstName , lastName , userId} ,
         viewerIsPoster ,
         isLiked ,
         isSaved ,
-        likedComments
+        likedComments ,
+        mappedComments
 
     });
 })
@@ -607,7 +622,22 @@ app.post("/handle-post-comment" ,AuthenticateToken , async (req , res)=>{
 
     blog = await Blogs.findOne({blogId : req.body.blogId}) ;
 
-    res.json({message : "comment added successfully" , code : 2  , newComments : blog.comments}) ;
+    let mappedComments = await Promise.all(blog.comments.map(async (cmt)=>{
+
+        let user = await Users.findOne({userId : cmt.userId}) ;
+
+        let {cmtId , date , comment ,userId , likeCount} = cmt ; 
+        let {firstName , lastName , profilePic} = user ;
+
+        cmt = {cmtId , date , comment ,userId ,firstName , lastName , profilePic , likeCount} ;
+
+        console.log("cmt>>" , cmt) ;
+
+        return cmt ;
+
+    })) ;
+
+    res.json({message : "comment added successfully" , code : 2  , newComments : mappedComments}) ;
 
 })
 
@@ -619,7 +649,7 @@ app.post("/handle-comment-like" , AuthenticateToken , async (req , res)=>{
     let user = await Users.findOne({emailId}) ;
     let blog = await Blogs.findOne({blogId}) ;
 
-    console.log(code) ;
+    console.log(code) 
 
     // like
     let arr = [] ;
@@ -642,10 +672,11 @@ app.post("/handle-comment-like" , AuthenticateToken , async (req , res)=>{
 
     }
     else{//like
+        console.log("liked") ;
         arr.push(cmtId) ;
         user.likedComments.set(blogId ,arr) ;
     }
-    
+
     let newCmts = blog.comments.map((cmt)=>{
 
         if(cmt.cmtId == cmtId){

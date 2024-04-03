@@ -11,6 +11,7 @@ import UserProfile from "./Userprofile.jsx";
 import EditProfile from "./Editprofile.jsx";
 import UserState from '../contexts/userState';
 import ExploreHeader from './ExploreHeader.jsx';
+import Search from './Search.jsx';
 
 function App() {
 
@@ -29,6 +30,8 @@ function App() {
                 <Route exact path="/:slug" element={<CustomRoute/>}></Route>
                 <Route exact path="/authorprofile" element={<AuthorProfile/>}></Route>
                 <Route exact path="/exploreheader" element={<ExploreHeader/>}></Route>
+                <Route exact path="/search" element={<Search/>}></Route>
+
             </Routes>
         </Router>
     </UserState>

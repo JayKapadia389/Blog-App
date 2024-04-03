@@ -320,6 +320,7 @@
   #signup-btn,#login-btn{
     background-color: var(--dark);
     color:white;
+    height: 45px;
   }
 
   #signup-w-google-btn,#login-w-google-btn{
@@ -711,8 +712,11 @@
     color: #7c7b7b;
   }
 
+  .pc-follow-wrap{
+      padding:0 30px;
+  }
+
   .pc-follow-wrap,#article-follow-wrap{
-      /* padding:0 30px; */
       display: flex;
       align-items:center;
   }
@@ -1848,7 +1852,19 @@
   @media(max-width:400px){
 
     .auth-form{
-      width:90%;
+      position: absolute;
+      top:0px ;
+      padding : 10px ;
+      width:100%;
+      min-height:100vh;
+      border-radius : 0px ;
+      overflow-y: auto;
+    }
+
+    #signup-btn,#login-btn{
+      background-color: var(--dark);
+      color:white;
+      height: 45px;
     }
   }
 

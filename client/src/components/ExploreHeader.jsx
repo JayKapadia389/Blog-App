@@ -11,6 +11,8 @@ function ExploreHeader(){
     let navigate = useNavigate();
     let [profilePic , setProfilePic] = useState(null) ;
     let [searchActive , setSearchActive] = useState(false) ;
+    let [searchQuery , setSearchQuery] = useState("") ;
+    let [isSearchFocused , setIsSearchFocused] = useState(false) ;
 
         useEffect(()=>{
 
@@ -77,6 +79,40 @@ function ExploreHeader(){
         
       } , [searchActive])
 
+      function handleSearch(){
+
+        console.log("hi") ;
+
+        if(searchQuery != ""){
+
+          console.log("hi2") ;
+
+          navigate(`/search?q=${searchQuery}`) ;
+
+        }
+
+      }
+
+      useEffect(()=>{
+
+        function handleKeyPress(e){
+
+          if(isSearchFocused && e.key == "Enter"){
+
+            console.log("efef3f34f") ;
+            handleSearch() ;
+          }
+          
+        }
+
+        document.addEventListener("keypress" , handleKeyPress) ;
+
+        return () => {
+          document.removeEventListener("keypress", handleKeyPress);
+        };
+
+      }, [isSearchFocused])
+
           return(
 
             <div>
@@ -87,9 +123,22 @@ function ExploreHeader(){
                   </span>
       
                   <div id="search-bar-div">
-                  <input id="search-bar" type="search" placeholder="Search..." 
-                  onClick={()=>{setSearchActive(true)}}/>
-                  <AiOutlineSearch id="search-icon"/>
+                    <input 
+                    onFocus={()=>{setIsSearchFocused(true)}}
+                    onBlur={()=>{setIsSearchFocused(false)}}
+                    id="search-bar" 
+                    type="text" 
+                    placeholder="Search..." 
+                    autoComplete='off'
+                    onClick={()=>{setSearchActive(true)}}
+                    onChange={(e)=>{setSearchQuery(e.target.value)}}
+                    />
+
+                    <div id="search-icon-div" 
+                      onClick={handleSearch}
+                      >
+                      <AiOutlineSearch id="search-icon"/>
+                    </div>
                   </div>
 
                   <div id='search-bar-btn-for-mobile' 

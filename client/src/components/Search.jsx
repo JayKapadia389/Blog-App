@@ -1,8 +1,8 @@
+import { useState , useEffect } from "react"; 
 import {IoClose} from "react-icons/io5"
 import ExploreHeader from "./ExploreHeader.jsx";
 import Blogs from "./blogs.jsx";
 import People from "./people.jsx";
-import { useState , useEffect } from "react"; 
 import axios from 'axios'; 
 import { be_url } from '/config'; 
 import { useNavigate } from "react-router-dom"; 
@@ -40,14 +40,14 @@ function Search(){
 
 
     return(
-        <div id="explore-wrap">
+        <div id="search-wrap">
 
-            <div id="explore-layer"
+            <div id="search-layer"
                 style={{ "filter": filter ? "blur(8px)" : "none" }}
             >
                 <ExploreHeader></ExploreHeader>
 
-                <main id="explore-main">
+                <main id="search-main">
 
                     <div id="blogs-people-wrap">
 
@@ -70,6 +70,7 @@ function Search(){
                 </main>
 
             </div>
+            
             <div id="filter-dialogbox-wrap" style={{ "display": filter ? "grid" : "none" }}>
                     <div id="filter-dialogbox">
                         <IoClose className="close-btn" onClick={() => { setFilter(!filter); } }></IoClose>
@@ -148,14 +149,10 @@ function Search(){
                         <button id="apply-filters">Apply Filters</button>
                     </div>
                 </div>
-
-                <div id="search-dark-bg">
-
-                </div>
     
         </div>
     )
     }
-// }
+
 
 export default Search; 
